@@ -5,7 +5,7 @@
 
 ### Fork/Clone
 ```
-git clone https://github.com/ntoung/beer.ly.git
+git clone https://github.com/3rn/thumbs.git
 ```
 
 ### Install Dependencies

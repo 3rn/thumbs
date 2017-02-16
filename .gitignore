@@ -23,10 +23,17 @@ jspm_packages
 dist/
 
 
-# API Keys
+# Server config
 server/server.config.js
+
+# Webpack config
+server/middleware/webpack.config.js
+server/middleware/webpack.production.config.js
+
 
 # Yarn
 yarn.lock
 .yarnclean
+
+
 

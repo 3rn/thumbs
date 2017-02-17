@@ -25,8 +25,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('vote', (payload) => {
-    console.log('mah fucking vote', payload);
-  
+    io.emit('vote', payload);
   });
 
 });

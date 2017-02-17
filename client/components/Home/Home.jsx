@@ -7,8 +7,17 @@ import styles from './Home.scss';
 class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tallies: [0, 0, 0]
+    };
     socket.on('vote', (payload) => {   
       console.log(payload);
+      var newTallies = this.state.tallies.slice(0);
+      var index = parseInt(payload.option) - 1;
+      newTallies[index] += 1;
+      this.setState({
+        tallies: newTallies
+      });
     });
   }
   
@@ -16,6 +25,7 @@ class Home extends React.Component {
     
     const handlePress = (e) => {
       socket.emit('vote', { option: e.target.value});
+
     };
     
     return (
@@ -24,13 +34,13 @@ class Home extends React.Component {
           <h1>Home</h1>
         </div>
         <div>
-          <button value="1" onClick={handlePress}> Thumbs 1 </button> <span> 0 </span>
+          <button value="1" onClick={handlePress}> Thumbs 1 </button> <span> {this.state.tallies[0]} </span>
         </div>
         <div>
-          <button value="2" onClick={handlePress}> Thumbs 2 </button> <span> 0 </span>
+          <button value="2" onClick={handlePress}> Thumbs 2 </button> <span> {this.state.tallies[1]} </span>
         </div>
         <div>
-          <button value="3" onClick={handlePress}> Thumbs 3 </button> <span> 0 </span>
+          <button value="3" onClick={handlePress}> Thumbs 3 </button> <span> {this.state.tallies[2]} </span>
         </div>
       </div>
     );

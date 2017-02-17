@@ -1,17 +1,21 @@
 'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var StatsPlugin = require('stats-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
+
+const extractSass = new ExtractTextPlugin({
+  filename: "[name].[contenthash].css"
+})
 
 module.exports = {
   entry: [
-    path.join(__dirname, '../..', 'client/main.jsx')
+    path.join(__dirname, 'client/main.jsx')
   ],
   output: {
-    path: path.join(__dirname, '../..', '/dist/'),
+    path: path.join(__dirname, '/dist/'),
     filename: '[name]-[hash].min.js',
     publicPath: '/'
   },
@@ -22,6 +26,7 @@ module.exports = {
       inject: 'body',
       filename: 'index.html'
     }),
+    extractSass,
     new ExtractTextPlugin('[name]-[hash].min.css'),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -49,8 +54,15 @@ module.exports = {
       test: /\.json?$/,
       loader: 'json'
     }, {
-      test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss')
+      test: /\.scss$/,
+      loader: extractSass.extract({
+        loader: [{
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader"
+        }],
+        fallbackLoader: "style-loader"
+      })
     }]
   },
   postcss: [

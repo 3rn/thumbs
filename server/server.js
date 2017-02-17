@@ -10,6 +10,17 @@ const middleware = require('./middleware/middleware.js')(app, express);
 
 
 // Start server
-app.listen(config.PORT, config.HOST, () => {  
+const server = app.listen(config.PORT, config.HOST, () => {
   console.log('Thumbs on at http://%s:%s', config.HOST, config.PORT);
+});
+
+
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
 });

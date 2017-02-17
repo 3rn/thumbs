@@ -8,10 +8,10 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, '../..', 'client/main.jsx')
+    path.join(__dirname, 'client/main.jsx')
   ],
   output: {
-    path: path.join(__dirname, '../..', '/dist/'),
+    path: path.join(__dirname, '/dist/'),
     filename: '[name].js',
     publicPath: '/'
   },
@@ -30,6 +30,15 @@ module.exports = {
   ],
   module: {
     loaders: [{
+      test: /\.scss$/,
+      loaders: [
+        'style',
+        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        // 'resolve-url',
+        'sass'
+      ]
+    },
+    {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel',
@@ -39,12 +48,9 @@ module.exports = {
     }, {
       test: /\.json?$/,
       loader: 'json'
-    }, {
-      test: /\.css$/,
-      loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.scss'],
   }
 };

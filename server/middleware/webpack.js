@@ -1,8 +1,6 @@
 'use strict';
 
 const path = require('path');
-
-
 const config = require('../server.config.js');
 
 // The following Webpack middleware allows for hot reloading on the client when in development.
@@ -13,7 +11,7 @@ const config = require('../server.config.js');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('../../webpack.config.js');
 
 const compiler = webpack(webpackConfig);
 const middleware = webpackMiddleware(compiler, {

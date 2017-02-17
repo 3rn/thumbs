@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
-import routes from './components/Router/routes';
-import Home from './components/Home/Home';
+import routes from './container/Router/Routes';
+import Home from './container/Home/Home';
 
 // Redux
 import { Provider } from 'react-redux';

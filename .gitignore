@@ -31,5 +31,5 @@ server/server.config.js
 yarn.lock
 .yarnclean
 
-
-
+# private 
+private/

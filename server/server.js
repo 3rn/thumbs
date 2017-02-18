@@ -24,8 +24,8 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('vote', (payload) => {
-    io.emit('vote', payload);
+  socket.on('upVote', (payload) => {
+    io.emit('upVote', payload);
   });
 
 });

@@ -1,7 +1,5 @@
-export const ACTION = 'action';
+import thumbs from './thumbsActions';
 
-export function test() {
-  return {
-    type: ACTION
-  };
-}
+// export default thumbs;
+
+//Import all actions into this file later

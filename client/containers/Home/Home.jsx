@@ -11,7 +11,12 @@ class Home extends React.Component {
       <div className={styles.home}>
         <div>
           <h1>Home</h1>
-          <a href="/participant">Participant View</a>
+          <ul>
+            <li><a href="/pqv">Participant Question View</a></li>
+            <li><a href="/pwv">Participant Waiting View</a></li>
+            <li><a href="/ppv">Presenter Prompt View</a></li>
+            <li><a href="/rv">Results View</a></li>
+          </ul>
         </div>
       </div>
     );

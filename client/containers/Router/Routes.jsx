@@ -10,9 +10,9 @@ import { Route, IndexRoute } from 'react-router';
 module.exports = (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
-    <Route path="/pqv" component={ParticipantQuestionView} />
-    <Route path="/pwv" component={ParticipantWaitingView} />
-    <Route path="/ppv" component={PresenterPromptView} />
-    <Route path="/rv" component={ResultsView} />
+    <Route path="pqv" component={ParticipantQuestionView} />
+    <Route path="pwv" component={ParticipantWaitingView} />
+    <Route path="ppv" component={PresenterPromptView} />
+    <Route path="rv" component={ResultsView} />
   </Route>
 );

@@ -33,3 +33,6 @@ yarn.lock
 
 # private 
 private/
+
+# circleci encrypted env files
+circle_env_plain

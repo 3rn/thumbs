@@ -7,7 +7,12 @@ class ThumbsCheckVis extends React.Component {
   }
 
   render() {
-    var data = {thumb: '👍', value: this.props.data};
+    var data = [
+      {thumb: 1, value: this.props.data[0]},
+      {thumb: 2, value: this.props.data[1]},
+      {thumb: 3, value: this.props.data[2]}
+    ];
+
     return (
       <div>
         <h1>Results</h1>
@@ -18,7 +23,7 @@ class ThumbsCheckVis extends React.Component {
             dependentAxis
           />
           <VictoryBar
-            data={[data]}
+            data={data}
             x="thumb"
             y="value"
           />

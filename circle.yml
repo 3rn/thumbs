@@ -1,7 +1,7 @@
 # machine
 machine:
   environment:
-    DOCKER_EMAIL: 
+    
   node:
     version: 6.9.5
   services:
@@ -12,9 +12,6 @@ machine:
 # dependencies
 dependencies:
   pre:
-    # decrypt encrypted environment variables
-    - openssl aes256-cbc -d -in .circle_env_cipher -k $KEY >> ~/.circlerc
-
     # install awscli for ElasticBeanstalk
     - pip install awscli
   override:
@@ -26,10 +23,11 @@ dependencies:
 database:
   override:
 
-
 # compile
 
 # test
+test:
+  override:
 
 # deployment
 deployment:
@@ -38,7 +36,10 @@ deployment:
     branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      # This step pushes the image to docker hub
       - docker push ntoung/thumbs
+      # Run deploy.sh to pull from docker hub to AWSEBS
+      - ./deploy.sh $CIRCLE_SHA1
 
 ### (Optional)
 

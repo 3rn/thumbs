@@ -1,6 +1,7 @@
-export function vote() {
+export function vote(voteValue) {
   console.log('hit a vote')
   return {
-    type: 'UPDATE'
+    type: 'UPDATE',
+    value: voteValue
   }
 }

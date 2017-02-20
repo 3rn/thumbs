@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { voteThumbsUp } from '../../actions/thumbsActions.js';
+import ThumbsCheckVis from '../../components/ThumbsCheckVis/ThumbsCheckVis.jsx';
+
 import io from 'socket.io-client';
 let socket = io('http://localhost:8000');
 
@@ -26,6 +28,7 @@ class ParticipantQuestionView extends React.Component {
         <h1>ParticipantQuestionView</h1>
           <div>
             <button onClick={this.upVote.bind(this)} value="1"> Thumbs Up </button> <span> { this.props.upCount } </span>
+            <ThumbsCheckVis data={this.props.upCount} />
           </div>
       </div>
     );

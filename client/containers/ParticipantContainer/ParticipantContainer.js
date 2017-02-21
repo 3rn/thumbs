@@ -37,7 +37,7 @@ class ParticipantContainer extends React.Component {
       return <ParticipantQuestionView />;
     } else if (voteStatus === 'ENDED') {
       return <ResultsView 
-        isPresenter={true}
+        isPresenter={false}
         endVote={this.endVote} 
         voteEnded={this.props.voteStatus === 'ENDED'}
         goToPromptView={this.goToPromptView}

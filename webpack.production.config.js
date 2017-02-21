@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
-  filename: "[name].[contenthash].css"
+  filename: "[name]-[hash].css",
 })
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
       inject: 'body',
       filename: 'index.html'
     }),
-    extractSass,
+    
     new ExtractTextPlugin('[name]-[hash].min.css'),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -34,6 +34,7 @@ module.exports = {
         screw_ie8: true
       }
     }),
+    extractSass,
     new StatsPlugin('webpack.stats.json', {
       source: false,
       modules: false
@@ -44,6 +45,24 @@ module.exports = {
   ],
   module: {
     loaders: [{
+      test: /\.scss$/,
+      loader: extractSass.extract({
+
+        // loaders: [
+        //   'style',
+        //   'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        //   // 'resolve-url',
+        //   'sass'
+
+        //   ],
+        loader: [{
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader"
+        }],
+        fallbackLoader: "style-loader"
+      })
+    }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel',
@@ -53,22 +72,12 @@ module.exports = {
     }, {
       test: /\.json?$/,
       loader: 'json'
-    }, {
-      test: /\.scss$/,
-      loader: extractSass.extract({
-        loader: [{
-          loader: "css-loader"
-        }, {
-          loader: "sass-loader"
-        }],
-        fallbackLoader: "style-loader"
-      })
     }]
   },
   postcss: [
     require('autoprefixer')
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.scss'],
   }
 };

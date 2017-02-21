@@ -36,13 +36,22 @@ class ParticipantContainer extends React.Component {
     } else if (voteStatus === 'IN_PROGRESS') {
       return <ParticipantQuestionView />;
     } else if (voteStatus === 'ENDED') {
-      return <ResultsView />;
+      return <ResultsView 
+        isPresenter={true}
+        endVote={this.endVote} 
+        voteEnded={this.props.voteStatus === 'ENDED'}
+        goToPromptView={this.goToPromptView}
+        data={this.props.thumbsCount}
+       />;
     }
   }
 }
 
 const mapStateToProps = state => {
-  return {voteStatus: state.voteStatus};
+  return {
+    voteStatus: state.voteStatus,
+    thumbsCount: state.thumbs
+  };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus }, dispatch);

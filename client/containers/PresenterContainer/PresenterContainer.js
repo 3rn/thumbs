@@ -7,16 +7,19 @@ let socket = io('http://localhost:8000');
 import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView';
 import ResultsView from '../../components/ResultsView/ResultsView';
 import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
+import { vote } from '../../actions/voteActions.js';
 
 class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    const vote = this.props.vote;
-
-    socket.on('startVote', () => {
+    const context = this;
+    
+    socket.on('vote', (payload) => {
       //dispatch event to update view
-      console.log('presenter received start vote');
+      console.log('presenter received vote');
+      context.props.vote(payload.option);
+      console.log('thumbs count: ', context.props.thumbsCount);
     });
 
     this.sendQuestion = this.sendQuestion.bind(this);
@@ -46,22 +49,26 @@ class PresenterContainer extends React.Component {
     var voteStatus = this.props.voteStatus;
     if (voteStatus === 'WAITING') {
       return <PresenterPromptView sendQuestion={this.sendQuestion} />;
-    } else if (voteStatus === 'IN_PROGRESS') {
+    } else {
       return (
         <ResultsView 
           isPresenter={true}
           endVote={this.endVote} 
           voteEnded={this.props.voteStatus === 'ENDED'}
           goToPromptView={this.goToPromptView}
+          data={this.props.thumbsCount}
         />);
     }
   }
 }
 
 const mapStateToProps = state => {
-  return {voteStatus: state.voteStatus};
+  return {
+    voteStatus: state.voteStatus,
+    thumbsCount: state.thumbs
+  };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

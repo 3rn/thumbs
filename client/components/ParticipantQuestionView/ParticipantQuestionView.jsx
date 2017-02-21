@@ -28,9 +28,9 @@ class ParticipantQuestionView extends React.Component {
     return (
       <div>
         <h1>ParticipantQuestionView</h1>
-        <Button click={this.handleClick.bind(this)} count={this.props.count[0]} value='1' />
-        <Button click={this.handleClick.bind(this)} count={this.props.count[1]} value='2' />
-        <Button click={this.handleClick.bind(this)} count={this.props.count[2]} value='3' />
+        <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[0]} value='1' />
+        <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[1]} value='2' />
+        <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[2]} value='3' />
       </div>
     );
   }
@@ -38,7 +38,7 @@ class ParticipantQuestionView extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    count: state.thumbs.count
+    thumbsCount: state.thumbs
   };
 };
 

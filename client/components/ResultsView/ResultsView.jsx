@@ -14,7 +14,7 @@ export default class ResultsView extends React.Component {
     return (
       <div>
         <h1>ResultsView</h1>
-        <ThumbsCheckVis data={[0, 1, 2, 4]} />
+        <ThumbsCheckVis data={this.props.data} />
         {stopVoteButton}
         {this.props.voteEnded ? 
           <button onClick={this.props.goToPromptView}> Send Another Question </button>

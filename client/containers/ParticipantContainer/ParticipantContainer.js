@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { vote } from '../../actions/voteActions.js';
 import io from 'socket.io-client';
 let socket = io('http://localhost:8000');
-import Button from '../../components/Button.jsx';
+
+import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
 
 class ParticipantContainer extends React.Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class ParticipantContainer extends React.Component {
       console.log('payload >>> ', payload);
       vote(payload.option);
     });
-
   }
 
   handleClick(e) {
@@ -37,9 +36,9 @@ class ParticipantContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  
+  return {voteStatus: state.voteStatus};
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ vote }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);

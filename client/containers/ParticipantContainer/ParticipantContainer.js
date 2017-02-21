@@ -7,6 +7,7 @@ let socket = io('http://localhost:8000');
 import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
 import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
+import ResultsView from '../../components/ResultsView/ResultsView';
 
 class ParticipantContainer extends React.Component {
   constructor(props) {
@@ -17,6 +18,10 @@ class ParticipantContainer extends React.Component {
     socket.on('startVote', () => {
       //dispatch event to update view
       context.props.updateVoteStatus('IN_PROGRESS');
+    });
+    socket.on('endVote', () => {
+      //dispatch event to update view
+      context.props.updateVoteStatus('ENDED');
     });
   }
 
@@ -30,8 +35,8 @@ class ParticipantContainer extends React.Component {
       return <ParticipantWaitingView />;
     } else if (voteStatus === 'IN_PROGRESS') {
       return <ParticipantQuestionView />;
-    } else {
-      return null;
+    } else if (voteStatus === 'ENDED') {
+      return <ResultsView />;
     }
   }
 }

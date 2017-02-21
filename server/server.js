@@ -26,4 +26,9 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('startVote', payload);
   });
 
+  socket.on('endVote', (payload) => {
+    // io.emit('startVote', payload);
+    socket.broadcast.emit('endVote', payload);
+  });
+
 });

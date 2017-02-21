@@ -1,18 +1,15 @@
 import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+
 import App from '../App/App';
 import Home from '../Home/Home';
-import ParticipantQuestionView from '../../containers/ParticipantQuestionView/ParticipantQuestionView';
-import ParticipantWaitingView from '../ParticipantWaitingView/ParticipantWaitingView';
-import PresenterPromptView from '../../containers/PresenterPromptView/PresenterPromptView';
-import ResultsView from '../../containers/ResultsView/ResultsView';
-import { Route, IndexRoute } from 'react-router';
+import ParticipantContainer from '../../containers/ParticipantContainer/ParticipantContainer';
+
+
 
 module.exports = (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
-    <Route path="pqv" component={ParticipantQuestionView} />
-    <Route path="pwv" component={ParticipantWaitingView} />
-    <Route path="ppv" component={PresenterPromptView} />
-    <Route path="rv" component={ResultsView} />
+    <Route path="participant" component={ParticipantContainer} />
   </Route>
 );

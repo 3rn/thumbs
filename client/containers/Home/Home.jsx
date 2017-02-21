@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Home.scss';
+import styles from '../../styles/pages/_Home';
 import { Link } from 'react-router';
 
 class Home extends React.Component {
@@ -12,6 +12,7 @@ class Home extends React.Component {
       <div className={styles.home}>
         <div>
           <h1>Home</h1>
+          <h2>Home</h2>
           <ul>
             <li><Link to="/pqv">Participant Question View</Link></li>
             <li><Link to="/pwv">Participant Waiting View</Link></li>

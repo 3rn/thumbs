@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { actions } from '../actions/index.js';
 
-class PresenterPromptView extends React.Component {
+export default class PresenterPromptView extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -12,17 +12,8 @@ class PresenterPromptView extends React.Component {
     return (
       <div>
         <h1>PresenterPromptView</h1>
+        <button onClick={this.props.sendQuestion}> Send Thumbs Check </button>
       </div>
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    counter: state._reducer
-  };
-};
-
-const mapDispatchToProps = dispatch => bindActionCreators({ }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(PresenterPromptView);

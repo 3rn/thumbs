@@ -4,8 +4,8 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store.js';
 
-import routes from './containers/Router/Routes';
-import Home from './containers/Home/Home';
+import routes from './components/Router/Routes';
+import Home from './components/Home/Home';
 
 render(
   <Provider store={store}>

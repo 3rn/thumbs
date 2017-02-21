@@ -4,32 +4,33 @@ import { bindActionCreators } from 'redux';
 import io from 'socket.io-client';
 let socket = io('http://localhost:8000');
 
+import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView';
 import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
-import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
-import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
 
-class ParticipantContainer extends React.Component {
+class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
 
     const vote = this.props.vote;
-    var context = this;
+
     socket.on('startVote', () => {
       //dispatch event to update view
-      context.props.updateVoteStatus('IN_PROGRESS');
+      console.log('presenter received start vote');
     });
   }
 
-  handleClick(e) {
-    socket.emit('vote', { option: e.target.value });
+  sendQuestion() {
+    // socket.emit('startVote');
+    console.log('question sent from presenter');
+    socket.emit('startVote');
   }
 
   render() {
     var voteStatus = this.props.voteStatus;
     if (voteStatus === 'WAITING') {
-      return <ParticipantWaitingView />;
+      return <PresenterPromptView sendQuestion={this.sendQuestion} />;
     } else if (voteStatus === 'IN_PROGRESS') {
-      return <ParticipantQuestionView />;
+      return null;
     } else {
       return null;
     }
@@ -42,4 +43,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

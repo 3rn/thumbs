@@ -21,4 +21,9 @@ io.on('connection', (socket) => {
     io.emit('vote', payload);
   });
 
+  socket.on('startVote', (payload) => {
+    // io.emit('startVote', payload);
+    socket.broadcast.emit('startVote', payload);
+  });
+
 });

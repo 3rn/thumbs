@@ -1,7 +1,7 @@
 import React from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
-class ThumbsCheckVis extends React.Component {
+export default class ThumbsCheckVis extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -32,5 +32,3 @@ class ThumbsCheckVis extends React.Component {
     );
   }
 }
-
-export default ThumbsCheckVis;

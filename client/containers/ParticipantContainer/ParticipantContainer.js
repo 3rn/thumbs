@@ -49,7 +49,7 @@ class ParticipantContainer extends React.Component {
     return (
       <div>
         {this.getCurrentView()}
-        <ParticipantQuestionButton socket={socket} />
+        <ParticipantQuestionButton />
       </div>
     );
   }

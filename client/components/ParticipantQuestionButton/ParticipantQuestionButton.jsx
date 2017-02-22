@@ -11,7 +11,7 @@ class ParticipantQuestionButton extends React.Component {
 
   render() {
     return (
-      <button onClick={this.handleClick.bind(this)}>Click</button>
+        <button onClick={this.handleClick.bind(this)}>I'm Confused</button>
     );
   }
 }

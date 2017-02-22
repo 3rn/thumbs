@@ -25,6 +25,9 @@ class PresenterContainer extends React.Component {
     this.sendQuestion = this.sendQuestion.bind(this);
     this.endVote = this.endVote.bind(this);
     this.goToPromptView = this.goToPromptView.bind(this);
+
+    
+    console.log(this.props.params.code);
   }
 
   sendQuestion() {

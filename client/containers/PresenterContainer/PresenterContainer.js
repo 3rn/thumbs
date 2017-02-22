@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import io from 'socket.io-client';
-let socket = io('http://localhost:8000');
+import socket from '../../config/socket';
 
 import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView';
 import ResultsView from '../../components/ResultsView/ResultsView';

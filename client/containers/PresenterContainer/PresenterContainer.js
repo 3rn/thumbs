@@ -5,20 +5,21 @@ import socket from '../../config/socket';
 
 import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView';
 import ResultsView from '../../components/ResultsView/ResultsView';
-import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
-import { vote } from '../../actions/voteActions.js';
+import { updateVoteStatus } from '../../actions/presenterActions.js';
+import { vote, participantQuestion } from '../../actions/participantActions.js';
 
 class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
 
     const context = this;
-    
+
     socket.on('vote', (payload) => {
-      //dispatch event to update view
-      console.log('presenter received vote');
       context.props.vote(payload.option);
-      console.log('thumbs count: ', context.props.thumbsCount);
+    });
+
+    socket.on('participantQuestion', (payload) => {
+      context.props.participantQuestion();
     });
 
     this.sendQuestion = this.sendQuestion.bind(this);
@@ -27,47 +28,56 @@ class PresenterContainer extends React.Component {
   }
 
   sendQuestion() {
-    // socket.emit('startVote');
-    console.log('question sent from presenter');
     socket.emit('startVote');
-    //debugger;
     this.props.updateVoteStatus('IN_PROGRESS');
   }
 
   endVote() {
-    console.log('stopping vote');
     socket.emit('endVote');
     this.props.updateVoteStatus('ENDED');
   }
 
   goToPromptView() {
-    this.props.updateVoteStatus('WAITING'); 
+    this.props.updateVoteStatus('WAITING');
   }
 
-  render() {
-    var voteStatus = this.props.voteStatus;
+  getCurrentView() {
+    const voteStatus = this.props.voteStatus;
     if (voteStatus === 'WAITING') {
-      return <PresenterPromptView sendQuestion={this.sendQuestion} />;
+      return (
+        <PresenterPromptView sendQuestion={this.sendQuestion} />
+      );
     } else {
       return (
-        <ResultsView 
+        <ResultsView
           isPresenter={true}
-          endVote={this.endVote} 
+          endVote={this.endVote}
           voteEnded={this.props.voteStatus === 'ENDED'}
           goToPromptView={this.goToPromptView}
           data={this.props.thumbsCount}
-        />);
+        />
+      );
     }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.getCurrentView()}
+        <h3>Participant Questions: { this.props.questionCount }</h3>
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
     voteStatus: state.voteStatus,
-    thumbsCount: state.thumbs
+    thumbsCount: state.thumbs,
+    questionCount: state.participantQuestion
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote, participantQuestion }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

@@ -3,47 +3,53 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
-import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
+import { updateVoteStatus } from '../../actions/presenterActions.js';
+
+import ResultsView from '../../components/ResultsView/ResultsView';
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
 import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
-import ResultsView from '../../components/ResultsView/ResultsView';
 
 class ParticipantContainer extends React.Component {
   constructor(props) {
     super(props);
 
     const vote = this.props.vote;
-    var context = this;
+    const context = this;
     socket.on('startVote', () => {
-      //dispatch event to update view
       context.props.updateVoteStatus('IN_PROGRESS');
     });
     socket.on('endVote', () => {
-      //dispatch event to update view
       context.props.updateVoteStatus('ENDED');
     });
 
   }
 
-  handleClick(e) {
-    socket.emit('vote', { option: e.target.value });
-  }
+  getCurrentView() {
+    const voteStatus = this.props.voteStatus;
 
-  render() {
-    var voteStatus = this.props.voteStatus;
     if (voteStatus === 'WAITING') {
       return <ParticipantWaitingView />;
     } else if (voteStatus === 'IN_PROGRESS') {
       return <ParticipantQuestionView />;
     } else if (voteStatus === 'ENDED') {
-      return <ResultsView 
-        isPresenter={false}
-        endVote={this.endVote} 
-        voteEnded={this.props.voteStatus === 'ENDED'}
-        goToPromptView={this.goToPromptView}
-        data={this.props.thumbsCount}
-       />;
+      return (
+        <ResultsView
+          isPresenter={false}
+          endVote={this.endVote}
+          voteEnded={this.props.voteStatus === 'ENDED'}
+          goToPromptView={this.goToPromptView}
+          data={this.props.thumbsCount}
+         />
+      );
     }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.getCurrentView()}
+      </div>
+    );
   }
 }
 

@@ -14,6 +14,10 @@ module.exports = function(server) {
       io.emit('vote', payload);
     });
 
+    socket.on('participantQuestion', (payload) => {
+      io.emit('participantQuestion', payload);
+    });
+
     socket.on('startVote', (payload) => {
       // io.emit('startVote', payload);
       socket.broadcast.emit('startVote', payload);

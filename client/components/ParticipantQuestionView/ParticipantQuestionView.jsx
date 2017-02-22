@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { vote } from '../../actions/voteActions.js';
+import { vote } from '../../actions/participantActions.js';
 import Button from '../../components/Button.jsx';
 import socket from '../../config/socket';
 
@@ -12,7 +12,6 @@ class ParticipantQuestionView extends React.Component {
     const vote = this.props.vote;
 
     socket.on('vote', (payload) => {
-      console.log('payload >>> ', payload);
       vote(payload.option);
     });
 

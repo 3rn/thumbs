@@ -17,7 +17,7 @@ dependencies:
   override:
     - docker info
     # $CIRCLE_SHA1: The SHA1 of the commit being test.
-    - docker build --rm=false -r ntoung/thumbs:$CIRCLE_SHA1 .
+    - docker build --rm=false -t ntoung/thumbs:$CIRCLE_SHA1 .
 
 # database
 database:

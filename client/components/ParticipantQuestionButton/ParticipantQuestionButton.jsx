@@ -1,4 +1,5 @@
 import React from 'react';
+import socket from '../../config/socket.js';
 
 class ParticipantQuestionButton extends React.Component {
   constructor(props) {
@@ -6,7 +7,7 @@ class ParticipantQuestionButton extends React.Component {
   }
 
   handleClick() {
-    this.props.socket.emit('participantQuestion');
+    socket.emit('participantQuestion');
   }
 
   render() {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import io from 'socket.io-client';
-let socket = io('http://localhost:8000');
+import socket from '../../config/socket';
 
 import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
@@ -23,6 +22,7 @@ class ParticipantContainer extends React.Component {
       //dispatch event to update view
       context.props.updateVoteStatus('ENDED');
     });
+
   }
 
   handleClick(e) {

@@ -4,9 +4,10 @@ import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
 import { updateVoteStatus } from '../../actions/presenterActions.js';
+
+import ResultsView from '../../components/ResultsView/ResultsView';
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
 import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
-import ResultsView from '../../components/ResultsView/ResultsView';
 import ParticipantQuestionButton from '../../components/ParticipantQuestionButton/ParticipantQuestionButton';
 
 class ParticipantContainer extends React.Component {

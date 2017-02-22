@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
-import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
+import { updateVoteStatus } from '../../actions/presenterActions.js';
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
 import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
 import ResultsView from '../../components/ResultsView/ResultsView';

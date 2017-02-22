@@ -5,8 +5,8 @@ import socket from '../../config/socket';
 
 import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView';
 import ResultsView from '../../components/ResultsView/ResultsView';
-import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
-import { vote } from '../../actions/voteActions.js';
+import { updateVoteStatus } from '../../actions/presenterActions.js';
+import { vote } from '../../actions/participantActions.js';
 
 class PresenterContainer extends React.Component {
   constructor(props) {
@@ -15,10 +15,11 @@ class PresenterContainer extends React.Component {
     const context = this;
     
     socket.on('vote', (payload) => {
-      //dispatch event to update view
-      console.log('presenter received vote');
       context.props.vote(payload.option);
-      console.log('thumbs count: ', context.props.thumbsCount);
+    });
+
+    socket.on('participantQuestion', (payload) => {
+      console.log('Presenter got a question');
     });
 
     this.sendQuestion = this.sendQuestion.bind(this);
@@ -27,13 +28,11 @@ class PresenterContainer extends React.Component {
   }
 
   sendQuestion() {
-    console.log('question sent from presenter');
     socket.emit('startVote');
     this.props.updateVoteStatus('IN_PROGRESS');
   }
 
   endVote() {
-    console.log('stopping vote');
     socket.emit('endVote');
     this.props.updateVoteStatus('ENDED');
   }

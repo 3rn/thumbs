@@ -14,13 +14,11 @@ class ParticipantContainer extends React.Component {
     super(props);
 
     const vote = this.props.vote;
-    var context = this;
+    const context = this;
     socket.on('startVote', () => {
-      //dispatch event to update view
       context.props.updateVoteStatus('IN_PROGRESS');
     });
     socket.on('endVote', () => {
-      //dispatch event to update view
       context.props.updateVoteStatus('ENDED');
     });
 
@@ -49,8 +47,8 @@ class ParticipantContainer extends React.Component {
   render() {
     return (
       <div>
-        <ParticipantQuestionButton test={'prop'} />
         {this.getCurrentView()}
+        <ParticipantQuestionButton socket={socket} />
       </div>
     );
   }

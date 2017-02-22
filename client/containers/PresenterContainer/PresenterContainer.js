@@ -27,10 +27,8 @@ class PresenterContainer extends React.Component {
   }
 
   sendQuestion() {
-    // socket.emit('startVote');
     console.log('question sent from presenter');
     socket.emit('startVote');
-    //debugger;
     this.props.updateVoteStatus('IN_PROGRESS');
   }
 
@@ -44,10 +42,12 @@ class PresenterContainer extends React.Component {
     this.props.updateVoteStatus('WAITING'); 
   }
 
-  render() {
-    var voteStatus = this.props.voteStatus;
+  getCurrentView() {
+    const voteStatus = this.props.voteStatus;
     if (voteStatus === 'WAITING') {
-      return <PresenterPromptView sendQuestion={this.sendQuestion} />;
+      return (
+        <PresenterPromptView sendQuestion={this.sendQuestion} />
+      );
     } else {
       return (
         <ResultsView 
@@ -56,8 +56,17 @@ class PresenterContainer extends React.Component {
           voteEnded={this.props.voteStatus === 'ENDED'}
           goToPromptView={this.goToPromptView}
           data={this.props.thumbsCount}
-        />);
+        />
+      );
     }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.getCurrentView()}
+      </div>
+    );
   }
 }
 

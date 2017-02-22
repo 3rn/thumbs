@@ -6,12 +6,12 @@ class ParticipantQuestionButton extends React.Component {
   }
 
   handleClick() {
-    console.log('Button Works');
+    this.props.socket.emit('participantQuestion');
   }
 
   render() {
     return (
-      <button>Click</button>
+      <button onClick={this.handleClick.bind(this)}>Click</button>
     );
   }
 }

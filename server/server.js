@@ -9,5 +9,3 @@ const server = app.listen(config.PORT, config.HOST, () => {
 });
 
 const io = require('./middleware/socket.js')(server);
-
-

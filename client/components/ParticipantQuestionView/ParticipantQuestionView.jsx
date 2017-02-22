@@ -12,7 +12,6 @@ class ParticipantQuestionView extends React.Component {
     const vote = this.props.vote;
 
     socket.on('vote', (payload) => {
-      console.log('payload >>> ', payload);
       vote(payload.option);
     });
 

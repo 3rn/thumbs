@@ -4,3 +4,9 @@ export function vote(voteValue) {
     value: voteValue
   };
 }
+
+export function participantQuestion() {
+  return {
+    type: 'PARTICIPANT_QUESTION'
+  };
+}

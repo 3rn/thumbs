@@ -6,20 +6,20 @@ import socket from '../../config/socket';
 import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView';
 import ResultsView from '../../components/ResultsView/ResultsView';
 import { updateVoteStatus } from '../../actions/presenterActions.js';
-import { vote } from '../../actions/participantActions.js';
+import { vote, participantQuestion } from '../../actions/participantActions.js';
 
 class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
 
     const context = this;
-    
+
     socket.on('vote', (payload) => {
       context.props.vote(payload.option);
     });
 
     socket.on('participantQuestion', (payload) => {
-      console.log('Presenter got a question');
+      context.props.participantQuestion();
     });
 
     this.sendQuestion = this.sendQuestion.bind(this);
@@ -38,7 +38,7 @@ class PresenterContainer extends React.Component {
   }
 
   goToPromptView() {
-    this.props.updateVoteStatus('WAITING'); 
+    this.props.updateVoteStatus('WAITING');
   }
 
   getCurrentView() {
@@ -49,9 +49,9 @@ class PresenterContainer extends React.Component {
       );
     } else {
       return (
-        <ResultsView 
+        <ResultsView
           isPresenter={true}
-          endVote={this.endVote} 
+          endVote={this.endVote}
           voteEnded={this.props.voteStatus === 'ENDED'}
           goToPromptView={this.goToPromptView}
           data={this.props.thumbsCount}
@@ -64,6 +64,7 @@ class PresenterContainer extends React.Component {
     return (
       <div>
         {this.getCurrentView()}
+        <h3>Participant Questions: { this.props.questionCount }</h3>
       </div>
     );
   }
@@ -72,10 +73,11 @@ class PresenterContainer extends React.Component {
 const mapStateToProps = state => {
   return {
     voteStatus: state.voteStatus,
-    thumbsCount: state.thumbs
+    thumbsCount: state.thumbs,
+    questionCount: state.participantQuestion
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote, participantQuestion }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

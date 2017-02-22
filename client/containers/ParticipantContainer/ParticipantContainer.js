@@ -7,6 +7,7 @@ import { updateVoteStatus } from '../../actions/updateVoteStatus.js';
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
 import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
 import ResultsView from '../../components/ResultsView/ResultsView';
+import ParticipantQuestionButton from '../../components/ParticipantQuestionButton/ParticipantQuestionButton';
 
 class ParticipantContainer extends React.Component {
   constructor(props) {
@@ -25,25 +26,33 @@ class ParticipantContainer extends React.Component {
 
   }
 
-  handleClick(e) {
-    socket.emit('vote', { option: e.target.value });
-  }
+  getCurrentView() {
+    const voteStatus = this.props.voteStatus;
 
-  render() {
-    var voteStatus = this.props.voteStatus;
     if (voteStatus === 'WAITING') {
       return <ParticipantWaitingView />;
     } else if (voteStatus === 'IN_PROGRESS') {
       return <ParticipantQuestionView />;
     } else if (voteStatus === 'ENDED') {
-      return <ResultsView 
-        isPresenter={false}
-        endVote={this.endVote} 
-        voteEnded={this.props.voteStatus === 'ENDED'}
-        goToPromptView={this.goToPromptView}
-        data={this.props.thumbsCount}
-       />;
+      return (
+        <ResultsView
+          isPresenter={false}
+          endVote={this.endVote}
+          voteEnded={this.props.voteStatus === 'ENDED'}
+          goToPromptView={this.goToPromptView}
+          data={this.props.thumbsCount}
+         />
+      );
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <ParticipantQuestionButton test={'prop'} />
+        {this.getCurrentView()}
+      </div>
+    );
   }
 }
 

@@ -1,16 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
-import routes from './components/Router/routes';
-import Home from './components/Home/Home';
-
-// Redux
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducers from './reducers';
+import store from './store.js';
 
-const store = createStore(reducers);
-
+import routes from './components/Router/Routes';
+import Home from './components/Home/Home';
 
 render(
   <Provider store={store}>

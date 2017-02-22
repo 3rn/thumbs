@@ -23,7 +23,8 @@
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2",
     "react-redux": "^5.0.2",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "victory": "^0.17.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.3",

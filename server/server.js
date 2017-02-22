@@ -2,18 +2,11 @@ const express = require('express');
 const app = express();
 const config = require('./server.config.js');
 
-
-
-// Middleware
 const middleware = require('./middleware/middleware.js')(app, express);
 
-
-
-// Start server
 const server = app.listen(config.PORT, config.HOST, () => {
   console.log('Thumbs on at http://%s:%s', config.HOST, config.PORT);
 });
-
 
 const io = require('socket.io')(server);
 
@@ -28,4 +21,13 @@ io.on('connection', (socket) => {
     io.emit('vote', payload);
   });
 
+  socket.on('startVote', (payload) => {
+    // io.emit('startVote', payload);
+    socket.broadcast.emit('startVote', payload);
+  });
+
+  socket.on('endVote', (payload) => {
+    // io.emit('startVote', payload);
+    socket.broadcast.emit('endVote', payload);
+  });
 });

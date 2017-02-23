@@ -4,7 +4,6 @@ import socket from '../../config/socket.js';
 export default class ParticipantWaitingView extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Participant waiting view: ', this.props.room);
   }
 
   handleClick() {

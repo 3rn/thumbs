@@ -18,7 +18,10 @@ class ParticipantQuestionView extends React.Component {
   }
 
   handleClick(e) {
-    socket.emit('vote', { option: e.target.value });
+    socket.emit('vote', {
+      room: this.props.room,
+      option: e.target.value
+    });
   }
 
   render() {

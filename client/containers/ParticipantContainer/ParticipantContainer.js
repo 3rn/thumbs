@@ -22,15 +22,22 @@ class ParticipantContainer extends React.Component {
       context.props.updateVoteStatus('ENDED');
     });
 
+    socket.emit('joinPresentation', {room: this.props.params.room});
   }
 
   getCurrentView() {
     const voteStatus = this.props.voteStatus;
 
     if (voteStatus === 'WAITING') {
-      return <ParticipantWaitingView />;
+      return (
+        <ParticipantWaitingView
+          room={this.props.params.room}
+        />
+      );
     } else if (voteStatus === 'IN_PROGRESS') {
-      return <ParticipantQuestionView />;
+      return (
+        <ParticipantQuestionView room={this.props.params.room} />
+      );
     } else if (voteStatus === 'ENDED') {
       return (
         <ResultsView

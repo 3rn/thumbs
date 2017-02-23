@@ -13,32 +13,31 @@ class ParticipantContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    const vote = this.props.vote;
-    const context = this;
+    socket.emit('joinPresentation', {room: this.props.params.room});
+
     socket.on('startVote', () => {
-      context.props.updateVoteStatus('IN_PROGRESS');
-    });
-    socket.on('endVote', () => {
-      context.props.updateVoteStatus('ENDED');
+      this.props.updateVoteStatus('IN_PROGRESS');
     });
 
-    socket.emit('joinPresentation', {room: this.props.params.room});
+    socket.on('endVote', () => {
+      this.props.updateVoteStatus('ENDED');
+    });
   }
 
   getCurrentView() {
-    const voteStatus = this.props.voteStatus;
-
-    if (voteStatus === 'WAITING') {
+    if (this.props.voteStatus === 'WAITING') {
       return (
         <ParticipantWaitingView
           room={this.props.params.room}
         />
       );
-    } else if (voteStatus === 'IN_PROGRESS') {
+    } else if (this.props.voteStatus === 'IN_PROGRESS') {
       return (
-        <ParticipantQuestionView room={this.props.params.room} />
+        <ParticipantQuestionView
+        room={this.props.params.room}
+        />
       );
-    } else if (voteStatus === 'ENDED') {
+    } else if (this.props.voteStatus === 'ENDED') {
       return (
         <ResultsView
           isPresenter={false}
@@ -46,7 +45,7 @@ class ParticipantContainer extends React.Component {
           voteEnded={this.props.voteStatus === 'ENDED'}
           goToPromptView={this.goToPromptView}
           data={this.props.thumbsCount}
-         />
+        />
       );
     }
   }

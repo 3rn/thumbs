@@ -11,26 +11,25 @@ module.exports = function(server) {
     });
 
     socket.on('vote', (payload) => {
-      io.emit('vote', payload);
+      io.to(payload.room).emit('vote', payload);
     });
 
     socket.on('participantQuestion', (payload) => {
-      io.emit('participantQuestion', payload);
+      io.to(payload.room).emit('participantQuestion', payload);
     });
 
     socket.on('startVote', (payload) => {
-      // io.emit('startVote', payload);
-      socket.broadcast.emit('startVote', payload);
+      io.to(payload.room).emit('startVote', payload);
     });
 
     socket.on('endVote', (payload) => {
-      // io.emit('startVote', payload);
-      socket.broadcast.emit('endVote', payload);
+      io.to(payload.room).emit('endVote', payload);
     });
 
-    socket.on('joinPresentation', (presentationCode) => {
-      socket.join(presentationCode);
-    })
+    socket.on('joinPresentation', (payload) => {
+      socket.join(payload.room);
+      io.to(payload.room).emit('room');
+    });
   });
 
   return io;

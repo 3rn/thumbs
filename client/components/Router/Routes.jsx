@@ -11,6 +11,7 @@ module.exports = (
     <IndexRoute component={Home} />
     <Route path="participant" component={ParticipantContainer} />
     <Route path="presenter" component={PresenterContainer} />
-    <Route path="t/:code" component={PresenterContainer} />
+    <Route path="part/:room" component={ParticipantContainer} />
+    <Route path="pres/:room" component={PresenterContainer} />
   </Route>
 );

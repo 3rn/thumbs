@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
 import { updateVoteStatus } from '../../actions/presenterActions.js';
+import { vote } from '../../actions/participantActions.js';
 
-import ResultsView from '../../components/ResultsView/ResultsView';
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
 import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
 
@@ -13,40 +13,39 @@ class ParticipantContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    const vote = this.props.vote;
-    const context = this;
-    socket.on('startVote', () => {
-      context.props.updateVoteStatus('IN_PROGRESS');
-    });
-    socket.on('endVote', () => {
-      context.props.updateVoteStatus('ENDED');
+    socket.emit('joinPresentation', {room: this.props.params.room});
+
+    socket.on('vote', (payload) => {
+      this.props.vote(payload.option);
     });
 
-    socket.emit('joinPresentation', {room: this.props.params.room});
+    socket.on('startVote', (payload) => {
+      this.props.updateVoteStatus('IN_PROGRESS');
+    });
+
+    socket.on('endVote', (payload) => {
+      this.props.updateVoteStatus('ENDED');
+    });
   }
 
   getCurrentView() {
-    const voteStatus = this.props.voteStatus;
-
-    if (voteStatus === 'WAITING') {
+    if (this.props.voteStatus === 'WAITING') {
       return (
         <ParticipantWaitingView
           room={this.props.params.room}
         />
       );
-    } else if (voteStatus === 'IN_PROGRESS') {
+    } else if (this.props.voteStatus === 'IN_PROGRESS') {
       return (
-        <ParticipantQuestionView room={this.props.params.room} />
+        <ParticipantQuestionView
+          room={this.props.params.room}
+        />
       );
-    } else if (voteStatus === 'ENDED') {
+    } else if (this.props.voteStatus === 'ENDED') {
       return (
-        <ResultsView
-          isPresenter={false}
-          endVote={this.endVote}
-          voteEnded={this.props.voteStatus === 'ENDED'}
-          goToPromptView={this.goToPromptView}
-          data={this.props.thumbsCount}
-         />
+        <ParticipantWaitingView
+          room={this.props.params.room}
+        />
       );
     }
   }
@@ -60,13 +59,11 @@ class ParticipantContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    voteStatus: state.voteStatus,
-    thumbsCount: state.thumbs
-  };
-};
+const mapStateToProps = (state) => ({
+  voteStatus: state.voteStatus,
+  thumbsCount: state.thumbs
+});
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus, vote }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);

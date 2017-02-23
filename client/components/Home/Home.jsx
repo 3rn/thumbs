@@ -9,7 +9,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className={styles.home}>
+      <div className={styles.wrapper}>
         <div>
           <h1>Home</h1>
           <h2>Home</h2>

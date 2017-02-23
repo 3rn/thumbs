@@ -1,18 +1,44 @@
-$break-small: 320px;
-$break-larg: 1200px;
+@import "../base/colors";
+$break-phone-min: 0px;
+$break-phone-max: 641px;
+$break-computer-min: 1026px;
 
-.profile-pic {
-  float: left;
-  width: 250px;
 
-  @media screen and (max-width: $break-small) {
-    width: 100px;
-    float: none;
-  }
+nav {
+  // color: $black;
+  background-color: $white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 50px;
+  line-height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  border-bottom: 1px solid $ryan-white;
 
-  @media screen and (max-width: $break-large) {
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
     
-    float: right;
   }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    padding: 10px 0;
+  }
+}
 
+
+
+.logo {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    font-size: 1.5em;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    font-size: 2.5em;
+  }
 }

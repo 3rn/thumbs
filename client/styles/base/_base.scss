@@ -1,0 +1,27 @@
+// Base
+@import "typography";
+
+// Grid
+@import "grid";
+
+@import "colors";
+
+body {
+  display: block;
+  background-color: $off-white; 
+}
+
+a {
+  color: $black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.container {
+  margin: 20px auto;
+  width: 80%;
+}

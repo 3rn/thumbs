@@ -7,7 +7,7 @@ class PresenterPromptView extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
     socket.emit('startVote', {room: this.props.room});
   }
 

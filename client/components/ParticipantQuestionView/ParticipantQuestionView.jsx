@@ -1,20 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { vote } from '../../actions/participantActions.js';
-import Button from '../../components/Button.jsx';
 import socket from '../../config/socket';
 
 class ParticipantQuestionView extends React.Component {
   constructor(props) {
     super(props);
-
-    const vote = this.props.vote;
-
-    socket.on('vote', (payload) => {
-      vote(payload.option);
-    });
-
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
@@ -28,9 +18,9 @@ class ParticipantQuestionView extends React.Component {
     return (
       <div>
         <h1>ParticipantQuestionView</h1>
-        <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[0]} value='1' />
-        <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[1]} value='2' />
-        <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[2]} value='3' />
+        <button onClick={this.handleClick} value={1}>Thumbs Up</button>
+        <button onClick={this.handleClick} value={2}>Thumbs Middle</button>
+        <button onClick={this.handleClick} value={3}>Thumbs Down</button>
       </div>
     );
   }
@@ -44,4 +34,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({ vote }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ParticipantQuestionView);
+export default ParticipantQuestionView;

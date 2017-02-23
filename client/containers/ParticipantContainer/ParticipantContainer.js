@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
 import { updateVoteStatus } from '../../actions/presenterActions.js';
+import { vote } from '../../actions/participantActions.js';
 
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
 import ParticipantQuestionView from '../../components/ParticipantQuestionView/ParticipantQuestionView';
@@ -14,11 +15,15 @@ class ParticipantContainer extends React.Component {
 
     socket.emit('joinPresentation', {room: this.props.params.room});
 
-    socket.on('startVote', () => {
+    socket.on('vote', (payload) => {
+      this.props.vote(payload.option);
+    });
+
+    socket.on('startVote', (payload) => {
       this.props.updateVoteStatus('IN_PROGRESS');
     });
 
-    socket.on('endVote', () => {
+    socket.on('endVote', (payload) => {
       this.props.updateVoteStatus('ENDED');
     });
   }
@@ -59,6 +64,6 @@ const mapStateToProps = (state) => ({
   thumbsCount: state.thumbs
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus, vote }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);

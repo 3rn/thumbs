@@ -54,7 +54,6 @@ class PresenterContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.voteStatus);
     return (
       <div>
         {this.getCurrentView()}

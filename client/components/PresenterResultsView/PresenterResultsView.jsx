@@ -18,7 +18,7 @@ class PresenterResultsView extends React.Component {
       socket.emit('endVote', {room: this.props.room});
       this.setState({buttonName: 'Ask Another Question'});
     } else if (this.props.status === 'ENDED') {
-      socket.emit('startVote', {room: this.props.room});
+      socket.emit('newVote', {room: this.props.room});
       this.setState({buttonName: 'Stop Vote'});
     }
   }

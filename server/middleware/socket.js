@@ -24,6 +24,10 @@ module.exports = function(server) {
       io.to(payload.room).emit('endVote', payload);
     });
 
+    socket.on('newVote', (payload) => {
+      io.to(payload.room).emit('newVote', payload);
+    });
+
     socket.on('joinPresentation', (payload) => {
       socket.join(payload.room);
       io.to(payload.room).emit('room');

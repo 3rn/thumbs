@@ -28,7 +28,7 @@ class PresenterContainer extends React.Component {
       this.props.updateVoteStatus('ENDED');
     });
 
-    socket.on('', (payload) => {
+    socket.on('newVote', (payload) => {
       this.props.updateVoteStatus('WAITING');
     });
 
@@ -36,8 +36,7 @@ class PresenterContainer extends React.Component {
   }
 
   getCurrentView() {
-    const voteStatus = this.props.voteStatus;
-    if (voteStatus === 'WAITING') {
+    if (this.props.voteStatus === 'WAITING') {
       return (
         <PresenterPromptView
           room={this.props.params.room}
@@ -55,6 +54,7 @@ class PresenterContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.voteStatus);
     return (
       <div>
         {this.getCurrentView()}

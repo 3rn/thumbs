@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import thumbs from './thumbsReducer.js';
-import reducer2 from './reducer_2.js';
+import thumbs from './voteReducer.js';
+import voteStatus from './voteStatusReducer.js';
+import participantQuestion from './participantQuestionReducer.js';
 
 export default combineReducers({
   thumbs,
-  reducer2
+  voteStatus,
+  participantQuestion
 });

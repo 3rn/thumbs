@@ -14,10 +14,8 @@ class Home extends React.Component {
           <h1>Home</h1>
           <h2>Home</h2>
           <ul>
-            <li><Link to="/pqv">Participant Question View</Link></li>
-            <li><Link to="/pwv">Participant Waiting View</Link></li>
-            <li><Link to="/ppv">Presenter Prompt View</Link></li>
-            <li><Link to="/rv">Results View</Link></li>
+            <li><Link to="/participant">Participant View</Link></li>
+            <li><Link to="/presenter">Presenter View</Link></li>
           </ul>
         </div>
       </div>

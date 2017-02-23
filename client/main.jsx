@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import styles from './styles/main.scss';
 import store from './store.js';
 
-import routes from './containers/Router/Routes';
-import Home from './containers/Home/Home';
+import routes from './components/Router/Routes';
+import Home from './components/Home/Home';
 
 render(
   <Provider store={store}>

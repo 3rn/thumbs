@@ -1,6 +1,6 @@
 
 const config = {
-  HOST: '', 
+  HOST: 'localhost', 
   PORT: process.env.PORT || 8000,
 
   env: process.env.NODE_ENV || '', // default

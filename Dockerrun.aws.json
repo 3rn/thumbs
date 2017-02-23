@@ -1,0 +1,71 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "volumes": [
+    {
+      "name": "thumbs-client",
+      "host": {
+        "sourcePath": "client"
+      }
+    },
+    {
+      "name": "thumbs-graph",
+      "host": {
+        "sourcePath": "client"
+      }
+    },
+    {
+      "name": "thumbs-server",
+      "host": {
+        "sourcePath": "server"
+      }
+    }
+  ],
+
+  "containerDefinitions": [
+    {
+      "name": "container1",
+      "image": "node:alpine",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8000
+        }
+      ],
+      "command": [
+        "/bin/bash",
+        "usr/src/"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "container1",
+          "containerPath": "/usr/src"
+        }
+      ]
+    },
+    {
+      "name": "container2",
+      "image": "node:alpine",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8000
+        }
+      ],
+      "command": [
+        "/bin/bash",
+        "usr/src/"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "container2",
+          "containerPath": "/usr/src"
+        }
+      ]
+    }
+
+  ]
+}

@@ -21,7 +21,36 @@ a:hover {
   cursor: pointer;
 }
 
-.container {
-  margin: 20px auto;
+
+
+input[type=text] {
+  background: none;
+  font-size: 1em;
+  padding: 5px;
+  
+  border: none;
   width: 80%;
+  // text-transform: uppercase;
+  
+  // width: 80%;
+}
+
+input[type=text]:focus {
+  outline: 0;
+}
+
+input[type=text]:valid {
+  outline: 0;
+  text-transform: uppercase;
+}
+
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
 }

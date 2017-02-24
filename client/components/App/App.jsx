@@ -6,8 +6,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="">
-        <Nav />
+        
         { this.props.children }
+        <Nav />
       </div>
     );
   }

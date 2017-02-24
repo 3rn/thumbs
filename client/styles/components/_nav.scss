@@ -1,7 +1,5 @@
 @import "../base/colors";
-$break-phone-min: 0px;
-$break-phone-max: 641px;
-$break-computer-min: 1026px;
+@import "../base/break-points";
 
 
 nav {
@@ -10,8 +8,9 @@ nav {
   position: fixed;
   width: 100%;
   top: 0;
+  
   height: 50px;
-  line-height: 50px;
+  line-height: 50px;  
   margin: 0 auto;
   text-align: center;
   border-bottom: 1px solid $ryan-white;

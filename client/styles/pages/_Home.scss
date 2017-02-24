@@ -1,9 +1,43 @@
-$color: black;
+@import "../base/colors";
+@import "../base/break-points";
 
 .wrapper {
-   position: relative;
-   top: 50px;
+  position: relative;
 
-   padding: 10px;
-   
+  padding: 10px;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    top: 50px;  
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    top: 71px;
+  }
+}
+
+.container {
+  width: 100%;
+  border-bottom: .5px solid $color-shadow;
+}
+
+.link {
+  background-color: $richard-white;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.enterRoom {
+  float: right;
+  color: $color-shadow;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    font-size: 1.6em;    
+    line-height: 0.2em;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    font-size: 2em;   
+  }
 }

@@ -24,24 +24,13 @@ a:hover {
 
 
 input[type=text] {
+  
   background: none;
   font-size: 1em;
   padding: 5px;
   
   border: none;
   width: 80%;
-  // text-transform: uppercase;
-  
-  // width: 80%;
-}
-
-input[type=text]:focus {
-  outline: 0;
-}
-
-input[type=text]:valid {
-  outline: 0;
-  text-transform: uppercase;
 }
 
 

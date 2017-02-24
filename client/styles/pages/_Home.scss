@@ -18,13 +18,8 @@
 
 .container {
   width: 100%;
+  margin-bottom: 10px;
   border-bottom: .5px solid $color-shadow;
-}
-
-.link {
-  background-color: $richard-white;
-  padding: 10px;
-  border-radius: 3px;
 }
 
 .enterRoom {
@@ -41,3 +36,49 @@
     font-size: 2em;   
   }
 }
+
+
+.link {
+  background-color: $richard-white;
+  padding: 10px;
+  border-radius: 3px;
+
+
+  input[type=text] {
+    width: 80%; 
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:valid {
+      outline: 0;
+      text-transform: uppercase;
+      
+    }
+  }
+  
+}
+
+.validRoom {
+  color: $light-green;
+}
+
+// .invalidRoom {
+//  color: $light-green; 
+// }
+
+
+
+
+
+// input[type=text]:valid {
+//   outline: 0;
+//   text-transform: uppercase;
+  
+  
+// }
+
+// input[type=text]:valid .enterRoom {
+//   color: green;
+// }

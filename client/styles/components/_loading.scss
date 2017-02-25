@@ -5,11 +5,11 @@
 // Mobile
 @media screen and (min-width: $break-phone-min) {
   .pie {
-    transform: scale(0.25);
+    transform: scale(0.5);
   }
 }
 // Desktop
-@media screen and (min-width: $break-phone-max) {
+@media screen and (min-width: $break-computer-min) {
   .pie {
     transform: scale(0.75);
   }

@@ -21,11 +21,12 @@ class ParticipantWaitingView extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h1>ParticipantWaitingView</h1>
-        <p> Waiting for question from presenter...</p>
-        <Loading />
-        
-        <button onClick={this.handleClick}>I'm Confused</button>
+        <div className={styles.card}>
+          <h1>In room: {this.props.room}</h1>
+          <p> Waiting for question from presenter...</p>
+          <Loading />
+          <button className={styles.primaryButton} onClick={this.handleClick}>I'm Confused</button>
+        </div>
       </div>
     );
   }

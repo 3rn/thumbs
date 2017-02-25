@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/pages/_Home';
+import axios from 'axios';
 
 import { Link, browserHistory } from 'react-router';
 
@@ -9,26 +10,36 @@ class Home extends React.Component {
 
     this.state = {
       validRoom: false,
-      roomCode: ''
-    }
+      roomCode: '',
+      availableRooms: []
+    };
 
     this.onEnterRoomChange = this.onEnterRoomChange.bind(this);
     this.onEnterRoomSubmit = this.onEnterRoomSubmit.bind(this);
+    this.findRooms = this.findRooms.bind(this);
+
+    this.findRooms();
   }
-          // <ul>
-          //   <li><Link to="/participant">Participant View</Link></li>
-          //   <li><Link to="/presenter">Presenter View</Link></li>
-          // </ul>
 
+  findRooms() {
+    const context = this;
 
-  enterRoom () {
+    axios.get('/db/savedQuestions/getRooms')
+    .then(function (response) {
+      var rooms = response.data.map((element) => (element.presentation_code));
+      context.setState({availableRooms: rooms});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
+  enterRoom() {
   }
 
   onEnterRoomChange(e) {
     let roomCode = e.target.value.toUpperCase();
-  
-    if (roomCode.length === 4 && roomCode === 'ASDF') {
+    if (roomCode.length === 4 && this.state.availableRooms.indexOf(roomCode) >= 0) {
       this.setState({'validRoom': true, 'roomCode': roomCode });
     } else {
       this.setState({'validRoom': false});

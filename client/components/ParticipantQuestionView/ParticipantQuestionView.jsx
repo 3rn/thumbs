@@ -19,9 +19,9 @@ class ParticipantQuestionView extends React.Component {
     return (
       <div className={styles.wrapper}>
         <h1>ParticipantQuestionView</h1>
-        <button onClick={this.handleClick} value={1}>Thumbs Up</button>
-        <button onClick={this.handleClick} value={2}>Thumbs Middle</button>
-        <button onClick={this.handleClick} value={3}>Thumbs Down</button>
+        <button className={styles.secondaryButton} onClick={this.handleClick} value={1}>Thumbs Up</button>
+        <button className={styles.secondaryButton} onClick={this.handleClick} value={2}>Thumbs Middle</button>
+        <button className={styles.secondaryButton} onClick={this.handleClick} value={3}>Thumbs Down</button>
       </div>
     );
   }

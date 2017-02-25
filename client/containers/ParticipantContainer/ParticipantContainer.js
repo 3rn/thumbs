@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
-import { updateVoteStatus } from '../../actions/presenterActions.js';
+import { updateVoteStatus, sendQuestion } from '../../actions/presenterActions.js';
 import { vote } from '../../actions/participantActions.js';
 
 import ParticipantWaitingView from '../../components/ParticipantWaitingView/ParticipantWaitingView';
@@ -20,8 +20,8 @@ class ParticipantContainer extends React.Component {
     });
 
     socket.on('startVote', (payload) => {
+      this.props.sendQuestion(payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
-      // pass payload.questionType and payload.choices as props into ParticipantQuestionView
     });
 
     socket.on('endVote', (payload) => {
@@ -40,6 +40,8 @@ class ParticipantContainer extends React.Component {
       return (
         <ParticipantQuestionView
           room={this.props.params.room}
+          questionType={this.props.questionType}
+          choices={this.props.choices}
         />
       );
     } else if (this.props.voteStatus === 'ENDED') {
@@ -61,10 +63,12 @@ class ParticipantContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  voteStatus: state.voteStatus,
-  thumbsCount: state.thumbs
+  voteStatus: state.voteStatus.status,
+  thumbsCount: state.thumbs,
+  questionType: state.voteStatus.questionType,
+  choices: state.voteStatus.choices
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus, vote }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus, sendQuestion, vote }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);

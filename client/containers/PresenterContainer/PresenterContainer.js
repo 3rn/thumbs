@@ -66,7 +66,7 @@ class PresenterContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    voteStatus: state.voteStatus,
+    voteStatus: state.voteStatus.status,
     thumbsCount: state.thumbs,
     questionCount: state.participantQuestion
   };

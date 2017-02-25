@@ -1,7 +1,7 @@
 import React from 'react';
-import socket from '../../config/socket';
+import { Link } from 'react-router';
 
-class Presentations extends React.Component {
+export default class Presentations extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -10,8 +10,8 @@ class Presentations extends React.Component {
     return (
       <div>
         <h1>My Presentations</h1>
+          <Link to="/presentationQuestions"><h2> Test Presentation </h2> </Link>
       </div>
     );
   }
 }
-

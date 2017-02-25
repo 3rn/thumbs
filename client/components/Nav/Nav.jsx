@@ -12,7 +12,13 @@ class Nav extends React.Component {
 
     return (
         <nav>
-          
+          <button>
+            <span className={styles.menu}>
+              <h1>
+                <i className="fa fa-bars" aria-hidden="true"></i>
+              </h1>
+            </span> 
+          </button>
           <Link to="/">
             <h1 className={styles.logo}>thumbs</h1>
           </Link>

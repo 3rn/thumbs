@@ -7,6 +7,7 @@ h1, h2, h3, h4, h5 {
   display: block;
   font-weight: bold;
   color: $black;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .6);
 }
 
 @each $header, $size in (h1: 2em, h2: 1.5em, h3: 1.2em, h4: 1.33em, h5: 0.83em) {

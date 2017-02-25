@@ -27,12 +27,17 @@ nav {
   }
 }
 
+.logo, .menu {
+  
+  height: 50px;
+  line-height: 50px;  
+}
 
 
 .logo {
+  
   display: inline-block;
   vertical-align: middle;
-  line-height: normal;
 
   // Mobile
   @media screen and (min-width: $break-phone-min) {
@@ -41,5 +46,17 @@ nav {
   // Desktop
   @media screen and (min-width: $break-computer-min) {
     font-size: 2.5em;
+  }
+}
+
+.menu {
+  
+  position: absolute;
+  left: 20px;
+  top: 0px;
+ 
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    display: none;
   }
 }

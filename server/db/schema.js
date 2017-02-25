@@ -1,3 +1,7 @@
+// start the postgres server: pg_ctl -D /usr/local/var/postgres start
+// run: psql postgres
+// create: database thumbs;
+
 var Sequelize = require('sequelize');
 var connection = new Sequelize('thumbs', '', '', {
   dialect: 'postgres',
@@ -5,24 +9,21 @@ var connection = new Sequelize('thumbs', '', '', {
   schema: 'public'
 });
 
-
-var SavedQuestions = connection.define('SavedQuestions', {
-  presentationCode: Sequelize.STRING,
-  title: Sequelize.STRING,
-  questionType: Sequelize.STRING,
-  graphType: Sequelize.STRING
-});
-
-var MultChoiceOptions = connection.define('MultChoiceOptions', {
-  option: Sequelize.STRING
-});
-
-MultChoiceOptions.belongsTo(SavedQuestions);
+var SavedQuestions = connection.define('saved_questions',
+  {
+    'presentation_code': Sequelize.STRING,
+    'title': Sequelize.STRING,
+    'question_type': Sequelize.STRING,
+    'graph_type': Sequelize.STRING,
+    'content': Sequelize.ARRAY(Sequelize.STRING)
+  }, {
+    'underscored': true
+  }
+);
 
 module.exports = {
   connection: connection,
-  SavedQuestions: SavedQuestions,
-  MultChoiceOptions: MultChoiceOptions
+  SavedQuestions: SavedQuestions
 };
 
 connection.sync();

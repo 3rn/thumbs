@@ -1,0 +1,18 @@
+@import "break-points";
+
+.wrapper {
+  position: relative;
+
+  padding: 10px;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    top: 50px;  
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    top: 71px;
+    width: 40%;
+    margin: 0 auto;
+  }
+}

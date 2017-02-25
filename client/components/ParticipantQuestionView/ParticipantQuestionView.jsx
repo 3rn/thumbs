@@ -1,5 +1,6 @@
 import React from 'react';
 import socket from '../../config/socket';
+import styles from '../../styles/pages/_ParticipantQuestionView';
 
 class ParticipantQuestionView extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class ParticipantQuestionView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.wrapper}>
         <h1>ParticipantQuestionView</h1>
         <button onClick={this.handleClick} value={1}>Thumbs Up</button>
         <button onClick={this.handleClick} value={2}>Thumbs Middle</button>

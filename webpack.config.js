@@ -29,7 +29,8 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [{
+    loaders: [
+    {
       test: /\.scss$/,
       loaders: [
         'style',

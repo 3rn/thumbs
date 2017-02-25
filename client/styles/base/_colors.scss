@@ -1,0 +1,29 @@
+
+$richard-white: #fff;
+$white: #f1f1f1;
+$ryan-white: #ccc;
+$off-white: #ddd;
+$pale-sky: #6b717f;
+$iron: #C5C3C6;
+$turqoise: #0CA4A5;
+$light-grey: #4C5C68;
+$light-green: #ADFF2F;
+$dark-grey: #46494C;
+$black: #222;
+
+$color-shadow: rgba($black, .125);
+$color-primary: $turqoise;
+$color-accent: $dark-grey;
+$color-background: $white;
+$color-background-shade: $iron;
+$color-background-invert: $black;
+$color-text: darken($pale-sky, 15);
+$color-text-weak: $black;
+$color-text-strong: $dark-grey;
+$color-text-heading: $black;
+$color-text-invert: rgba($color-background, .75);
+$color-text-strong-invert: $color-background;
+$color-text-link: $black;
+$color-text-link-visted: $black;
+$color-text-link-hover: $black;
+$color-border: $iron;

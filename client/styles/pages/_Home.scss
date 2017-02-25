@@ -1,0 +1,72 @@
+@import "../base/colors";
+@import "../base/break-points";
+@import "../base/custom";
+
+
+.container {
+  width: 100%;
+  margin-bottom: 10px;
+  border-bottom: .5px solid $color-shadow;
+}
+
+.enterRoom {
+  float: right;
+  color: $color-shadow;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    font-size: 1.6em;    
+    line-height: 0.2em;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    font-size: 1.6em;    
+    line-height: 0.2em;
+  }
+}
+
+
+.link {
+  background-color: $richard-white;
+  padding: 10px;
+  border-radius: 3px;
+
+
+  input[type=text] {
+    width: 80%; 
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:valid {
+      outline: 0;
+      text-transform: uppercase;
+      
+    }
+  }
+  
+}
+
+.validRoom {
+  color: $light-green;
+}
+
+// .invalidRoom {
+//  color: $light-green; 
+// }
+
+
+
+
+
+// input[type=text]:valid {
+//   outline: 0;
+//   text-transform: uppercase;
+  
+  
+// }
+
+// input[type=text]:valid .enterRoom {
+//   color: green;
+// }

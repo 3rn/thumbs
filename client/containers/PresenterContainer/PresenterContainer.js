@@ -7,6 +7,7 @@ import PresenterPromptView from '../../components/PresenterPromptView/PresenterP
 import PresenterResultsView from '../../components/PresenterResultsView/PresenterResultsView.jsx';
 import { updateVoteStatus } from '../../actions/presenterActions.js';
 import { vote, participantQuestion } from '../../actions/participantActions.js';
+import styles from '../../styles/pages/_PresenterPromptView';
 
 class PresenterContainer extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class PresenterContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.wrapper}>
         {this.getCurrentView()}
         <h3>Participant Questions: { this.props.questionCount }</h3>
       </div>

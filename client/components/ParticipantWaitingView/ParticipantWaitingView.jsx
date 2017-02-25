@@ -1,7 +1,14 @@
 import React from 'react';
 import socket from '../../config/socket.js';
 
+
+import Loading from '../Loading';
+
+import styles from '../../styles/pages/_ParticipantWaitingView';
+
+
 class ParticipantWaitingView extends React.Component {
+
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -13,9 +20,11 @@ class ParticipantWaitingView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.wrapper}>
         <h1>ParticipantWaitingView</h1>
-        <p> Waiting for question from presenter</p>
+        <p> Waiting for question from presenter...</p>
+        <Loading />
+        
         <button onClick={this.handleClick}>I'm Confused</button>
       </div>
     );

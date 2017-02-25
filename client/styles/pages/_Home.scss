@@ -1,20 +1,7 @@
 @import "../base/colors";
 @import "../base/break-points";
+@import "../base/custom";
 
-.wrapper {
-  position: relative;
-
-  padding: 10px;
-
-  // Mobile
-  @media screen and (min-width: $break-phone-min) {
-    top: 50px;  
-  }
-  // Desktop
-  @media screen and (min-width: $break-computer-min) {
-    top: 71px;
-  }
-}
 
 .container {
   width: 100%;
@@ -33,7 +20,8 @@
   }
   // Desktop
   @media screen and (min-width: $break-computer-min) {
-    font-size: 2em;   
+    font-size: 1.6em;    
+    line-height: 0.2em;
   }
 }
 

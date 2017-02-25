@@ -6,6 +6,8 @@
 
 @import "colors";
 
+@import "break-points";
+
 body {
   display: block;
   background-color: $off-white; 
@@ -20,7 +22,6 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
 }
-
 
 
 input[type=text] {

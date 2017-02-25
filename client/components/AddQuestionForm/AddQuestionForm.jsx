@@ -10,13 +10,15 @@ export default class AddQuestionForm extends React.Component {
     this.onQuestionTypeSelect = this.onQuestionTypeSelect.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleQuestionAdd = this.handleQuestionAdd.bind(this);
+    this.handleMultipleChoiceAdd = this.handleMultipleChoiceAdd.bind(this);
   }
 
   getDefaults() {
     return {
       title: '',
       questionType: 'Select A Question Type',
-      graphType: 'Select a Graph Type'
+      graphType: 'Select a Graph Type',
+      content: []
     };
   }
 
@@ -27,18 +29,26 @@ export default class AddQuestionForm extends React.Component {
   handleTitleChange(e) {
     this.setState({title: e.target.value});
   }
+
+  handleMultipleChoiceAdd(choice) {
+    var newContent = this.state.content.slice(0);
+    newContent.push(choice);
+    this.setState({content: newContent});
+  }
   
   handleQuestionAdd() {
     var question = {
+      presentationCode: 'RANT',
       title: this.state.title,
       questionType: this.state.questionType,
-      graphType: this.state.graphType
+      graphType: this.state.graphType,
+      content: this.state.content
     };
+
     this.props.addQuestion(question);
     
     //reset fields
     this.setState(this.getDefaults());
-
   }
 
   render() {
@@ -59,7 +69,10 @@ export default class AddQuestionForm extends React.Component {
         </div>
         
         {this.state.questionType === 'multipleChoice' ?
-          <MultipleChoice />
+          <MultipleChoice 
+            choices={this.state.content} 
+            handleMultipleChoiceAdd={this.handleMultipleChoiceAdd} 
+          />
           : null
         }
         

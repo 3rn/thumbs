@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
-import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView';
-import ResultsView from '../../components/ResultsView/ResultsView';
+import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView.jsx';
+import PresenterResultsView from '../../components/PresenterResultsView/PresenterResultsView.jsx';
 import { updateVoteStatus } from '../../actions/presenterActions.js';
 import { vote, participantQuestion } from '../../actions/participantActions.js';
 import styles from '../../styles/pages/_PresenterPromptView';
@@ -13,53 +13,42 @@ class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    const context = this;
-
     socket.on('vote', (payload) => {
-      context.props.vote(payload.option);
+      this.props.vote(payload.option);
     });
 
     socket.on('participantQuestion', (payload) => {
-      context.props.participantQuestion();
+      this.props.participantQuestion();
     });
 
-    this.sendQuestion = this.sendQuestion.bind(this);
-    this.endVote = this.endVote.bind(this);
-    this.goToPromptView = this.goToPromptView.bind(this);
+    socket.on('startVote', (payload) => {
+      this.props.updateVoteStatus('IN_PROGRESS');
+    });
+
+    socket.on('endVote', (payload) => {
+      this.props.updateVoteStatus('ENDED');
+    });
+
+    socket.on('newVote', (payload) => {
+      this.props.updateVoteStatus('WAITING');
+    });
 
     socket.emit('joinPresentation', {room: this.props.params.room});
   }
 
-  sendQuestion() {
-    socket.emit('startVote', {room: this.props.params.room});
-    this.props.updateVoteStatus('IN_PROGRESS');
-  }
-
-  endVote() {
-    socket.emit('endVote', {room: this.props.params.room});
-    this.props.updateVoteStatus('ENDED');
-  }
-
-  goToPromptView() {
-    this.props.updateVoteStatus('WAITING');
-  }
-
   getCurrentView() {
-    const voteStatus = this.props.voteStatus;
-    if (voteStatus === 'WAITING') {
+    if (this.props.voteStatus === 'WAITING') {
       return (
         <PresenterPromptView
-          sendQuestion={this.sendQuestion}
+          room={this.props.params.room}
         />
       );
     } else {
       return (
-        <ResultsView
-          isPresenter={true}
-          endVote={this.endVote}
-          voteEnded={this.props.voteStatus === 'ENDED'}
-          goToPromptView={this.goToPromptView}
+        <PresenterResultsView
+          room={this.props.params.room}
           data={this.props.thumbsCount}
+          status={this.props.voteStatus}
         />
       );
     }

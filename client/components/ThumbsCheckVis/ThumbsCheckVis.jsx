@@ -8,9 +8,9 @@ export default class ThumbsCheckVis extends React.Component {
 
   render() {
     var data = [
-      {thumb: 1, value: this.props.data[0]},
-      {thumb: 2, value: this.props.data[1]},
-      {thumb: 3, value: this.props.data[2]}
+      {thumb: 'Thumbs Up', value: this.props.data[0]},
+      {thumb: 'Thumbs Middle', value: this.props.data[1]},
+      {thumb: 'Thumbs Down', value: this.props.data[2]}
     ];
 
     return (

@@ -1,5 +1,3 @@
-
-
 module.exports = function(server) {
   const io = require('socket.io')(server);
 
@@ -24,6 +22,10 @@ module.exports = function(server) {
 
     socket.on('endVote', (payload) => {
       io.to(payload.room).emit('endVote', payload);
+    });
+
+    socket.on('newVote', (payload) => {
+      io.to(payload.room).emit('newVote', payload);
     });
 
     socket.on('joinPresentation', (payload) => {

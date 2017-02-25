@@ -44,31 +44,28 @@ class Home extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <div>
+        <div className={styles.container}>
+          <div className={styles.link}>
+            <form id="enterRoom"
+              onSubmit={this.onEnterRoomSubmit}
+            >
 
-          <div className={styles.container}>
-            <div className={styles.link}>
-
-              <form id="enterRoom"
-                onSubmit={this.onEnterRoomSubmit}
-              >
-                <input 
-                  onChange={this.onEnterRoomChange}
-                  
-                  type="text" 
-                  placeholder="Enter Room Code: ABCD"
-                  maxLength="4"
-                  // pattern=".{4,}([a-zA-Z])\w\S+"
-                  // pattern=".{4,}"
-                  required
-                ></input>
-                <button className={styles.enterRoom}>
-                    <span className={(this.state.validRoom)?styles.validRoom:''} >
-                    <i className="fa fa-sign-in" aria-hidden="true"></i>
-                    </span>
-                </button>
-              </form>
-            </div>
+              <input 
+                onChange={this.onEnterRoomChange}
+                
+                type="text" 
+                placeholder="Enter Room Code: ABCD"
+                maxLength="4"
+                // pattern=".{4,}([a-zA-Z])\w\S+"
+                // pattern=".{4,}"
+                required
+              ></input>
+              <button className={styles.enterRoom}>
+                  <span className={(this.state.validRoom)?styles.validRoom:''} >
+                  <i className="fa fa-sign-in" aria-hidden="true"></i>
+                  </span>
+              </button>
+            </form>
           </div>
         </div>
       </div>

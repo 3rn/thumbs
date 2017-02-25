@@ -1,0 +1,32 @@
+@import "../base/colors";
+@import "../base/break-points";
+
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  
+  width: 100%;
+
+  background-color: $richard-white;
+  border-top: .5px solid $white;
+  color: $dark-grey;
+
+  opacity: .5;
+
+  font-size: .8em;
+  text-transform: uppercase;
+  text-align: center;
+  
+}
+
+.wrapper:hover {
+  opacity: .7;
+}
+
+.container {
+  padding: 10px 20px;
+}
+
+.github {
+  margin-left: 5px;
+}

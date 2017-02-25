@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { vote } from '../../actions/participantActions.js';
 import Button from '../../components/Button.jsx';
 import socket from '../../config/socket';
+import styles from '../../styles/pages/_ParticipantQuestionView';
 
 class ParticipantQuestionView extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class ParticipantQuestionView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.wrapper}>
         <h1>ParticipantQuestionView</h1>
         <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[0]} value='1' />
         <Button click={this.handleClick.bind(this)} count={this.props.thumbsCount[1]} value='2' />

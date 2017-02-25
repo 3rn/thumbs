@@ -20,7 +20,7 @@ export default class ParticipantWaitingView extends React.Component {
       <div className={styles.wrapper}>
         <h1>ParticipantWaitingView</h1>
         <p> Waiting for question from presenter...</p>
-        {'<Loading />'}
+        <Loading />
         <button onClick={this.handleClick.bind(this)}>I'm Confused</button>
       </div>
     );

@@ -1,13 +1,18 @@
 @import "break-points";
+@import "colors";
 
 .wrapper {
   position: relative;
 
+  overflow-y: scroll;
+
   padding: 10px;
+  bottom: 30px;
 
   // Mobile
   @media screen and (min-width: $break-phone-min) {
     top: 50px;  
+
   }
   // Desktop
   @media screen and (min-width: $break-computer-min) {
@@ -16,3 +21,68 @@
     margin: 0 auto;
   }
 }
+
+.label {
+  font-size: .7em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $black;
+  opacity: .8;
+  margin-bottom: 8px;
+}
+
+.primaryButton {
+  background-color: $turqoise;
+  color: $white;
+  
+  padding: .8em 1em;
+  border-radius: 3px;
+
+  font-size: .8em;
+  text-transform: uppercase;
+
+  border-bottom: .5px solid $light-grey;
+  margin: .5em;
+  float: right;
+}
+
+.primaryButton:hover {
+  opacity: .8;
+}
+
+.secondaryButton {
+  background-color: $iron;
+  color: $white;
+  
+  padding: .8em 1em;
+  border-radius: 3px;
+
+  font-size: .8em;
+  text-transform: uppercase;
+
+  border-bottom: .5px solid $light-grey;
+  float: right;
+}
+
+.secondaryButton:hover {
+  opacity: .8;
+}
+
+.card {
+  margin: 10px 0;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  border-bottom: .5px solid $iron;
+
+}
+
+/* Clearfix */
+.card:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }

@@ -2,6 +2,8 @@ import React from 'react';
 import ThumbsCheckVis from '../ThumbsCheckVis/ThumbsCheckVis';
 import socket from '../../config/socket';
 
+import styles from '../../styles/pages/_PresenterResultsView';
+
 class PresenterResultsView extends React.Component {
   constructor(props) {
     super(props);
@@ -25,10 +27,9 @@ class PresenterResultsView extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>ResultsView</h1>
-        <button onClick={this.handleClick}>{this.state.buttonName}</button>
+      <div className={styles.card}>
         <ThumbsCheckVis data={this.props.data} />
+        <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>
       </div>
     );
   }

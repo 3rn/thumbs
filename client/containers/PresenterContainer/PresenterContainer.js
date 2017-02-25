@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../../config/socket';
 
+import DeliveryInfo from '../../components/DeliveryInfo/DeliveryInfo.jsx';
+
 import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView.jsx';
 import PresenterResultsView from '../../components/PresenterResultsView/PresenterResultsView.jsx';
 import { updateVoteStatus } from '../../actions/presenterActions.js';
-import { vote, participantQuestion } from '../../actions/participantActions.js';
+import { vote, participantCount, participantQuestion } from '../../actions/participantActions.js';
 import styles from '../../styles/pages/_PresenterPromptView';
 
 class PresenterContainer extends React.Component {
@@ -57,8 +59,15 @@ class PresenterContainer extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
+        
+        <DeliveryInfo 
+          participantCount={this.props.participantCount}
+          questionCount={this.props.questionCount}
+        />
+          
+        
         {this.getCurrentView()}
-        <h3>Participant Questions: { this.props.questionCount }</h3>
+        
       </div>
     );
   }
@@ -68,10 +77,11 @@ const mapStateToProps = state => {
   return {
     voteStatus: state.voteStatus,
     thumbsCount: state.thumbs,
+    participantCount: state.participantCount,
     questionCount: state.participantQuestion
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote, participantQuestion }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote, participantCount, participantQuestion }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

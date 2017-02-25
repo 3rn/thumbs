@@ -11,8 +11,8 @@ class Footer extends React.Component {
   render() {
 
     return (
-        <footer className={styles.wrapper}>
-          <div className={styles.container}>
+        <footer className={styles.footer}>
+          <div className={styles.content}>
           
             <a target="_blank" href="https://github.com/3rn/thumbs">
               All rights reserved Thumbs Incorporated &#169; 2017.

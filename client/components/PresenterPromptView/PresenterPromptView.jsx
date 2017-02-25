@@ -17,13 +17,20 @@ class PresenterPromptView extends React.Component {
   handleClick(e) {
     socket.emit('startVote', {room: this.props.room});
   }
+        // <h1>PresenterPromptView</h1>
 
   render() {
     return (
       
       <div className={styles.container}>
-        <h1>PresenterPromptView</h1>
-        <button onClick={this.handleClick}>Send Thumbs Check</button>
+        <div className={styles.card}>
+          <span className={styles.label}>Question #1</span>
+          <h2>How is the pace of this lecture?</h2>
+          <br/>
+          <div className={styles.right}>
+            <button className={styles.primaryButton} onClick={this.handleClick}>Send Thumbs Check</button>
+          </div>
+        </div>
       </div>
       
     );

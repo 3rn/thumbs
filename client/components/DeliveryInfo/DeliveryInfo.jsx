@@ -14,7 +14,8 @@ class DeliveryInfo extends React.Component {
         <div className={styles.card}>
           
           <div className={styles.label}>Delivery Info</div>
-          <span className={styles.info}>Participants: { this.props.participantCount }</span> |
+          <span className={styles.info}>Participants: { this.props.participantCount }</span> 
+          <span className={styles.separator}></span>
           <span className={styles.info}>Participant Questions: { this.props.questionCount }</span>
         
         </div>

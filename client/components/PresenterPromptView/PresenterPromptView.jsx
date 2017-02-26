@@ -71,7 +71,12 @@ class PresenterPromptView extends React.Component {
   displayOnTheFly() {
     return (
       <div>
-        <button className={styles.primaryButton} onClick={this.handleClick} value="radio">:</button>
+        <div>
+          <input type="text" className="style.primaryButton" placeholder="Optional title..." />
+        </div>
+        <button className={styles.primaryButton} onClick={this.handleClick} value="radio"><i className="fa fa-comment-o" aria-hidden="true"></i></button>
+        <button className={styles.primaryButton} onClick={this.handleClick} value="radio"><i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square-o" aria-hidden="true"></i></button>
+        <button className={styles.primaryButton} onClick={this.handleClick} value="radio"><i className="fa fa-circle-o" aria-hidden="true"></i> <i className="fa fa-circle" aria-hidden="true"></i> <i className="fa fa-circle-o" aria-hidden="true"></i></button>
         <button className={styles.primaryButton} onClick={this.handleClick} value='scale'><i className="fa fa-sliders" aria-hidden="true"></i></button>
         <button className={styles.primaryButton} onClick={this.handleClick} value="thumbs"><i className="fa fa-thumbs-up" aria-hidden="true"></i></button>
         <button className={styles.primaryButton} onClick={this.handleClick} value="yn">Y/N</button>
@@ -83,7 +88,8 @@ class PresenterPromptView extends React.Component {
     return (
       <div>
         <div className={styles.card}>
-        { this.displayOnTheFly() }
+          <div className={styles.label}>Quick Check</div>
+          { this.displayOnTheFly() }
         </div>
         <div className={styles.container}>
           {this.displayQuestions(this.state.questionQueue)}

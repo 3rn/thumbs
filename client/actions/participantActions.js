@@ -1,7 +1,8 @@
-export function vote(voteValue) {
+export function vote(voteValue, questionType) {
   return {
     type: 'UPDATE',
-    value: voteValue
+    value: voteValue,
+    questionType: questionType
   };
 }
 

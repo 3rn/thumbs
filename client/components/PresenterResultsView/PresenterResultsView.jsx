@@ -52,7 +52,6 @@ class PresenterResultsView extends React.Component {
     }
     return (
       <div className={styles.card}>
-        <h1>ResultsView</h1>
         <Visualization data={graphData} questionType={this.props.questionType} choices={this.props.choices} />
         <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>
       </div>

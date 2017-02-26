@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../styles/pages/_ParticipantQuestionView';}
+import styles from '../../../styles/pages/_ParticipantQuestionView';
 
 export default class Thumbs extends React.Component {
   constructor(props) {
@@ -15,3 +15,4 @@ export default class Thumbs extends React.Component {
       </div>
     );
   }
+}

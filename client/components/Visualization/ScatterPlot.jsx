@@ -9,7 +9,6 @@ export default class ScatterPlot extends React.Component {
   render() {
     return (
       <div>
-        <h1> scatter </h1>
         <VictoryChart>
           <VictoryAxis
             />

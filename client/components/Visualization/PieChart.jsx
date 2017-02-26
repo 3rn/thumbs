@@ -9,7 +9,6 @@ export default class PieChart extends React.Component {
   render() {
     return (
       <div>
-        <h1> pie </h1>
           <VictoryPie
             data={this.props.data}
             x="choice"

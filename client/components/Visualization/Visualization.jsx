@@ -34,7 +34,6 @@ export default class Visualization extends React.Component {
   render() {
     return (
       <div>
-        <h1>Results</h1>
         <Selector click={this.handleClick} />
         { this.showVis() }
       </div>

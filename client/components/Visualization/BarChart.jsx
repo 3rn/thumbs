@@ -9,7 +9,6 @@ export default class BarChart extends React.Component {
   render() {
     return (
       <div>
-        <h1> bar </h1>
         <VictoryChart>
           <VictoryAxis
             />

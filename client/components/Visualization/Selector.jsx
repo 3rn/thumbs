@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../styles/pages/_ParticipantQuestionView';
 
 export default class Selector extends React.Component {
   constructor(props) {
@@ -8,9 +9,9 @@ export default class Selector extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.click} value="bar">Bar</button>
-        <button onClick={this.props.click} value="pie">Pie</button>
-        <button onClick={this.props.click} value="plot">Scatter Plot</button>
+        <button className={styles.secondaryButton} onClick={this.props.click} value="bar">Bar</button>
+        <button className={styles.secondaryButton} onClick={this.props.click} value="pie">Pie</button>
+        <button className={styles.secondaryButton} onClick={this.props.click} value="plot">Scatter Plot</button>
       </div>
     );
   }

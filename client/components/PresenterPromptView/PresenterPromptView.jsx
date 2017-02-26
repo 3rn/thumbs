@@ -81,6 +81,27 @@ class PresenterPromptView extends React.Component {
     this.setState({choices: updated});
   }
 
+  showAdd() {
+    if (this.state.questionType === 'radio' || this.state.questionType === 'checkbox') {
+      return (
+        <div>
+          <input type='text' name='choiceInput' onChange={this.handleChange} placeholder='Enter option' />
+          <button onClick={this.handleAdd}> + </button>
+        </div>
+      );
+    }
+  }
+
+  showForm() {
+    if (this.state.questionType === 'radio' || this.state.questionType === 'checkbox') {
+      return this.state.choices.map(function(choice) {
+        return (
+            <li><input type='text' defaultValue={choice} /></li>
+        );
+      });
+    }
+  }
+
   render() {
     return (
       <div className={styles.container}>

@@ -22,6 +22,7 @@ class ParticipantContainer extends React.Component {
     socket.on('startVote', (payload) => {
       this.props.sendQuestion(payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
+      // pass payload.questionType and payload.choices as props into ParticipantQuestionView
     });
 
     socket.on('endVote', (payload) => {

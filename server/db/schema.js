@@ -1,6 +1,6 @@
 // start the postgres server: pg_ctl -D /usr/local/var/postgres start
 // run: psql postgres
-// CREATE DATABASE thumbs; //CASE SENSITIVITE
+// CREATE DATABASE thumbs; //CASE SENSITIVE
 
 var Sequelize = require('sequelize');
 var connection = new Sequelize('thumbs', '', '', {

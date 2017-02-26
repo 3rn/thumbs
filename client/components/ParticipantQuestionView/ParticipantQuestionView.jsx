@@ -2,21 +2,25 @@ import React from 'react';
 import socket from '../../config/socket';
 import styles from '../../styles/pages/_ParticipantQuestionView';
 
+import YesNo from './QuestionTypes/YesNo';
+import Thumbs from './QuestionTypes/Thumbs';
+import Scale from './QuestionTypes/Scale';
+import OpenResponse from './QuestionTypes/OpenResponse';
+import MultipleChoice from './QuestionTypes/MultipleChoice';
+
 class ParticipantQuestionView extends React.Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.showChoices = this.showChoices.bind(this);
-
-    this.state = {
-      value: 5
-    };
   }
 
   handleClick(e) {
     socket.emit('vote', {
       room: this.props.room,
-      option: e.target.value
+      option: e.target.value,
+      questionType: this.props.questionType
     });
   }
 
@@ -25,65 +29,22 @@ class ParticipantQuestionView extends React.Component {
   }
 
   showChoices() {
-    const questionType = this.props.questionType;
-    const handleClick = this.handleClick;
     if (this.props.questionType === 'yn') {
-      return (
-        <div>
-          <button onClick={handleClick} value={1}>Yes</button>
-          <button onClick={handleClick} value={2}>No</button>
-        </div>
-      );
+      return <YesNo click={this.handleClick} />;
     } else if (this.props.questionType === 'thumbs') {
-      return (
-        <div>
-          <button onClick={handleClick} value={1}>Thumbs Up</button>
-          <button onClick={handleClick} value={2}>Thumbs Middle</button>
-          <button onClick={handleClick} value={3}>Thumbs Down</button>
-        </div>
-      );
+      return <Thumbs click={this.handleClick} />;
     } else if (this.props.questionType === 'scale') {
-      console.log('hit scale');
-      return (
-        <div>
-          <pre>
-            1
-            <input
-              type="range"
-              min="0" max="10"
-              defaultValue={this.state.value}
-              onChange={this.handleChange.bind(this)}
-              step="1"/>
-            10
-            <button onClick={handleClick}>Submit</button>
-          </pre>
-        </div>
-      );
+      return <Scale click={this.handleClick} change={this.handleChange} />;
     } else if (this.props.questionType === 'textarea') {
-      return (
-        <div>
-          <input type={questionType} onClick={handleClick} />
-          <button onClick={handleClick}>Submit</button>
-        </div>
-      );
+      return <OpenResponse click={this.handleClick} questionType={this.props.questionType} />;
     } else {
-      return this.props.choices.map(function (choice) {
-        return (
-          <div>
-            <input type={questionType} name='choice' onClick={handleClick} /> { choice }
-          </div>
-        );
-      });
+      return <MultipleChoice click={this.handleClick} choices={this.props.choices} questionType={this.props.questionType} />;
     }
   }
 
   showSubmit() {
     if (this.props.questionType === 'radio' || this.props.questionType === 'checkbox') {
-      return (
-        <div>
-          <button onClick={this.handleClick}>Submit</button>
-        </div>
-      );
+      return <button onClick={this.handleClick}>Submit</button>;
     }
   }
 
@@ -97,13 +58,5 @@ class ParticipantQuestionView extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    thumbsCount: state.thumbs
-  };
-};
-
-const mapDispatchToProps = dispatch => bindActionCreators({ vote }, dispatch);
 
 export default ParticipantQuestionView;

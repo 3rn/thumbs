@@ -42,6 +42,7 @@ class PresenterPromptView extends React.Component {
           key={index + 1}
           index={index + 1}
           element={element}
+          room={this.props.room}
         />
       );
     });

@@ -16,10 +16,9 @@ class PresenterPromptView extends React.Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
+    this.displayOnTheFly = this.displayOnTheFly.bind(this);
 
     this.state = {
       questionQueue: [],
@@ -60,70 +59,84 @@ class PresenterPromptView extends React.Component {
   }
 
   handleClick(e) {
-    socket.emit('startVote', {
-      room: this.props.room,
-      questionType: this.state.questionType,
-      choices: this.state.choices
+    this.setState({questionType: e.target.value}, () => {
+      socket.emit('startVote', {
+        room: this.props.room,
+        questionType: this.state.questionType,
+        choices: this.state.choices
+      });
     });
   }
 
-  handleChange(event) {
-    if (event.target.name === 'choiceInput') {
-      this.setState({choice: event.target.value});
-    } else if (event.target.name === 'questionType') {
-      this.setState({questionType: event.target.value});
-    }
-  }
-
-  handleAdd(e) {
-    var updated = this.state.choices.slice();
-    updated.push(this.state.choice);
-    this.setState({choices: updated});
-  }
-
-  showAdd() {
-    if (this.state.questionType === 'radio' || this.state.questionType === 'checkbox') {
-      return (
-        <div>
-          <input type='text' name='choiceInput' onChange={this.handleChange} placeholder='Enter option' />
-          <button onClick={this.handleAdd}> + </button>
-        </div>
-      );
-    }
-  }
-
-  showForm() {
-    if (this.state.questionType === 'radio' || this.state.questionType === 'checkbox') {
-      return this.state.choices.map(function(choice) {
-        return (
-            <li><input type='text' defaultValue={choice} /></li>
-        );
-      });
-    }
+  displayOnTheFly() {
+    return (
+      <div>
+        <button className={styles.primaryButton} onClick={this.handleClick} value="radio">:</button>
+        <button className={styles.primaryButton} onClick={this.handleClick} value='scale'><i className="fa fa-sliders" aria-hidden="true"></i></button>
+        <button className={styles.primaryButton} onClick={this.handleClick} value="thumbs"><i className="fa fa-thumbs-up" aria-hidden="true"></i></button>
+        <button className={styles.primaryButton} onClick={this.handleClick} value="yn">Y/N</button>
+      </div>
+    );
   }
 
   render() {
     return (
-      <div className={styles.container}>
-        {this.displayQuestions(this.state.questionQueue)}
-          <div>
-            <select name="questionType" value={this.state.questionType} onChange={this.handleChange}>
-              <option value='default' disabled>Select Question Type</option>
-              <option value='yn'>Yes / No</option>
-              <option value='thumbs'>Thumbs</option>
-              <option value='scale'>Scale (1-10)</option>
-              <option value='radio'>Multiple Choice</option>
-              <option value='checkbox'>Checkbox</option>
-              <option value='textarea'>Open Response</option>
-            </select>
-          </div>
-          <Choices questionType={this.state.questionType} choices={this.state.choices} />
-          <AddChoice questionType={this.state.questionType} change={this.handleChange} click={this.handleAdd}/>
-          <button onClick={this.handleClick}>Send Question</button>
-          <h5>PresenterPromptView</h5>
+      <div>
+        <div className={styles.card}>
+        { this.displayOnTheFly() }
+        </div>
+        <div className={styles.container}>
+          {this.displayQuestions(this.state.questionQueue)}
+        </div>
       </div>
     );
   }
 }
 
 export default PresenterPromptView;
+
+// TODO
+//
+// Need to add to QuickAdd bar
+// DONT DELETE
+// <option value='checkbox'>Checkbox</option>
+// <option value='textarea'>Open Response</option>
+
+// Need to render when quick add multiple choice is toggled
+// <Choices questionType={this.state.questionType} choices={this.state.choices} />
+// <AddChoice questionType={this.state.questionType} change={this.handleChange} click={this.handleAdd}/>
+
+// this.handleChange = this.handleChange.bind(this);
+// this.handleAdd = this.handleAdd.bind(this);
+
+// handleChange(event) {
+//   if (event.target.name === 'choiceInput') {
+//     this.setState({choice: event.target.value});
+//   } else if (event.target.name === 'questionType') {
+//     this.setState({questionType: event.target.value});
+//   }
+// }
+// handleAdd(e) {
+//   var updated = this.state.choices.slice();
+//   updated.push(this.state.choice);
+//   this.setState({choices: updated});
+// }
+// showAdd() {
+//   if (this.state.questionType === 'radio' || this.state.questionType === 'checkbox') {
+//     return (
+//       <div>
+//         <input type='text' name='choiceInput' onChange={this.handleChange} placeholder='Enter option' />
+//         <button onClick={this.handleAdd}> + </button>
+//       </div>
+//     );
+//   }
+// }
+// showForm() {
+//   if (this.state.questionType === 'radio' || this.state.questionType === 'checkbox') {
+//     return this.state.choices.map(function(choice) {
+//       return (
+//           <li><input type='text' defaultValue={choice} /></li>
+//       );
+//     });
+//   }
+// }

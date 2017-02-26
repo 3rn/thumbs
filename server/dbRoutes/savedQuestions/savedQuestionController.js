@@ -9,21 +9,20 @@ exports.getQuestions = (req, res) => {
     WHERE
       presentation_code = '${req.params.presentationCode}'`,
     {type: Models.connection.QueryTypes.SELECT}
-  ).then((data) => {
+  ).then(function(data) {
     res.send(data);
   });
 };
 
 exports.postQuestions = (req, res) => {
+  console.log('post req', req.body);
   Models.SavedQuestions.build({
-    'presentation_code': `${req.params.presentationCode}`,
-    'title': 'Test',
-    'question_type': 'Test',
-    'graph_type': 'Test',
-    'content': null
-  }).save().then((data) => {
-    res.send();
-  });
+    'presentation_code': req.body.presentationCode,
+    'title': req.body.title,
+    'question_type': req.body.questionType,
+    'graph_type': req.body.graphType,
+    'content': req.body.content
+  }).save();
 };
 
 exports.getRooms = (req, res) => {

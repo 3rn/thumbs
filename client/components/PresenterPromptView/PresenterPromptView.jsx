@@ -85,7 +85,6 @@ class PresenterPromptView extends React.Component {
     return (
       <div className={styles.container}>
         {this.displayQuestions(this.state.questionQueue)}
-          <h1>PresenterPromptView</h1>
           <div>
             <select name="questionType" value={this.state.questionType} onChange={this.handleChange}>
               <option value='default' disabled>Select Question Type</option>
@@ -100,6 +99,7 @@ class PresenterPromptView extends React.Component {
           <Choices questionType={this.state.questionType} choices={this.state.choices} />
           <AddChoice questionType={this.state.questionType} change={this.handleChange} click={this.handleAdd}/>
           <button onClick={this.handleClick}>Send Question</button>
+          <h5>PresenterPromptView</h5>
       </div>
     );
   }

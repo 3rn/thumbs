@@ -16,7 +16,7 @@ class ParticipantContainer extends React.Component {
     socket.emit('joinPresentation', {room: this.props.params.room});
 
     socket.on('vote', (payload) => {
-      this.props.vote(payload.option);
+      this.props.vote(payload.option, payload.quesitonType);
     });
 
     socket.on('startVote', (payload) => {

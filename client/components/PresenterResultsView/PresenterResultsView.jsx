@@ -2,6 +2,8 @@ import React from 'react';
 import Visualization from '../Visualization/Visualization';
 import socket from '../../config/socket';
 
+import styles from '../../styles/pages/_PresenterResultsView';
+
 class PresenterResultsView extends React.Component {
   constructor(props) {
     super(props);
@@ -49,10 +51,10 @@ class PresenterResultsView extends React.Component {
       ];
     }
     return (
-      <div>
+      <div className={styles.card}>
         <h1>ResultsView</h1>
-        <button onClick={this.handleClick}>{this.state.buttonName}</button>
         <Visualization data={graphData} questionType={this.props.questionType} choices={this.props.choices} />
+        <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>
       </div>
     );
   }

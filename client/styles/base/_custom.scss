@@ -1,18 +1,115 @@
 @import "break-points";
+@import "colors";
 
 .wrapper {
   position: relative;
 
-  padding: 10px;
+  overflow-y: scroll;
+
+  padding: 10px 0 40px;
+  bottom: 30px;
+  margin-bottom: 40px;
 
   // Mobile
   @media screen and (min-width: $break-phone-min) {
     top: 50px;  
+
   }
   // Desktop
-  @media screen and (min-width: $break-computer-min) {
+  @media screen and (min-width: $break-phone-max) {
     top: 71px;
     width: 40%;
     margin: 0 auto;
   }
+}
+
+.label {
+  font-size: .7em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $black;
+  opacity: .8;
+  margin-bottom: 8px;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    margin-bottom: 8px;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    margin-bottom: 16px;
+    
+  }
+}
+
+.primaryButton {
+  background-color: $turqoise;
+  color: $white;
+  
+  padding: .8em 1em;
+  border-radius: 3px;
+
+  font-size: .8em;
+  text-transform: uppercase;
+
+  border-bottom: .5px solid $light-grey;
+  margin: .5em;
+  float: right;
+}
+
+.primaryButton:hover {
+  opacity: .8;
+}
+
+.secondaryButton {
+  background-color: $iron;
+  color: $white;
+  
+  padding: .8em 1em;
+  border-radius: 3px;
+
+  font-size: .8em;
+  text-transform: uppercase;
+
+  border-bottom: .5px solid $light-grey;
+  float: right;
+}
+
+.secondaryButton:hover {
+  opacity: .8;
+}
+
+.card {
+  margin: 10px;
+  background-color: white;
+  border-radius: 5px;
+  
+  border-bottom: .5px solid $iron;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    top: 50px;  
+    padding: 20px;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    top: 71px;
+    padding: 20px;
+    
+  }
+}
+
+/* Clearfix */
+.card:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
+
+.separator {
+  margin: 0 10px;
+  border-right: .5px solid $light-grey;
 }

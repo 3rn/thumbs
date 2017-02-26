@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { actions } from '../actions/index.js';
+import axios from 'axios';
+
+import QuestionPrompt from '../QuestionPrompt/QuestionPrompt';
 import styles from '../../styles/pages/_PresenterPromptView';
 import socket from '../../config/socket';
 
@@ -16,12 +18,45 @@ class PresenterPromptView extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
+    this.displayQuestions = this.displayQuestions.bind(this);
 
     this.state = {
+      questionQueue: [],
       questionType: 'default',
       choice: '',
       choices: []
     };
+
+    this.getQuestions();
+  }
+
+  getQuestions() {
+    const context = this;
+
+    axios.get(`/db/savedQuestions/getQuestions/${this.props.room}`)
+    .then(function (response) {
+      var questions = response.data.map((element) => (element));
+      context.setState({questionQueue: questions});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  displayQuestions(questionArray) {
+    var questions = questionArray.map((element, index) => {
+      return (
+        <QuestionPrompt
+          key={index + 1}
+          index={index + 1}
+          element={element}
+          room={this.props.room}
+        />
+      );
+    });
+
+    return questions;
   }
 
   handleClick(e) {
@@ -49,6 +84,7 @@ class PresenterPromptView extends React.Component {
   render() {
     return (
       <div className={styles.container}>
+        {this.displayQuestions(this.state.questionQueue)}
           <h1>PresenterPromptView</h1>
           <div>
             <select name="questionType" value={this.state.questionType} onChange={this.handleChange}>

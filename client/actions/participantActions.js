@@ -6,6 +6,12 @@ export function vote(voteValue, questionType) {
   };
 }
 
+export function participantCount() {
+  return {
+    type: 'PARTICIPANT_COUNT'
+  }
+}
+
 export function participantQuestion() {
   return {
     type: 'PARTICIPANT_QUESTION'

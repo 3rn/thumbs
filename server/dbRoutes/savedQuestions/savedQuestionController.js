@@ -15,12 +15,13 @@ exports.getQuestions = (req, res) => {
 };
 
 exports.postQuestions = (req, res) => {
+  console.log('post req', req.body);
   Models.SavedQuestions.build({
-    'presentation_code': '',
-    'title': '',
-    'question_type': '',
-    'graph_type': '',
-    'content': ''
+    'presentation_code': req.body.presentationCode,
+    'title': req.body.title,
+    'question_type': req.body.questionType,
+    'graph_type': req.body.graphType,
+    'content': req.body.content
   }).save();
 };
 

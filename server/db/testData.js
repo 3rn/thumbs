@@ -11,7 +11,7 @@ Models.SavedQuestions.build({
 Models.SavedQuestions.build({
   'presentation_code': 'ABCD',
   'title': 'Favorite Flavor of Ice Cream?',
-  'question_type': 'mult',
+  'question_type': 'mult-box',
   'graph_type': 'pie',
   'content': ['Vanilla', 'Chocolate', 'Strawberry', 'Mint Chocolate Chip']
 }).save();
@@ -35,7 +35,7 @@ Models.SavedQuestions.build({
 Models.SavedQuestions.build({
   'presentation_code': 'RANT',
   'title': 'Would you rather fight 100 duck-sized horses or one horse-sized duck?',
-  'question_type': 'mult',
+  'question_type': 'mult-rad',
   'graph_type': 'pie',
   'content': ['100 duck-sized horses', 'one horse-sized duck']
 }).save();

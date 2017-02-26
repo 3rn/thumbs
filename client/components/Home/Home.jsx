@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/pages/_Home';
+import axios from 'axios';
 
 import { Link, browserHistory } from 'react-router';
 
@@ -9,35 +10,45 @@ class Home extends React.Component {
 
     this.state = {
       validRoom: false,
-      roomCode: ''
-    }
+      roomCode: '',
+      availableRooms: []
+    };
 
     this.onEnterRoomChange = this.onEnterRoomChange.bind(this);
     this.onEnterRoomSubmit = this.onEnterRoomSubmit.bind(this);
+    this.findRooms = this.findRooms.bind(this);
+
+    this.findRooms();
   }
-          // <ul>
-          //   <li><Link to="/participant">Participant View</Link></li>
-          //   <li><Link to="/presenter">Presenter View</Link></li>
-          // </ul>
 
+  findRooms() {
+    const context = this;
 
-  enterRoom () {
+    axios.get('/db/savedQuestions/getRooms')
+    .then(function (response) {
+      var rooms = response.data.map((element) => (element.presentation_code));
+      context.setState({availableRooms: rooms});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
+  enterRoom() {
   }
 
   onEnterRoomChange(e) {
     let roomCode = e.target.value.toUpperCase();
-  
-    if (roomCode.length === 4 && roomCode === 'ASDF') {
+
+    if (roomCode.length === 4 && this.state.availableRooms.indexOf(roomCode) >= 0) {
       this.setState({'validRoom': true, 'roomCode': roomCode });
     } else {
       this.setState({'validRoom': false});
     }
-
   }
 
   onEnterRoomSubmit(e) {
-    browserHistory.push('/part/' + this.state.roomCode );
+    this.state.validRoom && browserHistory.push('/part/' + this.state.roomCode);
     e.preventDefault();
   }
 
@@ -46,13 +57,9 @@ class Home extends React.Component {
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <div className={styles.link}>
-            <form id="enterRoom"
-              onSubmit={this.onEnterRoomSubmit}
-            >
-
+            <form id="enterRoom" onSubmit={this.onEnterRoomSubmit}>
               <input 
                 onChange={this.onEnterRoomChange}
-                
                 type="text" 
                 placeholder="Enter Room Code: ABCD"
                 maxLength="4"
@@ -61,13 +68,16 @@ class Home extends React.Component {
                 required
               ></input>
               <button className={styles.enterRoom}>
-                  <span className={(this.state.validRoom)?styles.validRoom:''} >
+                  <span className={(this.state.validRoom) ? styles.validRoom : ''} >
                   <i className="fa fa-sign-in" aria-hidden="true"></i>
                   </span>
               </button>
             </form>
           </div>
         </div>
+        <ul>
+          <li><Link to="/presentations">Setup Presentation</Link></li>
+        </ul>
       </div>
     );
   }

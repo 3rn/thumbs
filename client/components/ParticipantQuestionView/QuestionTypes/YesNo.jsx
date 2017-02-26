@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../../styles/pages/_ParticipantQuestionView';
 
 export default class YesNo extends React.Component {
   constructor(props) {
@@ -7,9 +8,9 @@ export default class YesNo extends React.Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.props.click} value={1}>Yes</button>
-        <button onClick={this.props.click} value={2}>No</button>
+      <div className={styles.card}>
+        <button className={styles.primaryButton} onClick={this.props.click} value={2}>No</button>
+        <button className={styles.primaryButton} onClick={this.props.click} value={1}>Yes</button>
       </div>
     );
   }

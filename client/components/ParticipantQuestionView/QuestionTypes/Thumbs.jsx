@@ -8,7 +8,7 @@ export default class Thumbs extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.card}>
         <button className={styles.secondaryButton} onClick={this.props.click} value={1}>Thumbs Up</button>
         <button className={styles.secondaryButton} onClick={this.props.click} value={2}>Thumbs Middle</button>
         <button className={styles.secondaryButton} onClick={this.props.click} value={3}>Thumbs Down</button>

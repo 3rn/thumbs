@@ -15,13 +15,16 @@ class QuestionPrompt extends React.Component {
   }
 
   handleClick(e) {
-    socket.emit('startVote', {room: this.props.room});
+    socket.emit('startVote', {
+      room: this.props.room,
+      questionType: this.props.questionType,
+      choices: this.props.choices
+    });
   }
-        // <h1>QuestionPrompt</h1>
 
   render() {
     return (
-      
+
       <div className={styles.container}>
         <div className={styles.card}>
           <div className={styles.label}>Question #{this.props.index}</div>
@@ -34,7 +37,7 @@ class QuestionPrompt extends React.Component {
           </div>
         </div>
       </div>
-      
+
     );
   }
 }

@@ -29,7 +29,7 @@ class ParticipantQuestionView extends React.Component {
   }
 
   showChoices() {
-    if (this.props.questionType === 'yn') {
+    if (this.props.questionType === 'yes-no') {
       return <YesNo click={this.handleClick} />;
     } else if (this.props.questionType === 'thumbs') {
       return <Thumbs click={this.handleClick} />;

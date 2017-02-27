@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../../styles/pages/_ParticipantQuestionView';
 
 export default class MultipleChoice extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ export default class MultipleChoice extends React.Component {
   mapChoices() {
     const questionType = this.props.questionType;
     const click = this.props.click;
-    
+
     return this.props.choices.map(function (choice) {
       return (
         <div>
@@ -20,7 +21,7 @@ export default class MultipleChoice extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.card}>
         { this.mapChoices() }
       </div>
     );

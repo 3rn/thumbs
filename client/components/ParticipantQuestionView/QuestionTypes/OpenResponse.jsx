@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../../styles/pages/_ParticipantQuestionView';
 
 export default class OpenResponse extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class OpenResponse extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.card}>
         <input type={this.props.questionType} onClick={this.props.click} />
         <button onClick={this.props.click}>Submit</button>
       </div>

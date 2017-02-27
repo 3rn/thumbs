@@ -23,7 +23,7 @@ class ParticipantWaitingView extends React.Component {
       <div className={styles.wrapper}>
         <div className={styles.card}>
           <h1>In room: {this.props.room}</h1>
-          <p> Waiting for question from presenter...</p>
+          <p className={styles.details}> Waiting for question from presenter...</p>
           <Loading />
           <button className={styles.primaryButton} onClick={this.handleClick}>I'm Confused</button>
         </div>

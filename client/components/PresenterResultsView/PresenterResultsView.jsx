@@ -38,6 +38,7 @@ class PresenterResultsView extends React.Component {
         {choice: 'No', value: this.props.data[1]}
       ];
     } else if (this.props.questionType === 'scale') {
+      console.log('look', this.props.data);
       var graphData = [
         {choice: '1', value: this.props.data[0]},
         {choice: '2', value: this.props.data[1]},

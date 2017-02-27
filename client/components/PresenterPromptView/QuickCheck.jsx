@@ -25,13 +25,14 @@ export default class QuickCheck extends React.Component {
           <button className={`fa fa-thumbs-up ${styles.quickCheckButton}`} onClick={this.handleClick} aria-hidden="true" value="thumbs" />
           <button className={`fa fa-sliders ${styles.quickCheckButton}`} onClick={this.handleClick} value='scale' />
           <button className={`fa fa-comment-o ${styles.quickCheckButton}`} onClick={this.handleClick} value="textarea" />
-          <button className={styles.quickCheckButton} onClick={this.handleClick} value="radio"><i className="fa fa-circle-o" aria-hidden="true"></i> <i className="fa fa-circle" aria-hidden="true"></i> <i className="fa fa-circle-o" aria-hidden="true"></i></button>
-          <button className={styles.quickCheckButton} onClick={this.handleClick} value="checkbox"><i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square-o" aria-hidden="true"></i></button>
       </div>
     );
   }
 }
 
+// Add to QuickAdd after MVP
+// <button className={styles.quickCheckButton} onClick={this.handleClick} value="radio"><i className="fa fa-circle-o" aria-hidden="true"></i> <i className="fa fa-circle" aria-hidden="true"></i> <i className="fa fa-circle-o" aria-hidden="true"></i></button>
+// <button className={styles.quickCheckButton} onClick={this.handleClick} value="checkbox"><i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square-o" aria-hidden="true"></i></button>
 // <input type="text" className="" placeholder="Title..." />
 
 // handleClick(e) {

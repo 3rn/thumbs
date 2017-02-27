@@ -17,6 +17,7 @@ class ParticipantQuestionView extends React.Component {
   }
 
   handleClick(e) {
+    console.log(e);
     socket.emit('vote', {
       room: this.props.room,
       option: e.target.value,
@@ -29,7 +30,6 @@ class ParticipantQuestionView extends React.Component {
   }
 
   showChoices() {
-    console.log(this.props.questionType);
     if (this.props.questionType === 'yes-no') {
       return <YesNo click={this.handleClick} />;
     } else if (this.props.questionType === 'thumbs') {

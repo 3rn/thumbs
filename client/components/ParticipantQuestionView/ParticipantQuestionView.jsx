@@ -29,6 +29,7 @@ class ParticipantQuestionView extends React.Component {
   }
 
   showChoices() {
+    console.log(this.props.questionType);
     if (this.props.questionType === 'yes-no') {
       return <YesNo click={this.handleClick} />;
     } else if (this.props.questionType === 'thumbs') {
@@ -51,7 +52,6 @@ class ParticipantQuestionView extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h1>ParticipantQuestionView</h1>
         { this.showChoices() }
         { this.showSubmit() }
       </div>

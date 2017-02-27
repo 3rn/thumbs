@@ -25,7 +25,7 @@ export default class PresentationQuestions extends React.Component {
     var context = this;
     axios.get('/db/savedQuestions/getQuestions/' + presenterCode)
     .then(function (response) {
-      debugger;
+      // debugger;
       var questions = [];
       response.data.map((q) => {
         questions.push({
@@ -58,12 +58,14 @@ export default class PresentationQuestions extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h1>Questions For My Presentation</h1>
-        {this.state.questions.map((q, i) => (
-            <div key={i}> {'Q' + (i + 1) + '. ' + q.title} </div>)
-          )
-        }
-        <AddQuestionForm addQuestion={this.addQuestion} />
+        <div className={styles.card}>
+          <h1>Questions For My Presentation</h1>
+          {this.state.questions.map((q, i) => (
+              <div className={styles.question} key={i}> {'Q' + (i + 1) + '. ' + q.title} </div>)
+            )
+          }
+          <AddQuestionForm addQuestion={this.addQuestion} />
+        </div>
       </div>
     );
   }

@@ -9,16 +9,14 @@ import socket from '../../config/socket';
 
 import AddChoice from './AddChoice';
 import Choices from './Choices';
-
+import QuickCheck from './QuickCheck';
 
 class PresenterPromptView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
-    this.displayOnTheFly = this.displayOnTheFly.bind(this);
 
     this.state = {
       questionQueue: [],
@@ -32,7 +30,6 @@ class PresenterPromptView extends React.Component {
 
   getQuestions() {
     const context = this;
-
     axios.get(`/db/savedQuestions/getQuestions/${this.props.room}`)
     .then(function (response) {
       var questions = response.data.map((element) => (element));
@@ -56,43 +53,13 @@ class PresenterPromptView extends React.Component {
         />
       );
     });
-
     return questions;
-  }
-
-  handleClick(e) {
-    this.setState({questionType: e.target.value}, () => {
-      socket.emit('startVote', {
-        room: this.props.room,
-        questionType: this.state.questionType,
-        choices: this.state.choices
-      });
-    });
-  }
-
-  displayOnTheFly() {
-    return (
-      <div>
-        <div>
-          <input type="text" className="style.primaryButton" placeholder="Optional title..." />
-        </div>
-        <button className={styles.primaryButton} onClick={this.handleClick} value="radio"><i className="fa fa-comment-o" aria-hidden="true"></i></button>
-        <button className={styles.primaryButton} onClick={this.handleClick} value="radio"><i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square-o" aria-hidden="true"></i></button>
-        <button className={styles.primaryButton} onClick={this.handleClick} value="radio"><i className="fa fa-circle-o" aria-hidden="true"></i> <i className="fa fa-circle" aria-hidden="true"></i> <i className="fa fa-circle-o" aria-hidden="true"></i></button>
-        <button className={styles.primaryButton} onClick={this.handleClick} value='scale'><i className="fa fa-sliders" aria-hidden="true"></i></button>
-        <button className={styles.primaryButton} onClick={this.handleClick} value="thumbs"><i className="fa fa-thumbs-up" aria-hidden="true"></i></button>
-        <button className={styles.primaryButton} onClick={this.handleClick} value="yes-no">Y/N</button>
-      </div>
-    );
   }
 
   render() {
     return (
       <div>
-        <div className={styles.card}>
-          <div className={styles.label}>Quick Check</div>
-          { this.displayOnTheFly() }
-        </div>
+          <QuickCheck room={this.props.room} />
         <div className={styles.container}>
           {this.displayQuestions(this.state.questionQueue)}
         </div>
@@ -105,10 +72,7 @@ export default PresenterPromptView;
 
 // TODO
 //
-// Need to add to QuickAdd bar
 // DONT DELETE
-// <option value='checkbox'>Checkbox</option>
-// <option value='textarea'>Open Response</option>
 
 // Need to render when quick add multiple choice is toggled
 // <Choices questionType={this.state.questionType} choices={this.state.choices} />

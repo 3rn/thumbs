@@ -12,7 +12,7 @@
 
   // Mobile
   @media screen and (min-width: $break-phone-min) {
-    top: 50px;  
+    top: 50px;
 
   }
   // Desktop
@@ -38,14 +38,47 @@
   // Desktop
   @media screen and (min-width: $break-computer-min) {
     margin-bottom: 16px;
-    
+
   }
 }
+
+.quickCheckButton {
+  color: $turqoise;
+
+  padding: .8em .8em;
+
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.quickCheckButton:hover {
+  opacity: .8;
+}
+
+.selectButton {
+  background-color: $turqoise;
+  color: $white;
+
+  padding: .8em 1em;
+  border-radius: 3px;
+
+  font-size: .8em;
+  text-transform: uppercase;
+
+  border-bottom: .5px solid $light-grey;
+  margin: .5em;
+  width: 100%;
+}
+
+.selectButton:hover {
+  opacity: .8;
+}
+
 
 .primaryButton {
   background-color: $turqoise;
   color: $white;
-  
+
   padding: .8em 1em;
   border-radius: 3px;
 
@@ -64,7 +97,7 @@
 .secondaryButton {
   background-color: $iron;
   color: $white;
-  
+
   padding: .8em 1em;
   border-radius: 3px;
 
@@ -83,19 +116,19 @@
   margin: 10px;
   background-color: white;
   border-radius: 5px;
-  
+
   border-bottom: .5px solid $iron;
 
   // Mobile
   @media screen and (min-width: $break-phone-min) {
-    top: 50px;  
+    top: 50px;
     padding: 20px;
   }
   // Desktop
   @media screen and (min-width: $break-computer-min) {
     top: 71px;
     padding: 20px;
-    
+
   }
 }
 
@@ -112,4 +145,93 @@
 .separator {
   margin: 0 10px;
   border-right: .5px solid $light-grey;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12.8px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: $turqoise;
+  border-radius: 25px;
+  border: 0px solid #000101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 0px solid #000000;
+  height: 20px;
+  width: 39px;
+  border-radius: 7px;
+  background: $light-grey;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -3.6px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: $turqoise;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 12.8px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: $turqoise;
+  border-radius: 25px;
+  border: 0px solid #000101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 0px solid #000000;
+  height: 20px;
+  width: 39px;
+  border-radius: 7px;
+  background: $light-grey;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 12.8px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 39px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: $turqoise;
+  border: 0px solid #000101;
+  border-radius: 50px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range]::-ms-fill-upper {
+  background: $turqoise;
+  border: 0px solid #000101;
+  border-radius: 50px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 0px solid #000000;
+  height: 20px;
+  width: 39px;
+  border-radius: 7px;
+  background: $light-grey;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: $turqoise;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: $turqoise;
 }

@@ -17,6 +17,7 @@ class ParticipantQuestionView extends React.Component {
   }
 
   handleClick(e) {
+    console.log(e);
     socket.emit('vote', {
       room: this.props.room,
       option: e.target.value,
@@ -51,7 +52,6 @@ class ParticipantQuestionView extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h1>ParticipantQuestionView</h1>
         { this.showChoices() }
         { this.showSubmit() }
       </div>

@@ -7,8 +7,10 @@ import DeliveryInfo from '../../components/DeliveryInfo/DeliveryInfo.jsx';
 
 import PresenterPromptView from '../../components/PresenterPromptView/PresenterPromptView.jsx';
 import PresenterResultsView from '../../components/PresenterResultsView/PresenterResultsView.jsx';
-import { updateVoteStatus } from '../../actions/presenterActions.js';
+
+import { updateVoteStatus, sendQuestion } from '../../actions/presenterActions.js';
 import { vote, participantCount, participantQuestion } from '../../actions/participantActions.js';
+
 import styles from '../../styles/pages/_PresenterPromptView';
 
 class PresenterContainer extends React.Component {
@@ -24,6 +26,7 @@ class PresenterContainer extends React.Component {
     });
 
     socket.on('startVote', (payload) => {
+      this.props.sendQuestion(payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
     });
 
@@ -49,8 +52,10 @@ class PresenterContainer extends React.Component {
       return (
         <PresenterResultsView
           room={this.props.params.room}
-          data={this.props.thumbsCount}
           status={this.props.voteStatus}
+          data={this.props.thumbsCount}
+          questionType={this.props.questionType}
+          choices={this.props.choices}
         />
       );
     }
@@ -59,15 +64,15 @@ class PresenterContainer extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        
-        <DeliveryInfo 
+
+        <DeliveryInfo
           participantCount={this.props.participantCount}
           questionCount={this.props.questionCount}
         />
-          
-        
+
+
         {this.getCurrentView()}
-        
+
       </div>
     );
   }
@@ -75,13 +80,15 @@ class PresenterContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    voteStatus: state.voteStatus,
+    voteStatus: state.voteStatus.status,
     thumbsCount: state.thumbs,
+    questionType: state.voteStatus.questionType,
+    choices: state.voteStatus.choices,
     participantCount: state.participantCount,
     questionCount: state.participantQuestion
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote, participantCount, participantQuestion }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, vote, sendQuestion, participantCount, participantQuestion }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

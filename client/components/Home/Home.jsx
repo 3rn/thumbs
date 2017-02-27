@@ -73,6 +73,9 @@ class Home extends React.Component {
             </button> 
           </form>
         </div>
+        <ul>
+          <li><Link to="/presentations">Setup Presentation</Link></li>
+        </ul>
       </div>
       
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import MultipleChoice from '../MultipleChoice/MultipleChoice';
+import styles from '../../styles/components/_questionForm';
 
 export default class AddQuestionForm extends React.Component {
   constructor(props) {
@@ -85,7 +86,7 @@ export default class AddQuestionForm extends React.Component {
           </select>
         </div>
 
-        <button onClick={this.handleQuestionAdd}> Add Question </button>
+        <button className={styles.primaryButton} onClick={this.handleQuestionAdd}> Add Question </button>
       </div>
     );
   }

@@ -32,7 +32,7 @@ class PresenterResultsView extends React.Component {
         {choice: 'Thumbs Middle', value: this.props.data[1]},
         {choice: 'Thumbs Down', value: this.props.data[2]}
       ];
-    } else if (this.props.questionType === 'yn') {
+    } else if (this.props.questionType === 'yes-no') {
       var graphData = [
         {choice: 'Yes', value: this.props.data[0]},
         {choice: 'No', value: this.props.data[1]}

@@ -50,6 +50,8 @@ class PresenterPromptView extends React.Component {
           key={index + 1}
           index={index + 1}
           element={element}
+          choices={element.content}
+          questionType={element.question_type}
           room={this.props.room}
         />
       );
@@ -79,7 +81,7 @@ class PresenterPromptView extends React.Component {
         <button className={styles.primaryButton} onClick={this.handleClick} value="radio"><i className="fa fa-circle-o" aria-hidden="true"></i> <i className="fa fa-circle" aria-hidden="true"></i> <i className="fa fa-circle-o" aria-hidden="true"></i></button>
         <button className={styles.primaryButton} onClick={this.handleClick} value='scale'><i className="fa fa-sliders" aria-hidden="true"></i></button>
         <button className={styles.primaryButton} onClick={this.handleClick} value="thumbs"><i className="fa fa-thumbs-up" aria-hidden="true"></i></button>
-        <button className={styles.primaryButton} onClick={this.handleClick} value="yn">Y/N</button>
+        <button className={styles.primaryButton} onClick={this.handleClick} value="yes-no">Y/N</button>
       </div>
     );
   }

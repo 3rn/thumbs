@@ -1,7 +1,32 @@
 const router = require('express').Router();
 
-const questions = require('./savedQuestions/savedQuestionRoutes.js');
+// V0
+const savedQuestions = require('./savedQuestions/savedQuestionRoutes.js');
 
-router.use('/savedQuestions', questions);
+// V1
+const User = require('./User/UserRoutes.js');
+const ReservedCode = require('./ReservedCode/ReservedCodeRoutes.js');
+const Lecture = require('./Lecture/LectureRoutes.js');
+const Delivery = require('./Delivery/DeliveryRoutes.js');
+const Question = require('./Question/QuestionRoutes.js');
+const QuestionType = require('./QuestionType/QuestionTypeRoutes.js');
+const MultipleChoice = require('./MultipleChoice/MultipleChoiceRoutes.js');
+const Response = require('./Response/ResponseRoutes.js');
+
+
+// V0
+router.use('/savedQuestions', savedQuestions);
+
+// V1
+router.use('/u', User);
+router.use('/c', ReservedCode);
+router.use('/l', Lecture);
+router.use('/d', Delivery);
+router.use('/q', Question);
+router.use('/qt', QuestionType);
+router.use('/mc', MultipleChoice);
+router.use('/r', Response);
+
+
 
 module.exports = router;

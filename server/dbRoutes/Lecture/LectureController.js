@@ -1,8 +1,8 @@
 var Models = require('../../db/schema.js');
 
 
-var getUser = (req, res) => {
-  console.log('UserController: Getting user');
+var getLecture = (req, res) => {
+  console.log('LectureController: Getting Lecture');
   Models.connection.query(
     // `SQL Queury`
     {type: Models.connection.QueryTypes.SELECT}
@@ -12,8 +12,8 @@ var getUser = (req, res) => {
 }
 
 
-var postUser = (req, res) => {
-  console.log('UserController: Creating user');
+var postLecture = (req, res) => {
+  console.log('LectureController: Creating Lecture');
   Models.SavedQuestions.build({
     
   }).save();
@@ -21,6 +21,6 @@ var postUser = (req, res) => {
 
 
 module.exports = {
-  get: getUser,
-  post: postUser
+  'get': getLecture,
+  'post': postLecture
 }

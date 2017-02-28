@@ -1,7 +1,7 @@
 module.exports = function(connection, Sequelize) {
-  return connection.define('delivery',
+  return connection.define('question',
   {
-    'notes': Sequelize.TEXT
+    'title': Sequelize.STRING(40)
     }, {
     'underscored': true
   });

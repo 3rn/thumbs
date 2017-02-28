@@ -10,7 +10,7 @@ const connection = new Sequelize('thumbs', '', '', {
 });
 
 
-
+// V0
 var SavedQuestions = connection.define('saved_questions',
   {
     'presentation_code': Sequelize.STRING,
@@ -26,61 +26,37 @@ var SavedQuestions = connection.define('saved_questions',
 // Notes:
 // createdAt & updatedAt automatically included
 
-
-// var User = connection.define('user',
-//   {
-//     'user_name': Sequelize.STRING
-//   }, {
-//     'underscored': true
-//   }
-// );
-
-
-var define = function(model) {
+const define = function(model) {
     return require(`../dbRoutes/${model}/${model}Model.js`)(connection, Sequelize);
 }
 
-let models = {
-  'User': define('User')
+// V1
 
-}
-
-
-
-
-
-
-//var User = require('../dbRoutes/User/UserModel.js')(connection, Sequelize);
-
-var Code = require('../dbRoutes/Code/CodeModel.js')(connection, Sequelize);
-
-var Lecture = require('../dbRoutes/Lecture/LectureModel.js')(connection, Sequelize);
-
-var Delivery = require('../dbRoutes/Delivery/DeliveryModel.js')(connection, Sequelize);
-
-var Question = require('../dbRoutes/Question/QuestionModel.js')(connection, Sequelize);
-
-var QuestionType = require('../dbRoutes/QuestionType/QuestionTypeModel.js')(connection, Sequelize);
-
-var MultipleChoice = require('../dbRoutes/MultipleChoice/MultipleChoiceModel.js')(connection, Sequelize);
-
-var Response = require('../dbRoutes/Response/ResponseModel.js')(connection, Sequelize);
+// Models
+const User = define('User');
+const Code = define('Code');
+const Lecture = define('Lecture');
+const Delivery = define('Delivery');
+const Question = define('Question');
+const QuestionType = define('QuestionType');
+const MultipleChoice = define('MultipleChoice');
+const Response = define('Response')
 
 
 // Associations
 // Source => Target
-Lecture.belongsTo(models.User);
+Lecture.belongsTo(User);
 
-// Code.belongsTo(User);
+Code.belongsTo(User);
 
-// User.hasOne(Delivery);
+User.hasOne(Delivery);
 
-// Response.belongsTo(Delivery);
-// Response.belongsTo(Question);
+Response.belongsTo(Delivery);
+Response.belongsTo(Question);
 
-// Question.belongsTo(Delivery);
-// Question.hasMany(MultipleChoice);
-// Question.belongsTo(QuestionType);
+Question.belongsTo(Delivery);
+Question.hasMany(MultipleChoice);
+Question.belongsTo(QuestionType);
 
 
 module.exports = {

@@ -1,4 +1,4 @@
-var Models = require('../../db/schema.js');
+var Models = require('../../schema.js');
 
 var getResponse = (req, res) => {
   console.log('Response Controller: getting Response');

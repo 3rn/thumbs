@@ -1,4 +1,4 @@
-var Models = require('../../db/schema.js');
+var Models = require('../../schema.js');
 
 
 var getUser = (req, res) => {
@@ -21,6 +21,6 @@ var postUser = (req, res) => {
 
 
 module.exports = {
-  get: getUser,
-  post: postUser
+  'get': getUser,
+  'post': postUser
 }

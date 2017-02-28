@@ -1,4 +1,4 @@
-var Models = require('../../db/schema.js');
+var Models = require('../../schema.js');
 
 exports.getQuestions = (req, res) => {
   Models.connection.query(

@@ -1,4 +1,4 @@
-var Models = require('../../db/schema.js');
+var Models = require('../../schema.js');
 
 var getMultipleChoice = (req, res) => {
   console.log('MultipleChoice Controller: getting MultipleChoice');

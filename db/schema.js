@@ -27,7 +27,7 @@ var SavedQuestions = connection.define('saved_questions',
 // createdAt & updatedAt automatically included
 
 const define = function(model) {
-    return require(`../dbRoutes/${model}/${model}Model.js`)(connection, Sequelize);
+    return require(`./tables/${model}/${model}Model.js`)(connection, Sequelize);
 }
 
 // V1

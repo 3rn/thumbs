@@ -2,8 +2,8 @@
 // run: psql postgres
 // CREATE DATABASE thumbs; //CASE SENSITIVE
 
-var Sequelize = require('sequelize');
-var connection = new Sequelize('thumbs', '', '', {
+const Sequelize = require('sequelize');
+const connection = new Sequelize('thumbs', '', '', {
   dialect: 'postgres',
   port: 5432,
   schema: 'public'
@@ -27,87 +27,60 @@ var SavedQuestions = connection.define('saved_questions',
 // createdAt & updatedAt automatically included
 
 
-var User = connection.define('user',
-  {
-    'user_name': Sequelize.STRING
-  }, {
-    'underscored': true
-  }
-);
+// var User = connection.define('user',
+//   {
+//     'user_name': Sequelize.STRING
+//   }, {
+//     'underscored': true
+//   }
+// );
 
-var Code = connection.define('code',
-  {
-    'code': Sequelize.CHAR(4)
-  }, {
-    'underscored': true
-  }
-);
 
-var Lecture = connection.define('lecture',
-  {
-    'title': Sequelize.STRING(40),
-    'description': Sequelize.TEXT
-    }, {
-    'underscored': true
-  }
-);
+var define = function(model) {
+    return require(`../dbRoutes/${model}/${model}Model.js`)(connection, Sequelize);
+}
 
-var Delivery = connection.define('delivery',
-  {
-    'notes': Sequelize.TEXT
-    }, {
-    'underscored': true
-  }
-);
+let models = {
+  'User': define('User')
 
-var Question = connection.define('question',
-  {
-    'title': Sequelize.STRING(40)
-    }, {
-    'underscored': true
-  }
-);
+}
 
-var QuestionType = connection.define('question_type',
-  {
-    'name': Sequelize.STRING(20),
-    'graph_type': Sequelize.STRING(20)
-    }, {
-    'underscored': true
-  }
-);
 
-var MultipleChoice = connection.define('multiple_choice',
-  {
-    'option_text': Sequelize.STRING(20)
-    }, {
-    'underscored': true
-  }
-);
 
-var Response = connection.define('response',
-  {
-    'value': Sequelize.TEXT
-    }, {
-    'underscored': true
-  }
-);
+
+
+
+//var User = require('../dbRoutes/User/UserModel.js')(connection, Sequelize);
+
+var Code = require('../dbRoutes/Code/CodeModel.js')(connection, Sequelize);
+
+var Lecture = require('../dbRoutes/Lecture/LectureModel.js')(connection, Sequelize);
+
+var Delivery = require('../dbRoutes/Delivery/DeliveryModel.js')(connection, Sequelize);
+
+var Question = require('../dbRoutes/Question/QuestionModel.js')(connection, Sequelize);
+
+var QuestionType = require('../dbRoutes/QuestionType/QuestionTypeModel.js')(connection, Sequelize);
+
+var MultipleChoice = require('../dbRoutes/MultipleChoice/MultipleChoiceModel.js')(connection, Sequelize);
+
+var Response = require('../dbRoutes/Response/ResponseModel.js')(connection, Sequelize);
 
 
 // Associations
 // Source => Target
-Lecture.belongsTo(User);
+Lecture.belongsTo(models.User);
 
-Code.belongsTo(User);
+// Code.belongsTo(User);
 
-User.hasOne(Delivery);
+// User.hasOne(Delivery);
 
-Response.belongsTo(Delivery);
-Response.belongsTo(Question);
+// Response.belongsTo(Delivery);
+// Response.belongsTo(Question);
 
-Question.belongsTo(Delivery);
-Question.hasMany(MultipleChoice);
-Question.belongsTo(QuestionType);
+// Question.belongsTo(Delivery);
+// Question.hasMany(MultipleChoice);
+// Question.belongsTo(QuestionType);
 
 
 module.exports = {

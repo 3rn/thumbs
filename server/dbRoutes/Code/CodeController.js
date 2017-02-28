@@ -21,6 +21,6 @@ var postUser = (req, res) => {
 
 
 module.exports = {
-  get: getUser,
-  post: postUser
+  'get': getUser,
+  'post': postUser
 }

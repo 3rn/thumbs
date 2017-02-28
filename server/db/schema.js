@@ -35,7 +35,7 @@ var User = connection.define('user',
   }
 );
 
-var ReservedCode = connection.define('reserved_code',
+var Code = connection.define('code',
   {
     'code': Sequelize.CHAR(4)
   }, {
@@ -98,7 +98,7 @@ var Response = connection.define('response',
 // Source => Target
 Lecture.belongsTo(User);
 
-ReservedCode.belongsTo(User);
+Code.belongsTo(User);
 
 User.hasOne(Delivery);
 
@@ -114,7 +114,7 @@ module.exports = {
   connection: connection,
   SavedQuestions: SavedQuestions,
   User: User,
-  ReservedCode: ReservedCode,
+  Code: Code,
   Lecture: Lecture,
   Delivery: Delivery,
   Question: Question,

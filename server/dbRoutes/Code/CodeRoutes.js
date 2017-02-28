@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const User = require('./UserController.js');
+const Code = require('./CodeController.js');
 
 router.route('/')
-  .get(User.get)
-  .post(User.post);
+  .get(Code.get)
+  .post(Code.post);
 
 
 module.exports = router;

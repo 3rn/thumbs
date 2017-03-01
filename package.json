@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --display-error-details --config ./webpack.production.config.js --progress --profile --colors"
   },
   "repository": "git+https://github.com/3rn/thumbs.git",

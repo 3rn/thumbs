@@ -3,7 +3,8 @@
 // CREATE DATABASE thumbs; //CASE SENSITIVE
 
 var Sequelize = require('sequelize');
-var connection = new Sequelize('thumbs', '', '', {
+var connection = new Sequelize('thumbs', 'thumbs', 'thumbspassword', {
+  host: 'thumbsdb.crmuzms0yo69.us-west-1.rds.amazonaws.com',
   dialect: 'postgres',
   port: 5432,
   schema: 'public'
@@ -26,4 +27,6 @@ module.exports = {
   SavedQuestions: SavedQuestions
 };
 
-connection.sync();
+connection.sync(
+  // {force: true}
+);

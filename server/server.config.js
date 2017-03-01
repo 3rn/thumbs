@@ -1,7 +1,7 @@
 
 const config = {
-  HOST: 'localhost', 
-  PORT: process.env.PORT || 8000,
+  HOST: process.env.HOST || 'localhost', 
+  PORT: process.env.PORT || 8081,
 
   env: process.env.NODE_ENV || '', // default
 
@@ -16,6 +16,6 @@ const config = {
     local: '',
     postgresql: ''
   }
-}
+};
 
 module.exports = config;

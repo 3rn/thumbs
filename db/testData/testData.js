@@ -1,4 +1,4 @@
-var Models = require('./schema.js');
+var Models = require('../schema.js');
 
 Models.SavedQuestions.build({
   'presentation_code': 'ABCD',

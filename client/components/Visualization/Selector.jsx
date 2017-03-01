@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/pages/_ParticipantQuestionView';
+import styles from '../../styles/pages/_Response';
 
 export default class Selector extends React.Component {
   constructor(props) {

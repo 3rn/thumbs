@@ -1,5 +1,5 @@
 import React from 'react';
-import MultipleChoice from './MultipleChoice';
+import AddMultipleChoice from './AddMultipleChoice';
 import styles from '../../../styles/components/_questionForm';
 
 export default class AddQuestionForm extends React.Component {
@@ -70,7 +70,7 @@ export default class AddQuestionForm extends React.Component {
         </div>
 
         {this.state.questionType === 'multipleChoice' ?
-          <MultipleChoice
+          <AddMultipleChoice
             choices={this.state.content}
             handleMultipleChoiceAdd={this.handleMultipleChoiceAdd}
           />

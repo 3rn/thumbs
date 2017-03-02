@@ -43,7 +43,7 @@ class Delivery extends React.Component {
           key={index + 1}
           index={index + 1}
           element={element}
-          choices={element.content}
+          choices={element.choices}
           questionType={element.question_type}
           room={this.props.room}
         />
@@ -55,7 +55,7 @@ class Delivery extends React.Component {
   render() {
     return (
       <div>
-          <QuickCheck room={this.props.room} />
+        <QuickCheck room={this.props.room} />
         <div className={styles.container}>
           {this.displayQuestions(this.state.questionQueue)}
         </div>

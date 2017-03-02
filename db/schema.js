@@ -3,7 +3,8 @@
 // CREATE DATABASE thumbs; //CASE SENSITIVE
 
 const Sequelize = require('sequelize');
-const connection = new Sequelize('thumbs', '', '', {
+const connection = new Sequelize('thumbs', 'thumbs', 'thumbspassword', {
+  host: 'thumbsdb.crmuzms0yo69.us-west-1.rds.amazonaws.com',
   dialect: 'postgres',
   port: 5432,
   schema: 'public'
@@ -27,8 +28,8 @@ var SavedQuestions = connection.define('saved_questions',
 // createdAt & updatedAt automatically included
 
 const define = function(model) {
-    return require(`./tables/${model}/${model}Model.js`)(connection, Sequelize);
-}
+  return require(`./tables/${model}/${model}Model.js`)(connection, Sequelize);
+};
 
 // V1
 
@@ -40,7 +41,7 @@ const Delivery = define('Delivery');
 const Question = define('Question');
 const QuestionType = define('QuestionType');
 const MultipleChoice = define('MultipleChoice');
-const Response = define('Response')
+const Response = define('Response');
 
 
 // Associations

@@ -1,21 +1,14 @@
-
 const config = {
-  HOST: process.env.HOST || 'localhost', 
-  PORT: process.env.PORT || 8081,
+  HOST: 'localhost',
+  PORT: 8000,
 
-  env: process.env.NODE_ENV || '', // default
+  env: '', // default
 
   // Environments
   dev: 'development',
   testing: 'testing',
   staging: 'staging',
-  prod: 'production',
-
-  // Database
-  database: {
-    local: '',
-    postgresql: ''
-  }
+  prod: 'production'
 };
 
 module.exports = config;

@@ -26,30 +26,37 @@ class Results extends React.Component {
   }
 
   render() {
-    if (this.props.questionType === 'thumbs') {
+    if (this.props.questionType === 'THUMBS') {
       var graphData = [
-        {choice: 'Thumbs Up', value: this.props.data[0]},
-        {choice: 'Thumbs Middle', value: this.props.data[1]},
-        {choice: 'Thumbs Down', value: this.props.data[2]}
+        {choice: 'Thumbs Up', value: this.props.thumbs[0]},
+        {choice: 'Thumbs Middle', value: this.props.thumbs[1]},
+        {choice: 'Thumbs Down', value: this.props.thumbs[2]}
       ];
-    } else if (this.props.questionType === 'yes-no') {
+    } else if (this.props.questionType === 'YES_NO') {
       var graphData = [
-        {choice: 'Yes', value: this.props.data[0]},
-        {choice: 'No', value: this.props.data[1]}
+        {choice: 'Yes', value: this.props.yesNo[0]},
+        {choice: 'No', value: this.props.yesNo[1]}
       ];
-    } else if (this.props.questionType === 'scale') {
-      console.log('look', this.props.data);
+    } else if (this.props.questionType === 'SCALE') {
       var graphData = [
-        {choice: '1', value: this.props.data[0]},
-        {choice: '2', value: this.props.data[1]},
-        {choice: '3', value: this.props.data[2]},
+        {choice: 1, value: this.props.scale[0]},
+        {choice: 2, value: this.props.scale[1]},
+        {choice: 3, value: this.props.scale[2]},
+        {choice: 4, value: this.props.scale[3]},
+        {choice: 5, value: this.props.scale[4]},
+        {choice: 6, value: this.props.scale[5]},
+        {choice: 7, value: this.props.scale[6]},
+        {choice: 8, value: this.props.scale[7]},
+        {choice: 9, value: this.props.scale[8]},
+        {choice: 10, value: this.props.scale[9]}
       ];
-    } else {
-      var graphData = [
-        {choice: 'A', value: this.props.data[0]},
-        {choice: 'B', value: this.props.data[1]},
-        {choice: 'C', value: this.props.data[2]}
-      ];
+    } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+      const context = this;
+      var graphData = [];
+      this.props.choices.map(function (choice, i) {
+        context.props.multipleChoice[i] = context.props.multipleChoice[i] || 0;
+        graphData.push({choice: choice, value: context.props.multipleChoice[i]});
+      });
     }
     return (
       <div className={styles.card}>

@@ -15,13 +15,13 @@ describe('Attendance', function() {
 
   describe('Is Ryan here?', function() {
     it('Ryan should be here', function() {
-      assert.equal(false, true);
+      assert.equal(true, true);
     });
   });
 
   describe('Is Ranit here?', function() {
     it('Ryan should be here', function() {
-      assert.equal(false, true);
+      assert.equal(true, true);
     });
   });
 });

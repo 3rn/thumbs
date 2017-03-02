@@ -17,10 +17,9 @@ class Response extends React.Component {
   }
 
   handleClick(e) {
-    console.log(e);
     socket.emit('vote', {
       room: this.props.room,
-      option: e.target.value,
+      value: e.target.value,
       questionType: this.props.questionType
     });
   }
@@ -30,22 +29,16 @@ class Response extends React.Component {
   }
 
   showChoices() {
-    if (this.props.questionType === 'yes-no') {
+    if (this.props.questionType === 'YES_NO') {
       return <YesNo click={this.handleClick} />;
-    } else if (this.props.questionType === 'thumbs') {
+    } else if (this.props.questionType === 'THUMBS') {
       return <Thumbs click={this.handleClick} />;
-    } else if (this.props.questionType === 'scale') {
-      return <Scale click={this.handleClick} change={this.handleChange} />;
-    } else if (this.props.questionType === 'textarea') {
-      return <OpenResponse click={this.handleClick} questionType={this.props.questionType} />;
+    } else if (this.props.questionType === 'SCALE') {
+      return <Scale click={this.handleClick} />;
+    } else if (this.props.questionType === 'OPEN_RESPONSE') {
+      return <OpenResponse click={this.handleClick} />;
     } else {
       return <MultipleChoice click={this.handleClick} choices={this.props.choices} questionType={this.props.questionType} />;
-    }
-  }
-
-  showSubmit() {
-    if (this.props.questionType === 'radio' || this.props.questionType === 'checkbox') {
-      return <button onClick={this.handleClick}>Submit</button>;
     }
   }
 
@@ -53,7 +46,6 @@ class Response extends React.Component {
     return (
       <div className={styles.wrapper}>
         { this.showChoices() }
-        { this.showSubmit() }
       </div>
     );
   }

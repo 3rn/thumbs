@@ -72,7 +72,7 @@ class PresenterContainer extends React.Component {
 
         <DeliveryInfo
           participantCount={this.props.participantCount}
-          questionCount={this.props.questionCount}
+          participantConfused={this.props.confusedCount}
         />
 
         {this.getCurrentView()}
@@ -93,7 +93,7 @@ const mapStateToProps = state => {
     multipleChoice: state.participantReducer.multipleChoice,
     openResponse: state.participantReducer.openResponse,
     participantCount: state.participantReducer.participantCount,
-    questionCount: state.participantReducer.participantConfused
+    confusedCount: state.participantReducer.confusedCount
   };
 };
 

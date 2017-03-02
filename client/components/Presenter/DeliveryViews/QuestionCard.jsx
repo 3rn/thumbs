@@ -18,21 +18,21 @@ class QuestionCard extends React.Component {
   }
 
   showIcon () {
-    if (this.props.questionType === 'thumbs') {
+    if (this.props.questionType === 'THUMBS') {
       return (
         <i className="fa fa-thumbs-up" aria-hidden="true"></i>
       );
-    } else if (this.props.questionType === 'scale') {
+    } else if (this.props.questionType === 'SCALE') {
       return (
         <i className="fa fa-sliders" aria-hidden="true"></i>
       );
-    } else if (this.props.questionType === 'mult-box') {
+    } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
       return (
         <span>
           <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square-o" aria-hidden="true"></i>
         </span>
       );
-    } else if (this.props.questionType === 'check') {
+    } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
       return (
         <span>
           <i className="fa fa-circle-o" aria-hidden="true"></i> <i className="fa fa-circle" aria-hidden="true"></i> <i className="fa fa-circle-o" aria-hidden="true"></i>

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import socket from '../config/socket';
 
 import { updateVoteStatus, sendQuestion } from '../actions/presenterActions.js';
-import { vote } from '../actions/participantActions.js';
+import { response } from '../actions/participantActions.js';
 
 import Waiting from '../components/Participant/Waiting';
 import Response from '../components/Participant/Response';
@@ -16,7 +16,7 @@ class ParticipantContainer extends React.Component {
     socket.emit('joinPresentation', {room: this.props.params.room});
 
     socket.on('vote', (payload) => {
-      this.props.vote(payload.option, payload.quesitonType);
+      this.props.response(payload.questionType, payload.value);
     });
 
     socket.on('startVote', (payload) => {
@@ -64,12 +64,16 @@ class ParticipantContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  voteStatus: state.voteStatus.status,
-  thumbsCount: state.thumbs,
-  questionType: state.voteStatus.questionType,
-  choices: state.voteStatus.choices
+  voteStatus: state.presenterReducer.status,
+  questionType: state.presenterReducer.questionType,
+  choices: state.presenterReducer.choices,
+  thumbs: state.participantReducer.thumbs,
+  yesNo: state.participantReducer.yesNo,
+  scale: state.participantReducer.scale,
+  multipleChoice: state.participantReducer.multipleChoice,
+  openResponse: state.participantReducer.openResponse,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus, sendQuestion, vote }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus, sendQuestion, response }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);

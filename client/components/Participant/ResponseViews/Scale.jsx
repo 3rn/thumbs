@@ -23,12 +23,12 @@ export default class Scale extends React.Component {
         <div>
           <input
             type="range"
-            min="0" max="10"
+            min="1" max="10"
             defaultValue={this.state.value}
             onChange={this.handleChange}
             step="1"/>
         </div>
-          <button className={styles.selectButton} onClick={this.props.click}>Submit {this.state.value}</button>
+          <button className={styles.selectButton} onClick={this.props.click} value={this.state.value - 1}>Submit {this.state.value}</button>
       </div>
 
     );

@@ -62,14 +62,14 @@ export default class AddQuestionForm extends React.Component {
         <div>
           <span>Question Type: </span>
           <select onChange={this.onQuestionTypeSelect}>
-            <option value="yesNo">Yes/No</option>
-            <option value="multipleChoice">Multiple Choice</option>
-            <option value="thumbs">Thumbs</option>
-            <option value="slider">Slider</option>
+            <option value="YES-NO">Yes/No</option>
+            <option value="MULTIPLE_CHOICE">Multiple Choice</option>
+            <option value="THUMBS">Thumbs</option>
+            <option value="SLIDER">Slider</option>
           </select>
         </div>
 
-        {this.state.questionType === 'multipleChoice' ?
+        {this.state.questionType === 'MULTIPLE_CHOICE' ?
           <AddMultipleChoice
             choices={this.state.content}
             handleMultipleChoiceAdd={this.handleMultipleChoiceAdd}

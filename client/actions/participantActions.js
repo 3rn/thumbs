@@ -1,9 +1,8 @@
-export function vote(voteValue, questionType) {
-  return {
-    type: 'UPDATE',
-    value: voteValue,
-    questionType: questionType
-  };
+export function response(questionType, value) {
+    return {
+      type: questionType,
+      value: value
+    };
 }
 
 export function participantCount() {
@@ -12,8 +11,8 @@ export function participantCount() {
   }
 }
 
-export function participantQuestion() {
+export function participantConfused() {
   return {
-    type: 'PARTICIPANT_QUESTION'
+    type: 'PARTICIPANT_CONFUSED'
   };
 }

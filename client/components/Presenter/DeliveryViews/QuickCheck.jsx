@@ -21,10 +21,10 @@ class QuickCheck extends React.Component {
     return (
       <div className={styles.card}>
         <div className={styles.label}>Quick Check</div>
-          <button className={styles.quickCheckButton} onClick={this.handleClick} value="yes-no">Y/N</button>
-          <button className={`fa fa-thumbs-up ${styles.quickCheckButton}`} onClick={this.handleClick} aria-hidden="true" value="thumbs" />
-          <button className={`fa fa-sliders ${styles.quickCheckButton}`} onClick={this.handleClick} value='scale' />
-          <button className={`fa fa-comment-o ${styles.quickCheckButton}`} onClick={this.handleClick} value="textarea" />
+          <button className={styles.quickCheckButton} onClick={this.handleClick} value="YES_NO">Y/N</button>
+          <button className={`fa fa-thumbs-up ${styles.quickCheckButton}`} onClick={this.handleClick} aria-hidden="true" value="THUMBS" />
+          <button className={`fa fa-sliders ${styles.quickCheckButton}`} onClick={this.handleClick} value="SCALE" />
+          <button className={`fa fa-comment-o ${styles.quickCheckButton}`} onClick={this.handleClick} value="OPEN_RESPONSE" />
       </div>
     );
   }

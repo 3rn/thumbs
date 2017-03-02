@@ -17,7 +17,7 @@ var SavedQuestions = connection.define('saved_questions',
     'title': Sequelize.STRING,
     'question_type': Sequelize.STRING,
     'graph_type': Sequelize.STRING,
-    'content': Sequelize.ARRAY(Sequelize.STRING)
+    'choices': Sequelize.ARRAY(Sequelize.STRING)
   }, {
     'underscored': true
   }

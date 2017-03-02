@@ -13,7 +13,7 @@ class Waiting extends React.Component {
   }
 
   handleClick(e) {
-    socket.emit('participantQuestion', {room: this.props.room});
+    socket.emit('participantConfused', {room: this.props.room});
   }
 
   render() {

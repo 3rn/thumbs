@@ -27,7 +27,7 @@ module.exports = {
       inject: 'body',
       filename: 'index.html'
     }),
-
+    
     // Optimization
     new webpack.DefinePlugin({ 
       'process.env': {
@@ -37,14 +37,6 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8
-    }),
-
     new ExtractTextPlugin('[name]-[hash].min.css'),
 
    // extractSass,
@@ -52,8 +44,12 @@ module.exports = {
       source: false,
       modules: false
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
     })
   ],
   module: {
@@ -74,22 +70,6 @@ module.exports = {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]!sass'),
       exclude: /node_modules|lib/
-     // loader: extractSass.extract({
-       
-     //   // loaders: [
-     //   //   'style',
-     //   //   'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-     //   //   // 'resolve-url',
-     //   //   'sass'
-
-     //   //   ],
-     //   loader: [{
-     //     loader: 'css-loader'
-     //   }, {
-     //     loader: 'sass-loader'
-     //   }],
-     //   fallbackLoader: 'style-loader'
-     // })
     }]
   },
   postcss: [

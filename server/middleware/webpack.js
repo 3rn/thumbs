@@ -29,31 +29,21 @@ const middleware = webpackMiddleware(compiler, {
 
 // Build directory is where the bundle file will be placed
 const BUILD_DIR = path.join(__dirname, '/../../', 'dist/');
+console.log(BUILD_DIR);
 
 module.exports = function(app, express) {
-  
-
-  switch(config.env) {
-
-    case config.prod: 
-      // Production environment
-      app.use(express.static(BUILD_DIR));
-        app.get('*', function response(req, res) {
-          res.sendFile(path.join(BUILD_DIR, 'index.html'));
-        });
-
-      break;
-
-    default:
-    // Dev environment
-      app.use(middleware);
-      app.use(webpackHotMiddleware(compiler));
-      app.get('*', function response(req, res) {
-        res.write(middleware.fileSystem.readFileSync(path.join(BUILD_DIR, 'index.html')));
-        res.end();
-      });
-
-      break;
+  if (process.env.PRODUCTION === 'production') {
+    console.log('production');
+    app.use(express.static(BUILD_DIR));
+    app.get('*', function response(req, res) {
+      res.sendFile(path.join(BUILD_DIR, 'index.html'));
+    });
+  } else {
+    app.use(middleware);
+    app.use(webpackHotMiddleware(compiler));
+    app.get('*', function response(req, res) {
+      res.write(middleware.fileSystem.readFileSync(path.join(BUILD_DIR, 'index.html')));
+      res.end();
+    });
   }
-  
 };

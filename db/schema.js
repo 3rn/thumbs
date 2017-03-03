@@ -3,7 +3,7 @@
 // CREATE DATABASE thumbs; //CASE SENSITIVE
 
 const Sequelize = require('sequelize');
-const connection = new Sequelize('thumbs', 'thumbs', 'thumbspassword', {
+const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   host: 'thumbsdb.crmuzms0yo69.us-west-1.rds.amazonaws.com',
   dialect: 'postgres',
   port: 5432,

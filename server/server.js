@@ -4,11 +4,15 @@ const app = express();
 const config = require('./server.config.js');
 const helpers = require('./middleware/helpers.js')(app);
 
-// console.log('config.PORT: ', config.PORT);
-// console.log('typeof config.PORT: ', typeof config.PORT);
-
 // Routes
 const db = require('./routes/db.js');
+
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 app.use('/db', db);
 
 const webpack = require('./middleware/webpack.js')(app, express);

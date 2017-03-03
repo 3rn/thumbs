@@ -17,6 +17,8 @@
   "homepage": "https://github.com/3rn/thumbs#readme",
   "dependencies": {
     "axios": "^0.15.3",
+    "compression": "^1.6.2",
+    "compression-webpack-plugin": "^0.3.2",
     "express": "^4.14.1",
     "pg": "^6.1.2",
     "react": "^15.4.2",

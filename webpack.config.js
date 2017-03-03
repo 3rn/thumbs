@@ -1,8 +1,10 @@
 'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -21,6 +23,24 @@ module.exports = {
       inject: 'body',
       filename: 'index.html'
     }),
+
+    // Optimization
+    new webpack.DefinePlugin({ 
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
@@ -30,26 +50,26 @@ module.exports = {
   ],
   module: {
     loaders: [
-    {
-      test: /\.scss$/,
-      loaders: [
-        'style',
-        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-        // 'resolve-url',
-        'sass'
-      ]
-    },
-    {
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        "presets": ["react", "es2015", "stage-0", "react-hmre"]
-      }
-    }, {
-      test: /\.json?$/,
-      loader: 'json'
-    }]
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style',
+          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          // 'resolve-url',
+          'sass'
+        ]
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          'presets': ['react', 'es2015', 'stage-0', 'react-hmre']
+        }
+      }, {
+        test: /\.json?$/,
+        loader: 'json'
+      }]
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss'],

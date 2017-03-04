@@ -1,9 +1,8 @@
 import React from 'react';
 import socket from '../../config/socket.js';
+import styles from '../../styles/pages/_Waiting';
 
 import Loading from './Loading';
-
-import styles from '../../styles/pages/_Waiting';
 
 class Waiting extends React.Component {
 
@@ -29,7 +28,7 @@ class Waiting extends React.Component {
     }
   }
 
-  handleClick(e) {
+  handleClick() {
     socket.emit('participantConfused', {room: this.props.room});
     this.setState({confused: true});
   }
@@ -41,7 +40,7 @@ class Waiting extends React.Component {
           <h1>In room: {this.props.room}</h1>
           <p className={styles.details}> Waiting for question from presenter...</p>
           <Loading />
-          {this.confusion()}
+          { this.confusion() }
         </div>
       </div>
     );

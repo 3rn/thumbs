@@ -10,14 +10,15 @@ class DeliveryView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getDelivery = this.getDelivery.bind(this);
-    this.displayDelivery = this.displayDelivery.bind(this);
+    console.log(props);
 
     this.state = {
       deliveryId: this.props.params.deliveryId,
-      lectureId: this.props.params.lectureId,
-      delivery: {}
+      lectureId: this.props.params.lectureId
     };
+
+    this.getDelivery = this.getDelivery.bind(this);
+    this.displayDelivery = this.displayDelivery.bind(this);
 
     this.getDelivery();
   }

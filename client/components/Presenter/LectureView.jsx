@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import socket from '../../config/socket';
+import { Link, browserHistory } from 'react-router';
 
 import Delivery from './Delivery';
-
 import styles from '../../styles/pages/_Delivery';
 
 class LectureView extends React.Component {
@@ -27,9 +27,9 @@ class LectureView extends React.Component {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}`)
     .then(function (response) {
-      console.log(response);
+      console.log(response.data);
       if (response) {
-        context.setState({deliveries: deliveries});
+        context.setState({deliveries: response.data});
         console.log('LectureView: deliveries ', context.state.deliveries);
       }      
     })
@@ -38,16 +38,29 @@ class LectureView extends React.Component {
     });
   }
 
-  displayDeliveries(deliveries) {
-    this.state.deliveries.map((element, index) => {
+  displayDeliveries() {
+    let context = this;
+    // console.log('displayDeliveries');
+    // console.log(context);
+    // console.log(context.state.lectureId);
+    // console.log('i:' + index + ' ' + element.id + ' ' + element.title);
+    return this.state.deliveries.map((element, index) => {
       return (
-        <Delivery
-          key={index + 1}
-          index={index + 1}
-        />
+        <div className={styles.card}>
+          <Link to={`/l/${context.state.lectureId}/d/${element.id}`}>
+            <h3>{element.title}</h3>
+            <Delivery
+              key={index + 1}
+              index={index + 1}
+              title={element.title}
+              deliveryId={element.id}
+              lectureId={context.state.lectureId}
+            />
+          </Link>
+        </div>
       );
     });
-    return deliveries;
+    
   }
 
   render() {

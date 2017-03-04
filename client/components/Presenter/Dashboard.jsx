@@ -14,6 +14,7 @@ class Dashboard extends React.Component {
 
 
     this.getLectures = this.getLectures.bind(this);
+    this.displayLectures = this.displayLectures.bind(this);
 
     this.getLectures();
   }
@@ -33,15 +34,27 @@ class Dashboard extends React.Component {
     });
   }
 
-
-  onLectureSelection(e) {
-    console.log('Selected lecture '); 
+  displayLectures() {
+    return (
+      this.state.lectures.map(lecture => {
+        return (
+          <Link to="/l/1">
+            <div className={styles.card}>
+              {lecture.title}
+            </div>
+          </Link>
+        );
+      })
+    )
   }
+
 
   render() {
     return (
       <div className={styles.wrapper}>
         <h1>Dashboard</h1>
+        <h2>Lectures</h2>
+        {this.displayLectures()}
       </div>
 
     );

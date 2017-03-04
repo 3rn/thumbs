@@ -2,9 +2,12 @@
 // run: psql postgres
 // CREATE DATABASE thumbs; //CASE SENSITIVE
 
+const config = require('./db.config.js')('dev');
+
 const Sequelize = require('sequelize');
-const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-  host: 'thumbsdb.crmuzms0yo69.us-west-1.rds.amazonaws.com',
+const connection = new Sequelize(
+  config.db, config.username, config.password, {
+  host: config.host,
   dialect: 'postgres',
   port: 5432,
   schema: 'public'

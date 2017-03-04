@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "start": "node server/server.js",
-    "build": "rimraf dist && cross-env NODE_ENV=production webpack --display-error-details --config ./webpack.production.config.js --progress --profile --colors"
+    "build": "rimraf dist && cross-env NODE_ENV=production webpack --display-error-details --config ./webpack.production.config.js --progress --profile --colors",
+    "db": "node db/schema.js && node db/testData/init.js"
   },
   "repository": "git+https://github.com/3rn/thumbs.git",
   "author": "ntoung <nmtoung@gmail.com>",

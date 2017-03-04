@@ -77,5 +77,5 @@ module.exports = {
 };
 
 connection.sync({
-  // force: true
+  //force: true
 });

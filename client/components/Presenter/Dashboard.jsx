@@ -38,7 +38,7 @@ class Dashboard extends React.Component {
     return (
       this.state.lectures.map(lecture => {
         return (
-          <Link to="/l/1">
+          <Link to={`/l/${lecture.id}`}>
             <div className={styles.card}>
               {lecture.title}
             </div>

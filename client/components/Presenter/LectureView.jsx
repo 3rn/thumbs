@@ -10,22 +10,43 @@ class LectureView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getDeliveries = this.getDeliveries.bind(this);
-    this.displayDeliveries = this.displayDeliveries.bind(this);
 
     console.log('LectureView: lectureId: ', this.props.params.lectureId);
 
     this.state = {
       lectureId: this.props.params.lectureId,
+      lecture: {
+        'title': 'Finding lecture...'
+      },
       deliveries: []
     };
 
+    this.getDeliveries = this.getDeliveries.bind(this);
+    this.getLectureTitle = this.getLectureTitle.bind(this);
+    this.displayDeliveries = this.displayDeliveries.bind(this);
+
+    this.getLectureTitle();
     this.getDeliveries();
+  }
+
+  getLectureTitle() {
+    const context = this;
+    axios.get(`/db/l/${this.state.lectureId}`)
+    .then(function (response) {
+      console.log('Lecture: ', response.data);
+      if (response) {
+        context.setState({lecture: response.data[0]});
+        console.log('LectureView: lecture ', context.state.lecture);
+      }      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   getDeliveries() {
     const context = this;
-    axios.get(`/db/l/${this.state.lectureId}`)
+    axios.get(`/db/l/${this.state.lectureId}/d`)
     .then(function (response) {
       console.log(response.data);
       if (response) {
@@ -39,25 +60,16 @@ class LectureView extends React.Component {
   }
 
   displayDeliveries() {
-    let context = this;
-    // console.log('displayDeliveries');
-    // console.log(context);
-    // console.log(context.state.lectureId);
-    // console.log('i:' + index + ' ' + element.id + ' ' + element.title);
+    const context = this;
     return this.state.deliveries.map((element, index) => {
       return (
-        <div className={styles.card}>
-          <Link to={`/l/${context.state.lectureId}/d/${element.id}`}>
-            <h3>{element.title}</h3>
-            <Delivery
-              key={index + 1}
-              index={index + 1}
-              title={element.title}
-              deliveryId={element.id}
-              lectureId={context.state.lectureId}
-            />
-          </Link>
-        </div>
+        <Link to={`/l/${context.state.lectureId}/d/${element.id}`}>
+          <div className={styles.card}>
+            <h6>Delivery # {element.id}</h6>
+            <h2>{element.notes}</h2>
+            <span>{element.created_at}</span>
+          </div>
+        </Link>
       );
     });
     
@@ -66,7 +78,7 @@ class LectureView extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h1>LectureView</h1>
+        <h1>{`${this.state.lecture.title}`}</h1>
         {this.displayDeliveries()}
       </div>
     );

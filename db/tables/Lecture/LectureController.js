@@ -25,6 +25,18 @@ var getLectureById = (req, res) => {
   });
 }
 
+var getDeliveries = (req, res) => {
+  console.log('LectureController: Getting deliveries');
+  console.log(req);
+  Models.connection.query(
+    // `SQL Queury`
+    `SELECT * FROM deliveries
+     WHERE deliveries.lecture_id = ${req.params.lectureId}`,
+    {type: Models.connection.QueryTypes.SELECT}
+  ).then(function(data) {
+    res.send(data);
+  });
+}
 
 var postLecture = (req, res) => {
   console.log('LectureController: Creating Lecture');
@@ -37,5 +49,6 @@ var postLecture = (req, res) => {
 module.exports = {
   'getAllLectures': getAllLectures,
   'getLectureById': getLectureById,
+  'getDeliveries': getDeliveries,
   'post': postLecture
 }

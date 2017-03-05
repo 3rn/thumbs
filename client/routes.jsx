@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './components/App';
 import Home from './components/Home';
@@ -31,7 +31,8 @@ module.exports = (
     <Route path="u" component={Dashboard} />
     <Route path="l/:lectureId" component={LectureView} />
     <Route path="l/:lectureId/d/:deliveryId" component={DeliveryView} />
-
+    
+    <Redirect from="*" to="/"/>
   
   </Route>
 );

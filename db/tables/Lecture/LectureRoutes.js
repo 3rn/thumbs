@@ -9,4 +9,7 @@ router.route('/')
 router.route('/:lectureId')
   .get(Lecture.getLectureById)
 
+router.route('/:lectureId/d')
+  .get(Lecture.getDeliveries)  
+
 module.exports = router;

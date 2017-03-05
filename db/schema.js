@@ -54,6 +54,7 @@ Lecture.belongsTo(User);
 Code.belongsTo(User);
 
 User.hasOne(Delivery);
+Lecture.hasMany(Delivery);
 
 Response.belongsTo(Delivery);
 Response.belongsTo(Question);
@@ -77,5 +78,5 @@ module.exports = {
 };
 
 connection.sync({
-  //force: true
+  // force: true
 });

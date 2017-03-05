@@ -21,29 +21,32 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
       template: 'client/index.tpl.html',
       inject: 'body',
       filename: 'index.html'
     }),
     
-    // Optimization
-    new webpack.DefinePlugin({ 
+    new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new ExtractTextPlugin('[name]-[hash].min.css'),
 
    // extractSass,
+    new ExtractTextPlugin('[name]-[hash].min.css'),
     new StatsPlugin('webpack.stats.json', {
       source: false,
       modules: false
     }),
+
+    // Optimization
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+
+    // gzip Compression
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',

@@ -40,6 +40,7 @@ class Dashboard extends React.Component {
         return (
           <Link to={`/l/${lecture.id}`}>
             <div className={styles.card}>
+              <div className={styles.label}>Lecture</div>
               {lecture.title}
             </div>
           </Link>
@@ -52,8 +53,13 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h1>Dashboard</h1>
-        <h2>Lectures</h2>
+        <div className={styles.card}>
+          <div className={styles.label}>
+          Dashboard
+          </div>
+          <h3>Nathan Toung</h3>
+        </div>
+        
         {this.displayLectures()}
       </div>
 

@@ -78,7 +78,11 @@ class LectureView extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h1>{`${this.state.lecture.title}`}</h1>
+        <div className={styles.card}>
+          <div className={styles.label}>Lecture Info</div>
+          <h1>{`${this.state.lecture.title}`}</h1>
+          <span>{`${this.state.lecture.description}`}</span>
+        </div>
         {this.displayDeliveries()}
       </div>
     );

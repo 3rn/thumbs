@@ -12,3 +12,10 @@ export function sendQuestion(questionType, choices) {
     choices: choices
   };
 }
+
+export function getRoomCount(roomCount) {
+  return {
+    type: 'GET_ROOM_COUNT',
+    roomCount: roomCount
+  };
+}

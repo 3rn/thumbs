@@ -16,15 +16,23 @@ class LectureView extends React.Component {
     this.state = {
       lectureId: this.props.params.lectureId,
       lecture: {
-        'title': 'Finding lecture...'
+        'title': 'Finding your lecture...',
+        'created_at': '',
+        'description': '...the best lecture ever!'
       },
-      deliveries: []
+      deliveries: [
+        {
+          notes: 'Remember to smile!'
+        }
+      ]
     };
 
     this.getDeliveries = this.getDeliveries.bind(this);
     this.getLectureTitle = this.getLectureTitle.bind(this);
     this.displayDeliveries = this.displayDeliveries.bind(this);
+  }
 
+  componentDidMount() {
     this.getLectureTitle();
     this.getDeliveries();
   }
@@ -65,9 +73,12 @@ class LectureView extends React.Component {
       return (
         <Link to={`/l/${context.state.lectureId}/d/${element.id}`}>
           <div className={styles.card}>
-            <h6>Delivery # {element.id}</h6>
+            <div className={styles.label}>Delivery # {element.id}</div>
             <h2>{element.notes}</h2>
-            <span>{element.created_at}</span>
+
+            <div className={styles.details}>
+              <span>{element.created_at}</span>
+            </div>
           </div>
         </Link>
       );
@@ -81,7 +92,12 @@ class LectureView extends React.Component {
         <div className={styles.card}>
           <div className={styles.label}>Lecture Info</div>
           <h1>{`${this.state.lecture.title}`}</h1>
-          <span>{`${this.state.lecture.description}`}</span>
+          <div className={styles.details}>
+            {`${this.state.lecture.created_at}`}
+          </div>
+          <div className={styles.description}>
+            {`${this.state.lecture.description}`}
+          </div>
         </div>
         {this.displayDeliveries()}
       </div>

@@ -7,7 +7,7 @@ import DeliveryInfo from '../components/Presenter/DeliveryViews/DeliveryInfo.jsx
 import Prompt from '../components/Presenter/Delivery.jsx';
 import Results from '../components/Presenter/Results.jsx';
 
-import { updateVoteStatus, sendQuestion } from '../actions/presenterActions.js';
+import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
 
 import styles from '../styles/base/_custom';
@@ -15,6 +15,12 @@ import styles from '../styles/base/_custom';
 class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    socket.emit('joinPresentation', {room: this.props.params.room});
+
+    socket.on('roomCount', (payload) => {
+      this.props.getRoomCount(payload - 1);
+    });
 
     socket.on('vote', (payload) => {
       this.props.response(payload.questionType, payload.value);
@@ -36,8 +42,6 @@ class PresenterContainer extends React.Component {
     socket.on('newVote', (payload) => {
       this.props.updateVoteStatus('WAITING');
     });
-
-    socket.emit('joinPresentation', {room: this.props.params.room});
   }
 
   getCurrentView() {
@@ -71,6 +75,7 @@ class PresenterContainer extends React.Component {
       <div className={styles.wrapper}>
 
         <DeliveryInfo
+          roomCount={this.props.roomCount}
           participantCount={this.props.participantCount}
           participantConfused={this.props.confusedCount}
         />
@@ -82,11 +87,12 @@ class PresenterContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     voteStatus: state.presenterReducer.status,
     questionType: state.presenterReducer.questionType,
     choices: state.presenterReducer.choices,
+    roomCount: state.presenterReducer.roomCount,
     thumbs: state.participantReducer.thumbs,
     yesNo: state.participantReducer.yesNo,
     scale: state.participantReducer.scale,
@@ -97,6 +103,13 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, response, sendQuestion, participantCount, participantConfused }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  updateVoteStatus,
+  sendQuestion,
+  getRoomCount,
+  response,
+  participantCount,
+  participantConfused
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

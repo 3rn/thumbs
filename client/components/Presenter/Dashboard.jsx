@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import { Link, browserHistory } from 'react-router';
 
+import { connect } from 'react-redux';
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -46,18 +48,19 @@ class Dashboard extends React.Component {
           </Link>
         );
       })
-    )
+    );
   }
 
 
   render() {
+    debugger;
     return (
       <div className={styles.wrapper}>
         <div className={styles.card}>
           <div className={styles.label}>
           Dashboard
           </div>
-          <h3>Nathan Toung</h3>
+          <h3>Welcome {this.props.name}</h3>
         </div>
         
         {this.displayLectures()}
@@ -67,4 +70,9 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  name: state.loginReducer.name,
+  email: state.loginReducer.email
+});
+
+export default connect(mapStateToProps, null)(Dashboard);

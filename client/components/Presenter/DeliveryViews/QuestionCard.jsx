@@ -12,6 +12,7 @@ class QuestionCard extends React.Component {
   handleClick(e) {
     socket.emit('startVote', {
       room: this.props.room,
+      questionTitle: this.props.questionTitle,
       questionType: this.props.questionType,
       choices: this.props.choices
     });

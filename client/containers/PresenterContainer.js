@@ -31,7 +31,7 @@ class PresenterContainer extends React.Component {
     });
 
     socket.on('startVote', (payload) => {
-      this.props.sendQuestion(payload.questionType, payload.choices);
+      this.props.sendQuestion(payload.questionTitle, payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
     });
 

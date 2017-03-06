@@ -44,6 +44,7 @@ class Delivery extends React.Component {
           index={index + 1}
           element={element}
           choices={element.choices}
+          questionTitle={element.title}
           questionType={element.question_type}
           room={this.props.room}
         />

@@ -20,9 +20,8 @@ class ParticipantContainer extends React.Component {
     });
 
     socket.on('startVote', (payload) => {
-      this.props.sendQuestion(payload.questionType, payload.choices);
+      this.props.sendQuestion(payload.questionTitle, payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
-      // pass payload.questionType and payload.choices as props into Response
     });
 
     socket.on('endVote', (payload) => {
@@ -41,6 +40,7 @@ class ParticipantContainer extends React.Component {
       return (
         <Response
           room={this.props.params.room}
+          questionTitle={this.props.questionTitle}
           questionType={this.props.questionType}
           choices={this.props.choices}
         />
@@ -65,12 +65,9 @@ class ParticipantContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
   voteStatus: state.presenterReducer.status,
+  questionTitle: state.presenterReducer.questionTitle,
   questionType: state.presenterReducer.questionType,
   choices: state.presenterReducer.choices,
-  thumbs: state.participantReducer.thumbs,
-  yesNo: state.participantReducer.yesNo,
-  scale: state.participantReducer.scale,
-  multipleChoice: state.participantReducer.multipleChoice,
   openResponse: state.participantReducer.openResponse,
 });
 

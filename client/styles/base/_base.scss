@@ -64,8 +64,12 @@ nav {
     
   }
   // Desktop
-  @media screen and (min-width: $break-computer-min) {
+  @media screen and (min-width: $break-phone-max) {
     padding: 10px 0;
   }
   
+}
+
+strong {
+  font-weight: bold;
 }

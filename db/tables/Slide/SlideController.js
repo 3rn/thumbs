@@ -2,10 +2,9 @@ var Models = require('../../schema.js');
 
 var getNewSlideLink = (req, res) => {
   console.log('Slide Controller: getting new slide link');
-
   Models.connection.query(
-    `SELECT * FROM slide
-     WHERE slide.id = ${req.params.slideId}
+    `SELECT * FROM slides
+     WHERE link = ${req.params.slideLink}
     `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
@@ -16,8 +15,8 @@ var getNewSlideLink = (req, res) => {
 var getSlide = (req, res) => {
   console.log('Slide Controller: getting slide');
   Models.connection.query(
-    `SELECT * FROM slide
-     WHERE slide.id = '${req.params.slideId}'
+    `SELECT * FROM slides
+     WHERE link = '${req.params.slideLink}'
     `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
@@ -35,8 +34,8 @@ var postSlideLink = (req, res) => {
 var deleteSlideLink = (req, res) => {
   console.log('Slide Controller: deleting slide link');
   Models.connection.query(
-    `DELETE * FROM slide
-     WHERE id = '${req.params.slideId}'
+    `DELETE * FROM slides
+     WHERE link = '${req.params.slideLink}'
     `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
@@ -45,7 +44,7 @@ var deleteSlideLink = (req, res) => {
 };
 
 module.exports = {
-  get: getSlide,
-  post: postSlideLink,
-  delete: deleteSlideLink
+  getSlide: getSlide,
+  postSlideLink: postSlideLink,
+  deleteSlideLink: deleteSlideLink
 };

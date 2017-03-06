@@ -34,6 +34,18 @@ class Dashboard extends React.Component {
     });
   }
 
+  displayNewLecture() {
+    return (
+      <form className={styles.card} >
+        <div className={styles.label}>New Delivery</div>
+        <h4>{this.state.link}</h4>
+        <button className={styles.primaryButton}>
+          Start Delivery
+        </button>
+      </form>
+    );
+  }
+
   displayLectures() {
     return (
       this.state.lectures.map(lecture => {
@@ -59,7 +71,7 @@ class Dashboard extends React.Component {
           </div>
           <h3>Nathan Toung</h3>
         </div>
-        
+        {this.displayNewLecture()}
         {this.displayLectures()}
       </div>
 

@@ -25,7 +25,8 @@ class LectureView extends React.Component {
         {
           notes: 'Remember to smile!'
         }
-      ]
+      ],
+      link: ''
     };
 
     this.getDeliveries = this.getDeliveries.bind(this);
@@ -37,6 +38,7 @@ class LectureView extends React.Component {
   componentDidMount() {
     this.getLectureTitle();
     this.getDeliveries();
+    this.generateNewLink();
   }
 
   getLectureTitle() {
@@ -75,13 +77,38 @@ class LectureView extends React.Component {
     });
   }
 
+
+  generateNewLink() {
+    console.log('Generating new link');
+    const context = this;
+
+    let link = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    for( let i = 0; i < 4; i++ ) {
+      link += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    axios.get(`/db/s/${link}`).then((response) => {
+      if (response.data.length !== 0) {
+        // Link already exists
+        link = this.generateNewLink();
+      } else {
+        this.setState({'link': link});
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+
+  }
+
   displayNewDelivery() {
     const context = this;
 
     return (
       <form className={styles.card} >
-        <h3>New Delivery</h3>
-        <h4>Link</h4>
+        <div className={styles.label}>New Delivery</div>
+        <h4>{this.state.link}</h4>
         <button className={styles.primaryButton}>
           Start Delivery
         </button>
@@ -93,13 +120,13 @@ class LectureView extends React.Component {
     const context = this;
     return this.state.deliveries.map((element, index) => {
       return (
-        <Link to={`/l/${context.state.lectureId}/d/${element.id}`}>
+        <Link key={index} to={`/l/${context.state.lectureId}/d/${element.id}`}>
           <div className={styles.card}>
             <div className={styles.label}>Delivery # {element.id}</div>
             <h2>{element.notes}</h2>
 
             <div className={styles.details}>
-              <span>{}</span>
+              <strong>Delivered:</strong> {element.created_at}
             </div>
           </div>
         </Link>

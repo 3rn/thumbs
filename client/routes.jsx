@@ -13,6 +13,7 @@ import PresenterContainer from './containers/PresenterContainer';
 import Dashboard from './components/Presenter/Dashboard';
 // import PresentationView from './components/Presenter/PresentationView';
 import LectureView from './components/Presenter/LectureView';
+import EditLectureView from './components/Presenter/EditLectureView';
 import SlideView from './components/Presenter/SlideView';
 import DeliveryView from './components/Presenter/DeliveryView';
 
@@ -31,6 +32,7 @@ module.exports = (
 
     <Route path="u" component={Dashboard} />
     <Route path="l/:lectureId" component={LectureView} />
+    <Route path="l/:lectureId/edit" component={EditLectureView} />
     <Route path="l/:lectureId/d/:deliveryId" component={DeliveryView} />
 
     <Route path="s/:slideId" component={SlideView} />

@@ -9,13 +9,18 @@ class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      lectures: []
+      lectures: [],
+      newLectureName: ''
     };
 
 
     this.getLectures = this.getLectures.bind(this);
     this.displayLectures = this.displayLectures.bind(this);
+    this.handleLectureNameChange = this.handleLectureNameChange.bind(this);
+    this.createLecture = this.createLecture.bind(this);
+  }
 
+  componentDidMount() {
     this.getLectures();
   }
 
@@ -24,23 +29,53 @@ class Dashboard extends React.Component {
 
     // This endpoint returns all lectures given a userId
     axios.get('/db/l')
-    .then(function (response) {
-      console.log('Dashboard: getLectures ', response);
-      var lectures = response.data;
-      context.setState({lectures: lectures});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        console.log('Dashboard: getLectures ', response);
+        var lectures = response.data;
+        context.setState({lectures: lectures});
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  handleLectureNameChange(e) {
+    this.setState({newLectureName: e.target.value})
+  }
+
+  createLecture(e) {
+    e.preventDefault();
+    const context = this;
+
+    console.log(e.target);
+    console.log('Creating lecture');
+
+    console.log(this.state.newLectureName);
+
+    axios.post('/db/l', {
+        'title': context.state.newLectureName
+      })
+      .then((response) => {
+        let lectureId = response.data.id;
+        browserHistory.push(`/l/${lectureId}/edit`);
+      });
+
+
+    // browserHistory.push('/create');
+
+
   }
 
   displayNewLecture() {
     return (
-      <form className={styles.card} >
-        <div className={styles.label}>New Delivery</div>
+      <form className={styles.card} onSubmit={this.createLecture}>
+        <div className={styles.label}>New Lecture</div>
         <h4>{this.state.link}</h4>
+        <input type="text" placeholder="Enter lecture title..." 
+          value={this.state.newLectureName}
+          onChange={this.handleLectureNameChange}/>
         <button className={styles.primaryButton}>
-          Start Delivery
+          Create Lecture
         </button>
       </form>
     );
@@ -50,7 +85,7 @@ class Dashboard extends React.Component {
     return (
       this.state.lectures.map(lecture => {
         return (
-          <Link to={`/l/${lecture.id}`}>
+          <Link to={`/l/${lecture.id}`} key={lecture.id}>
             <div className={styles.card}>
               <div className={styles.label}>Lecture</div>
               {lecture.title}

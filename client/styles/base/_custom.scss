@@ -157,6 +157,11 @@
   font-size: 1.2em;
 }
 
+
+input[type=text]:focus {
+  outline: none;
+}
+
 input[type=range] {
   -webkit-appearance: none;
   margin: 10px 0;
@@ -245,3 +250,4 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: $turqoise;
 }
+

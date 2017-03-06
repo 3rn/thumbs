@@ -40,7 +40,7 @@ var getDeliveries = (req, res) => {
 
 var postLecture = (req, res) => {
   console.log('LectureController: Creating Lecture');
-  Models.SavedQuestions.build({
+  Models.Lecture.build({
     
   }).save();
 };

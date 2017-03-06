@@ -80,7 +80,7 @@ class LectureView extends React.Component {
 
     return (
       <form className={styles.card} >
-        <h3>New Delivery</h3>
+        <div className={styles.label}>New Delivery</div>
         <h4>Link</h4>
         <button className={styles.primaryButton}>
           Start Delivery
@@ -113,12 +113,12 @@ class LectureView extends React.Component {
       <div className={styles.wrapper}>
         <div className={styles.card}>
           <div className={styles.label}>Lecture Info</div>
+          
           <h1>{`${this.state.lecture.title}`}</h1>
-          <span className={styles.separator}></span>
-          <div className={styles.label}>Description</div>
           <div className={styles.details}>
             <strong>Last Updated: </strong>{this.state.lecture.updated_at}
           </div>
+
           <div className={styles.description}>
             {this.state.lecture.description}
           </div>

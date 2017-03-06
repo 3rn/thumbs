@@ -18,6 +18,7 @@ class LectureView extends React.Component {
       lecture: {
         'title': 'Finding your lecture...',
         'created_at': '',
+        'updated_at': '',
         'description': '...the best lecture ever!'
       },
       deliveries: [
@@ -29,6 +30,7 @@ class LectureView extends React.Component {
 
     this.getDeliveries = this.getDeliveries.bind(this);
     this.getLectureTitle = this.getLectureTitle.bind(this);
+    this.displayNewDelivery = this.displayNewDelivery.bind(this);
     this.displayDeliveries = this.displayDeliveries.bind(this);
   }
 
@@ -43,7 +45,13 @@ class LectureView extends React.Component {
     .then(function (response) {
       console.log('Lecture: ', response.data);
       if (response) {
-        context.setState({lecture: response.data[0]});
+        context.setState({lecture: {
+          'title': response.data[0].title,
+          'created_at': (new Date(response.data[0].created_at)).toUTCString(),
+          'updated_at': (new Date(response.data[0].updated_at)).toUTCString(),
+          'description': response.data[0].description
+          }
+        });
         console.log('LectureView: lecture ', context.state.lecture);
       }      
     })
@@ -67,6 +75,20 @@ class LectureView extends React.Component {
     });
   }
 
+  displayNewDelivery() {
+    const context = this;
+
+    return (
+      <form className={styles.card} >
+        <h3>New Delivery</h3>
+        <h4>Link</h4>
+        <button className={styles.primaryButton}>
+          Start Delivery
+        </button>
+      </form>
+      );
+  }
+
   displayDeliveries() {
     const context = this;
     return this.state.deliveries.map((element, index) => {
@@ -77,7 +99,7 @@ class LectureView extends React.Component {
             <h2>{element.notes}</h2>
 
             <div className={styles.details}>
-              <span>{element.created_at}</span>
+              <span>{}</span>
             </div>
           </div>
         </Link>
@@ -93,12 +115,13 @@ class LectureView extends React.Component {
           <div className={styles.label}>Lecture Info</div>
           <h1>{`${this.state.lecture.title}`}</h1>
           <div className={styles.details}>
-            {`${this.state.lecture.created_at}`}
+            <strong>Last Updated: </strong>{this.state.lecture.updated_at}
           </div>
           <div className={styles.description}>
-            {`${this.state.lecture.description}`}
+            {this.state.lecture.description}
           </div>
         </div>
+        {this.displayNewDelivery()}
         {this.displayDeliveries()}
       </div>
     );

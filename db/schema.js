@@ -3,13 +3,22 @@
 // CREATE DATABASE thumbs; //CASE SENSITIVE
 
 const Sequelize = require('sequelize');
-const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-  host: 'thumbsdb.crmuzms0yo69.us-west-1.rds.amazonaws.com',
-  dialect: 'postgres',
-  port: 5432,
-  schema: 'public'
-});
 
+if (process.env.PRODUCTION === 'production') {
+  var connection = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+    host: 'thumbsdb.crmuzms0yo69.us-west-1.rds.amazonaws.com',
+    dialect: 'postgres',
+    port: 5432,
+    schema: 'public'
+  });
+} else {
+  // for localhost developement, use:
+  var connection = new Sequelize('thumbs', '', '', {
+    dialect: 'postgres',
+    port: 5432,
+    schema: 'public'
+  });
+}
 
 // V0
 var SavedQuestions = connection.define('saved_questions',
@@ -26,7 +35,6 @@ var SavedQuestions = connection.define('saved_questions',
 
 // Notes:
 // createdAt & updatedAt automatically included
-
 const define = function(model) {
   return require(`./tables/${model}/${model}Model.js`)(connection, Sequelize);
 };

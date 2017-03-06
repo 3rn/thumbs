@@ -74,6 +74,10 @@ const mapStateToProps = (state) => ({
   openResponse: state.participantReducer.openResponse,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ updateVoteStatus, sendQuestion, response }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  updateVoteStatus,
+  sendQuestion,
+  response
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);

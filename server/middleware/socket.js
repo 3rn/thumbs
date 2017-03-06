@@ -2,9 +2,14 @@ module.exports = function(server) {
   const io = require('socket.io')(server);
 
   io.on('connection', (socket) => {
+    var room;
     console.log('a user connected');
 
     socket.on('disconnect', () => {
+      // console.log(io.sockets.adapter.rooms[room]);
+      if (io.sockets.adapter.rooms[room]) {
+        io.to(room).emit('roomCount', io.sockets.adapter.rooms[room].length);
+      }
       console.log('user disconnected');
     });
 
@@ -29,8 +34,12 @@ module.exports = function(server) {
     });
 
     socket.on('joinPresentation', (payload) => {
-      socket.join(payload.room);
-      io.to(payload.room).emit('room');
+      room = payload.room;
+      socket.join(room);
+
+      if (io.sockets.adapter.rooms[room]) {
+        io.to(room).emit('roomCount', io.sockets.adapter.rooms[room].length);
+      }
     });
   });
 

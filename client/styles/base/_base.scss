@@ -45,3 +45,27 @@ button {
 button:focus {
   outline: none;
 }
+
+nav {
+  background-color: $white;
+  box-shadow:0px 0px 1px $color-shadow;
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  height: 50px;
+  line-height: 50px;  
+  margin: 0 auto;
+  text-align: center;
+  border-bottom: 1px solid $ryan-white;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    padding: 10px 0;
+  }
+  
+}

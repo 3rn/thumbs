@@ -45,6 +45,7 @@ const define = function(model) {
 const User = define('User');
 const Code = define('Code');
 const Lecture = define('Lecture');
+const Slide = define('Slide');
 const Delivery = define('Delivery');
 const Question = define('Question');
 const QuestionType = define('QuestionType');
@@ -60,6 +61,8 @@ Code.belongsTo(User);
 
 User.hasOne(Delivery);
 
+Slide.belongsTo(Lecture);
+
 Response.belongsTo(Delivery);
 Response.belongsTo(Question);
 
@@ -74,6 +77,7 @@ module.exports = {
   User: User,
   Code: Code,
   Lecture: Lecture,
+  Slide: Slide,
   Delivery: Delivery,
   Question: Question,
   QuestionType: QuestionType,

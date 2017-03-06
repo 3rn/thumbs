@@ -16,7 +16,7 @@
   // Desktop
   @media screen and (min-width: $break-phone-max) {
     top: 71px;
-    width: 40%;
+    width: 60%;
     margin: 0 auto;
   }
 }
@@ -143,6 +143,18 @@
 .separator {
   margin: 0 10px;
   border-right: .5px solid $light-grey;
+}
+
+.details {
+  padding-top: .8em;
+  font-size: .8em;
+  color: $black;
+
+}
+
+.description {
+  padding-top: .8em;
+  font-size: 1.2em;
 }
 
 input[type=range] {

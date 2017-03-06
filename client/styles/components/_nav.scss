@@ -2,31 +2,6 @@
 @import "../base/break-points";
 
 
-nav {
-  // color: $black;
-  background-color: $white;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  
-  // opacity: .5;
-
-  height: 50px;
-  line-height: 50px;  
-  margin: 0 auto;
-  text-align: center;
-  border-bottom: 1px solid $ryan-white;
-
-  // Mobile
-  @media screen and (min-width: $break-phone-min) {
-    
-  }
-  // Desktop
-  @media screen and (min-width: $break-computer-min) {
-    padding: 10px 0;
-  }
-}
-
 .logo, .menu {
   
   height: 50px;

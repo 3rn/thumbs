@@ -60,6 +60,7 @@ Lecture.belongsTo(User);
 Code.belongsTo(User);
 
 User.hasOne(Delivery);
+Lecture.hasMany(Delivery);
 
 Slide.belongsTo(Lecture);
 

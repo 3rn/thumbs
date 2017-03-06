@@ -25,7 +25,6 @@ dist/
 
 # Server config
 server/server.config.js
-db/db.config.js
 
 # Yarn
 yarn.lock

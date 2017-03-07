@@ -15,7 +15,7 @@ class Delivery extends React.Component {
     this.displayQuestions = this.displayQuestions.bind(this);
 
     this.state = {
-      questionQueue: [],
+      questions: [],
       questionType: 'default',
       choice: '',
       choices: []
@@ -29,21 +29,22 @@ class Delivery extends React.Component {
     axios.get(`/db/savedQuestions/getQuestions/${this.props.room}`)
     .then(function (response) {
       var questions = response.data.map((element) => (element));
-      context.setState({questionQueue: questions});
+      context.setState({questions: questions});
     })
     .catch(function (error) {
       console.log(error);
     });
   }
 
-  displayQuestions(questionArray) {
-    var questions = questionArray.map((element, index) => {
+  displayQuestions() {
+    return this.state.questions.map((element, index) => {
       return (
         <QuestionCard
           key={index + 1}
           index={index + 1}
           element={element}
           choices={element.choices}
+          questionTitle={element.title}
           questionType={element.question_type}
           room={this.props.room}
           status={this.props.status}
@@ -54,16 +55,13 @@ class Delivery extends React.Component {
         />
       );
     });
-    return questions;
   }
 
   render() {
     return (
       <div>
-        <QuickCheck room={this.props.room} />
-        <div className={styles.container}>
-          {this.displayQuestions(this.state.questionQueue)}
-        </div>
+        <h1>Delivery</h1>
+        {this.displayQuestions()}
       </div>
     );
   }

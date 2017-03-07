@@ -11,9 +11,12 @@ import MultipleChoice from './ResponseViews/MultipleChoice';
 class Response extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      voted: false
+    };
+
     this.handleClick = this.handleClick.bind(this);
-    this.showChoices = this.showChoices.bind(this);
   }
 
   handleClick(e) {
@@ -22,14 +25,14 @@ class Response extends React.Component {
       value: e.target.value,
       questionType: this.props.questionType
     });
-  }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({voted: true});
   }
 
   showChoices() {
-    if (this.props.questionType === 'YES_NO') {
+    if (this.state.voted) {
+      return <div className={styles.responded}><span>Vote Submitted</span></div>;
+    } else if (this.props.questionType === 'YES_NO') {
       return <YesNo click={this.handleClick} />;
     } else if (this.props.questionType === 'THUMBS') {
       return <Thumbs click={this.handleClick} />;
@@ -45,6 +48,8 @@ class Response extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
+        <h2>{this.props.questionTitle}</h2>
+        <h6>{this.props.questionType}</h6>
         { this.showChoices() }
       </div>
     );

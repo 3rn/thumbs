@@ -11,6 +11,15 @@ var getDelivery = (req, res) => {
   });
 }
 
+var getDeliveryLectureTitle = (req, res) => {
+  console.log('DeliveryController: Getting Delivery Lecture Title');
+  Models.connection.query(
+    // `SQL Queury`
+    {type: Models.connection.QueryTypes.SELECT}
+  ).then(function(data) {
+    res.send(data);
+  });
+}
 
 var postDelivery = (req, res) => {
   console.log('DeliveryController: Creating Delivery');

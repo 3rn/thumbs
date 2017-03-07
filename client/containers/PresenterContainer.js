@@ -5,7 +5,7 @@ import socket from '../config/socket';
 
 import Delivery from '../components/Presenter/Delivery.jsx';
 
-import { updateVoteStatus, sendQuestion } from '../actions/presenterActions.js';
+import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
 
 import styles from '../styles/base/_custom';
@@ -13,6 +13,12 @@ import styles from '../styles/base/_custom';
 class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    socket.emit('joinPresentation', {room: this.props.params.room});
+
+    socket.on('roomCount', (payload) => {
+      this.props.getRoomCount(payload - 1);
+    });
 
     socket.on('vote', (payload) => {
       this.props.response(payload.questionType, payload.value);
@@ -23,7 +29,7 @@ class PresenterContainer extends React.Component {
     });
 
     socket.on('startVote', (payload) => {
-      this.props.sendQuestion(payload.id, payload.questionType, payload.choices);
+      this.props.sendQuestion(payload.questionTitle, payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
     });
 
@@ -34,13 +40,16 @@ class PresenterContainer extends React.Component {
     socket.on('newVote', (payload) => {
       this.props.updateVoteStatus('WAITING');
     });
-
-    socket.emit('joinPresentation', {room: this.props.params.room});
   }
 
   render() {
     return (
       <div className={styles.wrapper}>
+      <DeliveryInfo
+          roomCount={this.props.roomCount}
+          participantCount={this.props.participantCount}
+          participantConfused={this.props.confusedCount}
+        />
         <Delivery
           room={this.props.params.room}
           status={this.props.voteStatus}
@@ -53,19 +62,20 @@ class PresenterContainer extends React.Component {
           multipleChoice={this.props.multipleChoice}
           openResponse={this.props.openResponse}
           participantCount={this.props.participantCount}
-          participantConfused={this.props.confusedCount}
+          questionCount={this.props.questionCount}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     voteStatus: state.presenterReducer.status,
     currentQuestion: state.presenterReducer.currentQuestion,
     questionType: state.presenterReducer.questionType,
     choices: state.presenterReducer.choices,
+    roomCount: state.presenterReducer.roomCount,
     thumbs: state.participantReducer.thumbs,
     yesNo: state.participantReducer.yesNo,
     scale: state.participantReducer.scale,
@@ -76,6 +86,13 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ updateVoteStatus, response, sendQuestion, participantCount, participantConfused }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  updateVoteStatus,
+  sendQuestion,
+  getRoomCount,
+  response,
+  participantCount,
+  participantConfused
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

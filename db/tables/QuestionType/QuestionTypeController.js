@@ -12,7 +12,7 @@ var getQuestionType = (req, res) => {
 
 var postQuestionType = (req, res) => {
   console.log('QuestionType Controller: posting questionType');
-  Models.SavedQuestions.build({
+  Models.QuestionType.build({
     
   }).save();
 };

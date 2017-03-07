@@ -16,7 +16,7 @@
   // Desktop
   @media screen and (min-width: $break-phone-max) {
     top: 71px;
-    width: 40%;
+    width: 60%;
     margin: 0 auto;
   }
 }
@@ -26,7 +26,7 @@
   text-transform: uppercase;
   font-weight: bold;
   color: $black;
-  opacity: .8;
+  opacity: .6;
   margin-bottom: 8px;
 
   // Mobile
@@ -145,6 +145,23 @@
   border-right: .5px solid $light-grey;
 }
 
+.details {
+  padding-top: .8em;
+  font-size: .8em;
+  color: $black;
+
+}
+
+.description {
+  padding-top: .8em;
+  font-size: 1.2em;
+}
+
+
+input[type=text]:focus {
+  outline: none;
+}
+
 input[type=range] {
   -webkit-appearance: none;
   margin: 10px 0;
@@ -233,3 +250,4 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: $turqoise;
 }
+

@@ -25,7 +25,6 @@ class Dashboard extends React.Component {
 
   getLectures() {
     const context = this;
-
     // This endpoint returns all lectures given a userId
     axios.get('/db/l')
       .then((response) => {
@@ -58,11 +57,6 @@ class Dashboard extends React.Component {
       let lectureId = response.data.id;
       browserHistory.push(`/l/${lectureId}/edit`);
     });
-
-
-    // browserHistory.push('/create');
-
-
   }
 
   displayNewLecture() {
@@ -94,7 +88,6 @@ class Dashboard extends React.Component {
       })
     );
   }
-
 
   render() {
     return (

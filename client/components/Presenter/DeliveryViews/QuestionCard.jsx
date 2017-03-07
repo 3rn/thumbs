@@ -26,8 +26,8 @@ class QuestionCard extends React.Component {
   handleClick(e) {
     if (this.props.status === 'WAITING') {
       socket.emit('startVote', {
-        id: this.props.element.id,
         room: this.props.room,
+        questionTitle: this.props.questionTitle,
         questionType: this.props.questionType,
         choices: this.props.choices
       });
@@ -103,7 +103,7 @@ class QuestionCard extends React.Component {
       <div className={styles.container}>
         <div className={styles.card}>
           <div className={styles.label}>
-            <h3 className={styles.questionTitle}>{this.props.element.title}</h3>
+            {this.props.element.title}
             <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
           </div>
           { this.showDetails() }

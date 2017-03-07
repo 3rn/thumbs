@@ -53,7 +53,6 @@ class Dashboard extends React.Component {
 
 
   render() {
-    debugger;
     return (
       <div className={styles.wrapper}>
         <div className={styles.card}>
@@ -62,7 +61,6 @@ class Dashboard extends React.Component {
           </div>
           <h3>Welcome {this.props.name}</h3>
         </div>
-        
         {this.displayLectures()}
       </div>
 

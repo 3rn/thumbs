@@ -8,6 +8,19 @@ import { bindActionCreators } from 'redux';
 
 import { login } from '../actions/loginActions.js';
 
+// Client ID and API key from the Developer Console
+var CLIENT_ID = '171247937343-lpo93i31pue6rsmna75k1m4piqfo06bk.apps.googleusercontent.com';
+
+// Object of API discovery doc URLs for APIs used by the quickstart
+var DISCOVERY_DOCS = [
+  'https://slides.googleapis.com/$discovery/rest?version=v1',
+  'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
+];
+
+// Authorization scopes required by the API; multiple scopes can be
+// included, separated by spaces.
+var SCOPES = 'https://www.googleapis.com/auth/presentations.readonly https://www.googleapis.com/auth/drive.metadata.readonly';
+
 class HomeContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -57,11 +70,18 @@ class HomeContainer extends React.Component {
 
   oauthSuccess (response) {
     var info = response.getBasicProfile();
-    debugger;
     this.props.login({
       name: info.ofa,
       email: info.U3
     });
+
+    //iniialize access to drive and slide api
+    gapi.client.init({
+      discoveryDocs: DISCOVERY_DOCS,
+      clientId: CLIENT_ID,
+      scope: SCOPES
+    });
+
     browserHistory.push('/u');
   }
 
@@ -99,7 +119,6 @@ class HomeContainer extends React.Component {
           />
         </div>
       </div>
-      
     );
   }
 }

@@ -12,10 +12,20 @@
   border-top: .5px solid $white;
   color: $dark-grey;
 
-  font-size: .7em;
-  line-height: .8em;
+  
+  line-height: 1em;
   text-transform: uppercase;
   text-align: center;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    font-size: .6em;
+  }
+
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    font-size: .7em;
+  }
   
 }
 

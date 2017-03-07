@@ -20,6 +20,7 @@ router.use('/q', defineRoute('Question'));
 router.use('/qt', defineRoute('QuestionType'));
 router.use('/mc', defineRoute('MultipleChoice'));
 router.use('/r', defineRoute('Response'));
+router.use('/s', defineRoute('Slide'));
 
 
 

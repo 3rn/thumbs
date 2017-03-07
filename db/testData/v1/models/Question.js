@@ -12,19 +12,19 @@ module.exports = function(Models) {
   }).save();
 
   Models.Question.build({
-    'title': 'Why is Nathan such a good person?',
+    'title': 'Why is Ranit such a late person?',
     'lecture_id': 3,
     'question_type_id': 3
   }).save();
 
   Models.Question.build({
-    'title': 'Why is Nathan such a good person?',
+    'title': 'Why is Richard such a loud person?',
     'lecture_id': 4,
     'question_type_id': 3
   }).save();
 
   Models.Question.build({
-    'title': 'Why is Nathan such a good person?',
+    'title': 'Why is Sophie such a good person?',
     'lecture_id': 5,
     'question_type_id': 2
   }).save();

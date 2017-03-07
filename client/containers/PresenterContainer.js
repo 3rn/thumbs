@@ -65,22 +65,6 @@ class PresenterContainer extends React.Component {
           participantCount={this.props.participantCount}
           questionCount={this.props.questionCount}
         />
-<<<<<<< HEAD
-=======
-      );
-    }
-  }
-
-  render() {
-    return (
-      <div className={styles.wrapper}>
-        <DeliveryInfo
-          roomCount={this.props.roomCount}
-          participantCount={this.props.participantCount}
-          participantConfused={this.props.confusedCount}
-        />
-        {this.getCurrentView()}
->>>>>>> Reset presenter confusion counter after questions are asked
       </div>
     );
   }

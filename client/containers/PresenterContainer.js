@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import socket from '../config/socket';
 
 import Delivery from '../components/Presenter/Delivery.jsx';
-
+import DeliveryInfo from '../components/Presenter/DeliveryViews/DeliveryInfo.jsx';
 import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
 
@@ -45,10 +45,10 @@ class PresenterContainer extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-      <DeliveryInfo
-          roomCount={this.props.roomCount}
-          participantCount={this.props.participantCount}
-          participantConfused={this.props.confusedCount}
+        <DeliveryInfo
+            roomCount={this.props.roomCount}
+            participantCount={this.props.participantCount}
+            participantConfused={this.props.confusedCount}
         />
         <Delivery
           room={this.props.params.room}

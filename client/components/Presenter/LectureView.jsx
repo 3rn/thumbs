@@ -29,6 +29,7 @@ class LectureView extends React.Component {
     this.getLectureTitle = this.getLectureTitle.bind(this);
     this.displayNewDelivery = this.displayNewDelivery.bind(this);
     this.displayDeliveries = this.displayDeliveries.bind(this);
+    this.handleStartDelivery = this.handleStartDelivery.bind(this);
     this.editClickHandler = this.editClickHandler.bind(this);
   }
 
@@ -36,6 +37,17 @@ class LectureView extends React.Component {
     this.getLectureTitle();
     this.getDeliveries();
     this.generateNewLink();
+  }
+
+  handleStartDelivery (e) {
+    e.preventDefault();
+    axios.post('/db/d', {
+      lectureId: this.state.lectureId,
+      userId: 1
+    })
+    .then(response => {
+      browserHistory.push(`/l/${this.state.lectureId}/d/${response.data.id}`);
+    });
   }
 
   getLectureTitle() {
@@ -49,10 +61,10 @@ class LectureView extends React.Component {
           'created_at': (new Date(response.data[0].created_at)).toUTCString(),
           'updated_at': (new Date(response.data[0].updated_at)).toUTCString(),
           'description': response.data[0].description
-          }
+        }
         });
         console.log('LectureView: lecture ', context.state.lecture);
-      }      
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -67,7 +79,7 @@ class LectureView extends React.Component {
       if (response) {
         context.setState({deliveries: response.data});
         console.log('LectureView: deliveries ', context.state.deliveries);
-      }      
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -111,7 +123,7 @@ class LectureView extends React.Component {
       <form className={styles.card} >
         <div className={styles.label}>New Delivery</div>
         <h4>{this.state.link}</h4>
-        <button className={styles.primaryButton}>
+        <button className={styles.primaryButton} onClick={this.handleStartDelivery}>
           Start Delivery
         </button>
       </form>
@@ -139,7 +151,7 @@ class LectureView extends React.Component {
         </Link>
       );
     });
-    
+
   }
 
   render() {

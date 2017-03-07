@@ -8,7 +8,7 @@ const init = function(model) {
 
 
 module.exports.init = function() {
-  
+
   init('User');
   init('Code');
   init('Lecture');

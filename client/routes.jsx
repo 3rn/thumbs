@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './components/App';
-import Home from './components/Home';
+import HomeContainer from './containers/HomeContainer';
 
 import Presentations from './components/Presenter/Presentation';
 import PresentationQuestions from './components/Presenter/PresentationViews/PresentationQuestions';
@@ -20,7 +20,7 @@ import DeliveryView from './components/Presenter/DeliveryView';
 
 module.exports = (
   <Route path="/" component={App}>
-    <IndexRoute component={Home} />
+    <IndexRoute component={HomeContainer} />
     <Route path="presentations" component={Presentations} />
     <Route path="presentationQuestions" component={PresentationQuestions} />
     <Route path="part/:room" component={ParticipantContainer} />

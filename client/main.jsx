@@ -3,11 +3,13 @@ import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store.js';
-import routes from './routes';
+import getRoutes from './routes';
 
 render(
   <Provider store={store}>
-    <Router routes={routes} history={browserHistory}/>
+    <Router history={browserHistory}>
+      {getRoutes(store)}
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

@@ -20,3 +20,9 @@ export function getRoomCount(roomCount) {
     roomCount: roomCount
   };
 }
+
+export function resetConfusedCount() {
+  return {
+    type: 'RESET_CONFUSED'
+  };
+}

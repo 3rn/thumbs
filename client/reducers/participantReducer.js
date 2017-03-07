@@ -39,6 +39,8 @@ export default function participantReducer(state = {
   case 'PARTICIPANT_CONFUSED':
     var newCount = state.confusedCount + 1;
     return {...state, confusedCount: newCount};
+  case 'RESET_CONFUSED':
+    return {...state, confusedCount: 0};
   case 'PARTICIPANT_COUNT':
     var newCount = state.participantCount + 1;
     return {...state, participantCount: newCount};

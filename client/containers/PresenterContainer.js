@@ -5,7 +5,8 @@ import socket from '../config/socket';
 
 import Delivery from '../components/Presenter/Delivery.jsx';
 import DeliveryInfo from '../components/Presenter/DeliveryViews/DeliveryInfo.jsx';
-import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
+
+import { updateVoteStatus, sendQuestion, getRoomCount, resetConfusedCount } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
 
 import styles from '../styles/base/_custom';
@@ -38,6 +39,7 @@ class PresenterContainer extends React.Component {
     });
 
     socket.on('newVote', (payload) => {
+      this.props.resetConfusedCount();
       this.props.updateVoteStatus('WAITING');
     });
   }
@@ -63,6 +65,22 @@ class PresenterContainer extends React.Component {
           participantCount={this.props.participantCount}
           questionCount={this.props.questionCount}
         />
+<<<<<<< HEAD
+=======
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className={styles.wrapper}>
+        <DeliveryInfo
+          roomCount={this.props.roomCount}
+          participantCount={this.props.participantCount}
+          participantConfused={this.props.confusedCount}
+        />
+        {this.getCurrentView()}
+>>>>>>> Reset presenter confusion counter after questions are asked
       </div>
     );
   }
@@ -90,7 +108,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   getRoomCount,
   response,
   participantCount,
-  participantConfused
+  participantConfused,
+  resetConfusedCount
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

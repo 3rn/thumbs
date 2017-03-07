@@ -14,7 +14,6 @@ class Dashboard extends React.Component {
       lectures: []
     };
 
-
     this.getLectures = this.getLectures.bind(this);
     this.displayLectures = this.displayLectures.bind(this);
 
@@ -51,7 +50,6 @@ class Dashboard extends React.Component {
     );
   }
 
-
   render() {
     return (
       <div className={styles.wrapper}>
@@ -63,7 +61,6 @@ class Dashboard extends React.Component {
         </div>
         {this.displayLectures()}
       </div>
-
     );
   }
 }

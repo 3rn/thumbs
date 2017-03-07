@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../config/socket';
 
-import DeliveryInfo from '../components/Presenter/DeliveryViews/DeliveryInfo.jsx';
-import Prompt from '../components/Presenter/Delivery.jsx';
-import Results from '../components/Presenter/Results.jsx';
+import Delivery from '../components/Presenter/Delivery.jsx';
 
 import { updateVoteStatus, sendQuestion } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
@@ -25,7 +23,7 @@ class PresenterContainer extends React.Component {
     });
 
     socket.on('startVote', (payload) => {
-      this.props.sendQuestion(payload.questionType, payload.choices);
+      this.props.sendQuestion(payload.id, payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
     });
 
@@ -40,18 +38,13 @@ class PresenterContainer extends React.Component {
     socket.emit('joinPresentation', {room: this.props.params.room});
   }
 
-  getCurrentView() {
-    if (this.props.voteStatus === 'WAITING') {
-      return (
-        <Prompt
-          room={this.props.params.room}
-        />
-      );
-    } else {
-      return (
-        <Results
+  render() {
+    return (
+      <div className={styles.wrapper}>
+        <Delivery
           room={this.props.params.room}
           status={this.props.voteStatus}
+          currentQuestion={this.props.currentQuestion}
           questionType={this.props.questionType}
           choices={this.props.choices}
           thumbs={this.props.thumbs}
@@ -60,23 +53,8 @@ class PresenterContainer extends React.Component {
           multipleChoice={this.props.multipleChoice}
           openResponse={this.props.openResponse}
           participantCount={this.props.participantCount}
-          questionCount={this.props.questionCount}
-        />
-      );
-    }
-  }
-
-  render() {
-    return (
-      <div className={styles.wrapper}>
-
-        <DeliveryInfo
-          participantCount={this.props.participantCount}
           participantConfused={this.props.confusedCount}
         />
-
-        {this.getCurrentView()}
-
       </div>
     );
   }
@@ -85,6 +63,7 @@ class PresenterContainer extends React.Component {
 const mapStateToProps = state => {
   return {
     voteStatus: state.presenterReducer.status,
+    currentQuestion: state.presenterReducer.currentQuestion,
     questionType: state.presenterReducer.questionType,
     choices: state.presenterReducer.choices,
     thumbs: state.participantReducer.thumbs,

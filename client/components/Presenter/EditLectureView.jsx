@@ -27,10 +27,14 @@ export default class EditLectureView extends React.Component {
     this.getLecture = this.getLecture.bind(this);
     // this.loadEditLectureView = this.loadEditLectureView.bind(this);
     this.editLockClickHandler = this.editLockClickHandler.bind(this);
+    this.getLectureQuestions = this.getLectureQuestions.bind(this);
+    this.displayQuestions = this.displayQuestions.bind(this);
+    this.addQuestion = this.addQuestion.bind(this);
   }
 
   componentDidMount() {
     this.getLecture();
+    this.getLectureQuestions();
     // this.loadEditLectureView('RANT');
   }
 
@@ -59,9 +63,25 @@ export default class EditLectureView extends React.Component {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}`)
     .then(function (response) {
-      console.log(response.data);
-      if (response) {
+      console.log(response);
+      if (response.data.length !== 0) {
         context.setState({lecture: response.data[0]});
+      }      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  getLectureQuestions() {
+    const context = this;
+    console.log('Getting lecture questions');
+    
+    axios.get(`/db/q/${this.state.lectureId}`)
+    .then(questions => {
+      console.log('lecture questions ', questions.data);
+      if (questions.data) {
+        context.setState({questions: questions.data});
       }      
     })
     .catch(function (error) {
@@ -88,6 +108,31 @@ export default class EditLectureView extends React.Component {
           addQuestion={this.addQuestion} />
       </div>
     );
+  }
+
+  addQuestion(question) {
+    console.log('Adding question to questions');
+    let questions = this.state.questions;
+    debugger;
+    questions.push(question);
+
+    this.setState({questions: questions});
+  }
+
+  displayQuestions() {
+    console.log('EditLectureView: displayQuestions');
+    const context = this;
+    
+    return context.state.questions.map((question, index) => {
+      return (
+        <div className={styles.card} key={question.id}>
+          <div className={styles.label}>
+            Question #{index+1}
+          </div>
+          <h2>{question.title}</h2>
+        </div>
+      )
+    });
   }
 
   render() {
@@ -117,6 +162,7 @@ export default class EditLectureView extends React.Component {
 
 
         {this.createQuestion()}
+        {this.displayQuestions()}
 
       </div>
     );

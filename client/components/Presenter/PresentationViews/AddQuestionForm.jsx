@@ -13,7 +13,7 @@ export default class AddQuestionForm extends React.Component {
     this.state.title = '';
     this.state.lectureId = this.props.lectureId;
 
-
+    this.addQuestionToQuestions = this.props.addQuestion;
     this.onQuestionTypeSelect = this.onQuestionTypeSelect.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleQuestionAdd = this.handleQuestionAdd.bind(this);
@@ -45,20 +45,25 @@ export default class AddQuestionForm extends React.Component {
 
   handleQuestionAdd() {
     console.log('AddQuestionForm: Question Add');
-    
-    axios.post('/db/q/', {
+    const context = this;
+    let question = {
       title: this.state.title,
       lectureId: this.state.lectureId,
       questionType: this.state.questionType,
       graphType: this.state.graphType,
-      
-    })
+    }
+
+    axios.post(`/db/q/${this.state.lectureId}`, question)
     .catch(function (error) {
       console.log(error);
+    })
+    .then((res) => {
+      context.addQuestionToQuestions(question);
+
+      //reset fields
+      this.setState(this.getDefaults());
     });
 
-    //reset fields
-    this.setState(this.getDefaults());
   }
 
   render() {

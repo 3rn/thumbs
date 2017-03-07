@@ -7,7 +7,6 @@ export default function participantReducer(state = {
   confusedCount: 0,
   participantCount: 0
 }, action) {
-  const initalState = state;
   switch (action.type) {
   case 'UPDATE_VOTE_STATUS':
   if (action.status === 'ENDED'){

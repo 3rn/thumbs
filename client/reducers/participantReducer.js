@@ -8,6 +8,17 @@ export default function participantReducer(state = {
   participantCount: 0
 }, action) {
   switch (action.type) {
+  case 'UPDATE_VOTE_STATUS':
+  if (action.status === 'ENDED'){
+    return {...state,
+      thumbs: [0, 0, 0],
+      yesNo: [0, 0],
+      scale: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      multipleChoice: [],
+      openResponse: [],
+      confusedCount: 0
+    };
+  }
   case 'THUMBS':
     var newCount = state.thumbs.slice(0);
     var index = parseInt(action.value);

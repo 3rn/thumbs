@@ -61,6 +61,14 @@ class Delivery extends React.Component {
     return (
       <div>
         <h1>Delivery</h1>
+        <QuickCheck
+          questionType={this.props.questionType}
+          thumbs={this.props.thumbs}
+          yesNo={this.props.yesNo}
+          scale={this.props.scale}
+          status={this.props.status}
+          room={this.props.room}
+        />
         {this.displayQuestions()}
       </div>
     );

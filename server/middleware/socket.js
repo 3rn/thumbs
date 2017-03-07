@@ -6,7 +6,6 @@ module.exports = function(server) {
     console.log('a user connected');
 
     socket.on('disconnect', () => {
-      // console.log(io.sockets.adapter.rooms[room]);
       if (io.sockets.adapter.rooms[room]) {
         io.to(room).emit('roomCount', io.sockets.adapter.rooms[room].length);
       }

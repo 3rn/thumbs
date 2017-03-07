@@ -1,1 +1,9 @@
 @import "../base/custom";
+
+input {
+  margin-bottom: 1em;
+}
+
+input[type=text] {
+  border-bottom: 1px solid $ryan-gray;
+}

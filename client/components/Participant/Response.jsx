@@ -48,6 +48,8 @@ class Response extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
+        <h2>{this.props.questionTitle}</h2>
+        <h6>{this.props.questionType}</h6>
         { this.showChoices() }
       </div>
     );

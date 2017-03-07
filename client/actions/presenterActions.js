@@ -5,9 +5,10 @@ export function updateVoteStatus(voteStatus) {
   };
 }
 
-export function sendQuestion(questionType, choices) {
+export function sendQuestion(questionTitle, questionType, choices) {
   return {
     type: 'SEND_QUESTION',
+    questionTitle: questionTitle,
     questionType: questionType,
     choices: choices
   };

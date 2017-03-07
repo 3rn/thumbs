@@ -19,7 +19,7 @@
     font-size: 1.5em;
   }
   // Desktop
-  @media screen and (min-width: $break-computer-min) {
+  @media screen and (min-width: $break-phone-max) {
     font-size: 2.5em;
   }
 }
@@ -31,7 +31,7 @@
   top: 0px;
  
   // Desktop
-  @media screen and (min-width: $break-computer-min) {
+  @media screen and (min-width: $break-phone-max) {
     display: none;
   }
 }

@@ -11,7 +11,7 @@
 body {
   display: block;
   background-color: $off-white; 
-  min-width: 400px !important;
+  min-width: 320px !important;
 }
 
 a {
@@ -64,8 +64,13 @@ nav {
     
   }
   // Desktop
-  @media screen and (min-width: $break-computer-min) {
+  @media screen and (min-width: $break-phone-max) {
     padding: 10px 0;
   }
   
 }
+
+strong {
+  font-weight: bold;
+}
+

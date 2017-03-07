@@ -1,12 +1,14 @@
 var Models = require('../../schema.js');
 
-var getQuestion = (req, res) => {
+var getQuestions = (req, res) => {
   console.log('Question Controller: getting question');
+  console.log(req.params);
   Models.connection.query(
-    `SQL`,
+    `SELECT * FROM questions
+     WHERE lecture_id = ${req.params.lectureId}`,
     {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
-    res.send(data);
+  ).then(function(questions) {
+    res.send(questions);
   });
 };
 
@@ -26,6 +28,6 @@ var postQuestion = (req, res) => {
 };
 
 module.exports = {
-  get: getQuestion,
-  post: postQuestion
+  getQuestions: getQuestions,
+  postQuestion: postQuestion
 };

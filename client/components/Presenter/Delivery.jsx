@@ -47,6 +47,11 @@ class Delivery extends React.Component {
           questionTitle={element.title}
           questionType={element.question_type}
           room={this.props.room}
+          status={this.props.status}
+          thumbs={this.props.thumbs}
+          scale={this.props.scale}
+          yesNo={this.props.yesNo}
+          multipleChoice={this.props.multipleChoice}
         />
       );
     });

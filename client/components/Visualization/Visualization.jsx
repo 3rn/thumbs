@@ -1,7 +1,6 @@
 import React from 'react';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
-import ScatterPlot from './ScatterPlot';
 import Selector from './Selector';
 
 export default class Visualization extends React.Component {
@@ -22,8 +21,6 @@ export default class Visualization extends React.Component {
       return <BarChart data={this.props.data} questionType={this.props.questionType} choices={this.props.choices} />;
     } else if (this.state.selectedVisual === 'pie') {
       return <PieChart data={this.props.data} questionType={this.props.questionType} choices={this.props.choices} />;
-    } else if (this.state.selectedVisual === 'plot') {
-      return <ScatterPlot data={this.props.data} questionType={this.props.questionType} choices={this.props.choices} />;
     }
   }
 

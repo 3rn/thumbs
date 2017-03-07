@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import { Link, browserHistory } from 'react-router';
 
+import { connect } from 'react-redux';
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,6 @@ class Dashboard extends React.Component {
       lectures: [],
       newLectureName: ''
     };
-
 
     this.getLectures = this.getLectures.bind(this);
     this.displayLectures = this.displayLectures.bind(this);
@@ -26,7 +27,6 @@ class Dashboard extends React.Component {
 
   getLectures() {
     const context = this;
-
     // This endpoint returns all lectures given a userId
     axios.get('/db/l')
       .then((response) => {
@@ -40,7 +40,7 @@ class Dashboard extends React.Component {
   }
 
   handleLectureNameChange(e) {
-    this.setState({newLectureName: e.target.value})
+    this.setState({newLectureName: e.target.value});
   }
 
   createLecture(e) {
@@ -53,17 +53,12 @@ class Dashboard extends React.Component {
     console.log(this.state.newLectureName);
 
     axios.post('/db/l', {
-        'title': context.state.newLectureName
-      })
-      .then((response) => {
-        let lectureId = response.data.id;
-        browserHistory.push(`/l/${lectureId}/edit`);
-      });
-
-
-    // browserHistory.push('/create');
-
-
+      'title': context.state.newLectureName
+    })
+    .then((response) => {
+      let lectureId = response.data.id;
+      browserHistory.push(`/l/${lectureId}/edit`);
+    });
   }
 
   displayNewLecture() {
@@ -71,7 +66,7 @@ class Dashboard extends React.Component {
       <form className={styles.card} onSubmit={this.createLecture}>
         <div className={styles.label}>New Lecture</div>
         <h4>{this.state.link}</h4>
-        <input type="text" placeholder="Enter lecture title..." 
+        <input type="text" placeholder="Enter lecture title..."
           value={this.state.newLectureName}
           onChange={this.handleLectureNameChange}/>
         <button className={styles.primaryButton}>
@@ -93,9 +88,8 @@ class Dashboard extends React.Component {
           </Link>
         );
       })
-    )
+    );
   }
-
 
   render() {
     return (
@@ -104,14 +98,18 @@ class Dashboard extends React.Component {
           <div className={styles.label}>
           Dashboard
           </div>
-          <h3>Nathan Toung</h3>
+          <h3>Welcome {this.props.name}</h3>
         </div>
         {this.displayNewLecture()}
         {this.displayLectures()}
       </div>
-
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  name: state.loginReducer.name,
+  email: state.loginReducer.email
+});
+
+export default connect(mapStateToProps, null)(Dashboard);

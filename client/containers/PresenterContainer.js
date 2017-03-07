@@ -53,7 +53,6 @@ class PresenterContainer extends React.Component {
         <Delivery
           room={this.props.params.room}
           status={this.props.voteStatus}
-          currentQuestion={this.props.currentQuestion}
           questionType={this.props.questionType}
           choices={this.props.choices}
           thumbs={this.props.thumbs}
@@ -72,7 +71,6 @@ class PresenterContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     voteStatus: state.presenterReducer.status,
-    currentQuestion: state.presenterReducer.currentQuestion,
     questionType: state.presenterReducer.questionType,
     choices: state.presenterReducer.choices,
     roomCount: state.presenterReducer.roomCount,

@@ -12,13 +12,17 @@ var getQuestion = (req, res) => {
 
 var postQuestion = (req, res) => {
   console.log('Question Controller: posting question');
-  Models.SavedQuestions.build({
-    'presentation_code': req.body.presentationCode,
+  console.log('title ', req.body.title);
+  Models.Question.build({
     'title': req.body.title,
+    'lecture_id': req.body.lectureId,
     'question_type': req.body.questionType,
-    'graph_type': req.body.graphType,
-    'content': req.body.content
-  }).save();
+    'graph_type': req.body.graphType
+  })
+  .save()
+  .then((question) => {
+    res.send(question.dataValues);
+  });
 };
 
 module.exports = {

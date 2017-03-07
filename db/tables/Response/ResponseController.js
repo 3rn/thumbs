@@ -12,7 +12,7 @@ var getResponse = (req, res) => {
 
 var postResponse = (req, res) => {
   console.log('Response Controller: posting Response');
-  Models.SavedQuestions.build({
+  Models.Response.build({
 
   }).save();
 };

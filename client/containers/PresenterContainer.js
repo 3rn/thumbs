@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../config/socket';
 
+import Delivery from '../components/Presenter/Delivery.jsx';
 import DeliveryInfo from '../components/Presenter/DeliveryViews/DeliveryInfo.jsx';
-import Prompt from '../components/Presenter/Delivery.jsx';
-import Results from '../components/Presenter/Results.jsx';
-
 import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
 
@@ -31,7 +29,7 @@ class PresenterContainer extends React.Component {
     });
 
     socket.on('startVote', (payload) => {
-      this.props.sendQuestion(payload.questionType, payload.choices);
+      this.props.sendQuestion(payload.questionTitle, payload.questionType, payload.choices);
       this.props.updateVoteStatus('IN_PROGRESS');
     });
 
@@ -44,16 +42,15 @@ class PresenterContainer extends React.Component {
     });
   }
 
-  getCurrentView() {
-    if (this.props.voteStatus === 'WAITING') {
-      return (
-        <Prompt
-          room={this.props.params.room}
+  render() {
+    return (
+      <div className={styles.wrapper}>
+        <DeliveryInfo
+            roomCount={this.props.roomCount}
+            participantCount={this.props.participantCount}
+            participantConfused={this.props.confusedCount}
         />
-      );
-    } else {
-      return (
-        <Results
+        <Delivery
           room={this.props.params.room}
           status={this.props.voteStatus}
           questionType={this.props.questionType}
@@ -66,22 +63,6 @@ class PresenterContainer extends React.Component {
           participantCount={this.props.participantCount}
           questionCount={this.props.questionCount}
         />
-      );
-    }
-  }
-
-  render() {
-    return (
-      <div className={styles.wrapper}>
-
-        <DeliveryInfo
-          roomCount={this.props.roomCount}
-          participantCount={this.props.participantCount}
-          participantConfused={this.props.confusedCount}
-        />
-
-        {this.getCurrentView()}
-
       </div>
     );
   }

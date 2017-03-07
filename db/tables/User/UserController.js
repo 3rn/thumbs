@@ -14,7 +14,7 @@ var getUser = (req, res) => {
 
 var postUser = (req, res) => {
   console.log('UserController: Creating user');
-  Models.SavedQuestions.build({
+  Models.User.build({
     
   }).save();
 };

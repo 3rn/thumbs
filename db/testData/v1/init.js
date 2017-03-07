@@ -17,5 +17,6 @@ module.exports.init = function() {
   init('QuestionType');
   init('MultipleChoice');
   init('Response');
+  init('Slide');
 
 }

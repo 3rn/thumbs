@@ -44,8 +44,14 @@ class Delivery extends React.Component {
           index={index + 1}
           element={element}
           choices={element.choices}
+          questionTitle={element.title}
           questionType={element.question_type}
           room={this.props.room}
+          status={this.props.status}
+          thumbs={this.props.thumbs}
+          scale={this.props.scale}
+          yesNo={this.props.yesNo}
+          multipleChoice={this.props.multipleChoice}
         />
       );
     });
@@ -55,6 +61,14 @@ class Delivery extends React.Component {
     return (
       <div>
         <h1>Delivery</h1>
+        <QuickCheck
+          questionType={this.props.questionType}
+          thumbs={this.props.thumbs}
+          yesNo={this.props.yesNo}
+          scale={this.props.scale}
+          status={this.props.status}
+          room={this.props.room}
+        />
         {this.displayQuestions()}
       </div>
     );

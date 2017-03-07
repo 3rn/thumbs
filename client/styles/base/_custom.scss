@@ -145,6 +145,11 @@
   border-right: .5px solid $light-grey;
 }
 
+.lineBreak {
+  margin: .5em 0;
+  border-bottom: .5px solid $color-shadow; 
+}
+
 .details {
   padding-top: .8em;
   font-size: .8em;

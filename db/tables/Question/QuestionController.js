@@ -1,27 +1,33 @@
 var Models = require('../../schema.js');
 
-var getQuestion = (req, res) => {
+var getQuestions = (req, res) => {
   console.log('Question Controller: getting question');
+  console.log(req.params);
   Models.connection.query(
-    `SQL`,
+    `SELECT * FROM questions
+     WHERE lecture_id = ${req.params.lectureId}`,
     {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
-    res.send(data);
+  ).then(function(questions) {
+    res.send(questions);
   });
 };
 
 var postQuestion = (req, res) => {
   console.log('Question Controller: posting question');
-  Models.SavedQuestions.build({
-    'presentation_code': req.body.presentationCode,
+  console.log('title ', req.body.title);
+  Models.Question.build({
     'title': req.body.title,
+    'lecture_id': req.body.lectureId,
     'question_type': req.body.questionType,
-    'graph_type': req.body.graphType,
-    'content': req.body.content
-  }).save();
+    'graph_type': req.body.graphType
+  })
+  .save()
+  .then((question) => {
+    res.send(question.dataValues);
+  });
 };
 
 module.exports = {
-  get: getQuestion,
-  post: postQuestion
+  getQuestions: getQuestions,
+  postQuestion: postQuestion
 };

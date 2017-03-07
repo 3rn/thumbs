@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+
 import AddMultipleChoice from './AddMultipleChoice';
 import styles from '../../../styles/components/_questionForm';
 
@@ -8,6 +10,10 @@ export default class AddQuestionForm extends React.Component {
 
     this.state = this.getDefaults();
 
+    this.state.title = '';
+    this.state.lectureId = this.props.lectureId;
+
+    this.addQuestionToQuestions = this.props.addQuestion;
     this.onQuestionTypeSelect = this.onQuestionTypeSelect.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleQuestionAdd = this.handleQuestionAdd.bind(this);
@@ -38,25 +44,37 @@ export default class AddQuestionForm extends React.Component {
   }
 
   handleQuestionAdd() {
-    var question = {
-      presentationCode: 'RANT',
+    console.log('AddQuestionForm: Question Add');
+    const context = this;
+    let question = {
       title: this.state.title,
+      lectureId: this.state.lectureId,
       questionType: this.state.questionType,
       graphType: this.state.graphType,
-      content: this.state.content
-    };
+    }
 
-    this.props.addQuestion(question);
+    axios.post(`/db/q/${this.state.lectureId}`, question)
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then((res) => {
+      context.addQuestionToQuestions(question);
 
-    //reset fields
-    this.setState(this.getDefaults());
+      //reset fields
+      this.setState(this.getDefaults());
+    });
+
   }
 
   render() {
     return (
       <div>
         <div>
-          <span>Question Title: </span> <input value={this.state.title} onChange={this.handleTitleChange} />
+          <input 
+            type="text" 
+            value={this.state.title} 
+            placeholder="Enter question..." 
+            onChange={this.handleTitleChange} />
         </div>
 
         <div>
@@ -69,7 +87,8 @@ export default class AddQuestionForm extends React.Component {
           </select>
         </div>
 
-        {this.state.questionType === 'MULTIPLE_CHOICE' ?
+        {
+          this.state.questionType === 'MULTIPLE_CHOICE' ?
           <AddMultipleChoice
             choices={this.state.content}
             handleMultipleChoiceAdd={this.handleMultipleChoiceAdd}

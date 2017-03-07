@@ -1,31 +1,31 @@
 module.exports = function(Models) {
   Models.Question.build({
-    'title': 'How to be a better person',
-    'questions_delivery_id_fkey': 1,
-    'questions_question_type_id_fkey': 1
+    'title': 'Why is Nathan such a good person?',
+    'lecture_id': 1,
+    'question_type_id': 1
   }).save();
 
   Models.Question.build({
-    'title': 'Birds',
-    'questions_delivery_id_fkey': 2,
-    'questions_question_type_id_fkey': 3
+    'title': 'Why is Ryan such a bad person?',
+    'lecture_id': 2,
+    'question_type_id': 3
   }).save();
 
   Models.Question.build({
-    'title': 'Mechanical Keyboards',
-    'questions_delivery_id_fkey': 3,
-    'questions_question_type_id_fkey': 3
+    'title': 'Why is Ranit such a late person?',
+    'lecture_id': 3,
+    'question_type_id': 3
   }).save();
 
   Models.Question.build({
-    'title': 'How to fly for free',
-    'questions_delivery_id_fkey': 4,
-    'questions_question_type_id_fkey': 3
+    'title': 'Why is Richard such a loud person?',
+    'lecture_id': 4,
+    'question_type_id': 3
   }).save();
 
   Models.Question.build({
-    'title': 'How to Use Docker',
-    'questions_delivery_id_fkey': 5,
-    'questions_question_type_id_fkey': 2
+    'title': 'Why is Sophie such a good person?',
+    'lecture_id': 5,
+    'question_type_id': 2
   }).save();
 };

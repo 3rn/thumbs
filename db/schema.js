@@ -67,7 +67,7 @@ Slide.belongsTo(Lecture);
 Response.belongsTo(Delivery);
 Response.belongsTo(Question);
 
-Question.belongsTo(Delivery);
+Question.belongsTo(Lecture);
 Question.hasMany(MultipleChoice);
 Question.belongsTo(QuestionType);
 

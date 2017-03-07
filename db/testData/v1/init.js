@@ -13,8 +13,8 @@ module.exports.init = function() {
   init('Code');
   init('Lecture');
   init('Delivery');
-  init('Question');
   init('QuestionType');
+  init('Question');
   init('MultipleChoice');
   init('Response');
   init('Slide');

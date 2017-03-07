@@ -4,7 +4,7 @@ import socket from '../../config/socket';
 import { Link, browserHistory } from 'react-router';
 
 import Delivery from './Delivery';
-import styles from '../../styles/pages/_Delivery';
+import styles from '../../styles/pages/_LectureView';
 
 class LectureView extends React.Component {
   constructor(props) {
@@ -21,11 +21,7 @@ class LectureView extends React.Component {
         'updated_at': '',
         'description': '...the best lecture ever!'
       },
-      deliveries: [
-        {
-          notes: 'Remember to smile!'
-        }
-      ],
+      deliveries: [],
       link: ''
     };
 
@@ -34,6 +30,7 @@ class LectureView extends React.Component {
     this.displayNewDelivery = this.displayNewDelivery.bind(this);
     this.displayDeliveries = this.displayDeliveries.bind(this);
     this.handleStartDelivery = this.handleStartDelivery.bind(this);
+    this.editClickHandler = this.editClickHandler.bind(this);
   }
 
   componentDidMount() {
@@ -89,6 +86,11 @@ class LectureView extends React.Component {
     });
   }
 
+  editClickHandler() {
+    console.log('EditLectureView: Edit');
+    browserHistory.push(`/l/${this.state.lectureId}/edit`);
+  }
+
 
   generateNewLink() {
     console.log('Generating new link');
@@ -130,6 +132,11 @@ class LectureView extends React.Component {
 
   displayDeliveries() {
     const context = this;
+
+    if (this.state.deliveries.length === 0) {
+      return;
+    }
+
     return this.state.deliveries.map((element, index) => {
       return (
         <Link key={index} to={`/l/${context.state.lectureId}/d/${element.id}`}>
@@ -151,11 +158,18 @@ class LectureView extends React.Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.card}>
-          <div className={styles.label}>Lecture Info</div>
+          <div className={styles.label}>
+            Lecture Info
+            <span className={styles.settings}>
+              <i className="fa fa-lock" aria-hidden="true" onClick={this.editClickHandler}></i>
+            </span>
+          </div>
+          
           <h1>{`${this.state.lecture.title}`}</h1>
           <div className={styles.details}>
             <strong>Last Updated: </strong>{this.state.lecture.updated_at}
           </div>
+
           <div className={styles.description}>
             {this.state.lecture.description}
           </div>

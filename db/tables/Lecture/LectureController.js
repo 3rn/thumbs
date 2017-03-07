@@ -5,7 +5,10 @@ var getAllLectures = (req, res) => {
   console.log('LectureController: Getting Lectures');
   Models.connection.query(
     // `SQL Queury`
-    `SELECT * FROM lectures`,
+    `SELECT * FROM lectures
+      ORDER BY updated_at DESC;
+    `
+    ,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
     res.send(data);
@@ -14,7 +17,6 @@ var getAllLectures = (req, res) => {
 
 var getLectureById = (req, res) => {
   console.log('LectureController: Getting Lectures');
-  console.log(req);
   Models.connection.query(
     // `SQL Queury`
     `SELECT * FROM lectures
@@ -31,7 +33,9 @@ var getDeliveries = (req, res) => {
   Models.connection.query(
     // `SQL Queury`
     `SELECT * FROM deliveries
-     WHERE deliveries.lecture_id = ${req.params.lectureId}`,
+     WHERE deliveries.lecture_id = ${req.params.lectureId}
+     ORDER BY updated_at DESC;
+     `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
     res.send(data);

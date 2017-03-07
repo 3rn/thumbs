@@ -1,2 +1,10 @@
-
 @import "../base/custom";
+
+input {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+input[type=text] {
+  border-bottom: 1px solid $ryan-gray;
+}

@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import { Link, browserHistory } from 'react-router';
 
+import { connect } from 'react-redux';
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,8 @@ class Dashboard extends React.Component {
     this.displayLectures = this.displayLectures.bind(this);
     this.handleLectureNameChange = this.handleLectureNameChange.bind(this);
     this.createLecture = this.createLecture.bind(this);
+
+    // this.getLectures();
   }
 
   componentDidMount() {
@@ -25,6 +29,8 @@ class Dashboard extends React.Component {
 
   getLectures() {
     const context = this;
+
+    console.log('Getting lectures');
     // This endpoint returns all lectures given a userId
     axios.get('/db/l')
       .then((response) => {
@@ -80,8 +86,8 @@ class Dashboard extends React.Component {
         return (
           <Link to={`/l/${lecture.id}`} key={lecture.id}>
             <div className={styles.card}>
-              <div className={styles.label}>Lecture</div>
-              {lecture.title}
+              <div className={styles.label}>Lecture #{lecture.id}</div>
+              <h4>{lecture.title}</h4>
             </div>
           </Link>
         );
@@ -96,14 +102,18 @@ class Dashboard extends React.Component {
           <div className={styles.label}>
           Dashboard
           </div>
-          <h3>Nathan Toung</h3>
+          <h3>Welcome {this.props.name}</h3>
         </div>
         {this.displayNewLecture()}
         {this.displayLectures()}
       </div>
-
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  name: state.loginReducer.name,
+  email: state.loginReducer.email
+});
+
+export default connect(mapStateToProps, null)(Dashboard);

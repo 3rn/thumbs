@@ -18,6 +18,8 @@ class Dashboard extends React.Component {
     this.displayLectures = this.displayLectures.bind(this);
     this.handleLectureNameChange = this.handleLectureNameChange.bind(this);
     this.createLecture = this.createLecture.bind(this);
+
+    // this.getLectures();
   }
 
   componentDidMount() {
@@ -26,7 +28,7 @@ class Dashboard extends React.Component {
 
   getLectures() {
     const context = this;
-
+    console.log('Getting lectures');
     // This endpoint returns all lectures given a userId
     axios.get('/db/l')
       .then((response) => {
@@ -87,8 +89,8 @@ class Dashboard extends React.Component {
         return (
           <Link to={`/l/${lecture.id}`} key={lecture.id}>
             <div className={styles.card}>
-              <div className={styles.label}>Lecture</div>
-              {lecture.title}
+              <div className={styles.label}>Lecture #{lecture.id}</div>
+              <h4>{lecture.title}</h4>
             </div>
           </Link>
         );

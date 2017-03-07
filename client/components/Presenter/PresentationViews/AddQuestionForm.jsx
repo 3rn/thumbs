@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+
 import AddMultipleChoice from './AddMultipleChoice';
 import styles from '../../../styles/components/_questionForm';
 
@@ -7,6 +9,10 @@ export default class AddQuestionForm extends React.Component {
     super(props);
 
     this.state = this.getDefaults();
+
+    this.state.title = '';
+    this.state.lectureId = this.props.lectureId;
+
 
     this.onQuestionTypeSelect = this.onQuestionTypeSelect.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -38,15 +44,18 @@ export default class AddQuestionForm extends React.Component {
   }
 
   handleQuestionAdd() {
-    var question = {
-      presentationCode: 'RANT',
+    console.log('AddQuestionForm: Question Add');
+    
+    axios.post('/db/q/', {
       title: this.state.title,
+      lectureId: this.state.lectureId,
       questionType: this.state.questionType,
       graphType: this.state.graphType,
-      content: this.state.content
-    };
-
-    this.props.addQuestion(question);
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
     //reset fields
     this.setState(this.getDefaults());
@@ -56,7 +65,11 @@ export default class AddQuestionForm extends React.Component {
     return (
       <div>
         <div>
-          <span>Question Title: </span> <input value={this.state.title} onChange={this.handleTitleChange} />
+          <input 
+            type="text" 
+            value={this.state.title} 
+            placeholder="Enter question..." 
+            onChange={this.handleTitleChange} />
         </div>
 
         <div>
@@ -69,7 +82,8 @@ export default class AddQuestionForm extends React.Component {
           </select>
         </div>
 
-        {this.state.questionType === 'MULTIPLE_CHOICE' ?
+        {
+          this.state.questionType === 'MULTIPLE_CHOICE' ?
           <AddMultipleChoice
             choices={this.state.content}
             handleMultipleChoiceAdd={this.handleMultipleChoiceAdd}

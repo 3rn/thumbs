@@ -1,62 +1,119 @@
 import React from 'react';
 import socket from '../../../config/socket';
+import styles from '../../../styles/components/_questionPrompt';
 
-import styles from '../../../styles/components/_questionCard';
+import Results from './Results';
+import QuestionIcon from '../../QuestionIcon';
 
 class QuestionCard extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleClick = this.handleClick.bind(this);
+    this.handleCardToggle = this.handleCardToggle.bind(this);
+
+    this.state = {
+      buttonName: 'Send Question',
+      showDetails: false,
+      showResults: false,
+    };
+  }
+
+  handleCardToggle(e) {
+    this.setState({showDetails: !this.state.showDetails});
   }
 
   handleClick(e) {
-    socket.emit('startVote', {
-      room: this.props.room,
-      questionType: this.props.questionType,
-      choices: this.props.choices
-    });
+    if (this.props.status === 'WAITING') {
+      socket.emit('startVote', {
+        id: this.props.element.id,
+        room: this.props.room,
+        questionType: this.props.questionType,
+        choices: this.props.choices
+      });
+      this.setState({
+        buttonName: 'Stop Vote',
+        showResults: true
+      });
+    } else if (this.props.status === 'IN_PROGRESS') {
+      socket.emit('endVote', {room: this.props.room});
+      this.setState({buttonName: 'Ask Another Question'});
+    } else if (this.props.status === 'ENDED') {
+      socket.emit('newVote', {room: this.props.room});
+      this.setState({
+        buttonName: 'Resend Question',
+        showResults: false
+      });
+    }
   }
 
-  showIcon () {
-    if (this.props.questionType === 'THUMBS') {
+  toggleArrow () {
+    if (this.state.showDetails) {
+      return <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>;
+    } else {
+      return <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>;
+    }
+  }
+
+  mapChoices () {
+    if (this.props.element.choices) {
       return (
-        <i className="fa fa-thumbs-up" aria-hidden="true"></i>
+        <div>
+          <ol type="A">
+            { this.props.element.choices.map(choice => {
+              return <li> - {choice}</li>;
+            })}
+          </ol>
+        </div>
       );
-    } else if (this.props.questionType === 'SCALE') {
+    }
+  }
+
+  showDetails () {
+    if (this.state.showDetails) {
       return (
-        <i className="fa fa-sliders" aria-hidden="true"></i>
+        <div>
+          { this.mapChoices() }
+          <br />
+          <p>Previous Results: WorkInProgress </p>
+          <br />
+        </div>
       );
-    } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+    }
+  }
+
+  showResults() {
+    if (this.state.showResults) {
       return (
-        <span>
-          <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square" aria-hidden="true"></i> <i className="fa fa-check-square-o" aria-hidden="true"></i>
-        </span>
-      );
-    } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
-      return (
-        <span>
-          <i className="fa fa-circle-o" aria-hidden="true"></i> <i className="fa fa-circle" aria-hidden="true"></i> <i className="fa fa-circle-o" aria-hidden="true"></i>
-        </span>
+        <Results
+          questionType={this.props.questionType}
+          choices={this.props.choices}
+          thumbs={this.props.thumbs}
+          yesNo={this.props.yesNo}
+          scale={this.props.scale}
+          multipleChoice={this.props.multipleChoice}
+          openResponse={this.props.openResponse}
+          />
       );
     }
   }
 
   render() {
     return (
-
       <div className={styles.container}>
         <div className={styles.card}>
-          <div className={styles.label}>Question #{this.props.index} <span className={styles.questionIcons}>{this.showIcon()}</span></div>
-          <h2>{this.props.element.title}</h2>
-          <br/>
+          <div className={styles.label}>
+            <h3 className={styles.questionTitle}>{this.props.element.title}</h3>
+            <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
+          </div>
+          { this.showDetails() }
+          { this.showResults() }
+          <QuestionIcon questionType={this.props.questionType} />
           <div className={styles.right}>
-            <button className={styles.primaryButton} onClick={this.handleClick}>
-              Send Question
-            </button>
+            <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>
           </div>
         </div>
       </div>
-
     );
   }
 }

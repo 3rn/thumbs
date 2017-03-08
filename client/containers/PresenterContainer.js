@@ -12,7 +12,9 @@ import styles from '../styles/base/_custom';
 class PresenterContainer extends React.Component {
   constructor(props) {
     super(props);
+  }
 
+  componentDidMount() {
     socket.emit('joinPresentation', {room: this.props.params.room});
 
     socket.on('roomCount', (payload) => {

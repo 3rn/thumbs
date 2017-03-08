@@ -149,10 +149,8 @@ class HomeContainer extends React.Component {
             <input 
               onChange={this.onEnterRoomChange}
               type="text" 
-              placeholder="Enter Room Code: ABCD"
+              placeholder="Enter Valid Room Code: ABCD"
               maxLength="4"
-              // pattern=".{4,}([a-zA-Z])\w\S+"
-              // pattern=".{4,}"
               required
             >
             </input>
@@ -170,16 +168,14 @@ class HomeContainer extends React.Component {
             <input 
               onChange={this.onEnterDeliveryChange}
               type="text" 
-              placeholder="Enter Delivery Code: ABCD"
+              placeholder="Enter Valid Delivery Code: ABCD"
               maxLength="4"
-              // pattern=".{4,}([a-zA-Z])\w\S+"
-              // pattern=".{4,}"
               required
             >
             </input>
             <button className={styles.enterDelivery}>
                 <span className={(this.state.validDelivery) ? styles.validDelivery : ''} >
-                <i className="fa fa-sign-in" aria-hidden="true"></i>
+                <i className="fa fa-television" aria-hidden="true"></i>
                 </span>
             </button> 
           </form>

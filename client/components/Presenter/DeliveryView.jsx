@@ -54,31 +54,26 @@ class DeliveryView extends React.Component {
   }
 
   displayQuestions() {
-      return this.state.questions.map(( element, index) => {
-        return <QuestionCard
-                key={index + 1}
-                index={index + 1}
-                choices={element.choices}
-                title={element.title}
-                questionType={element.question_type}
-                room={this.props.room}
-                status={this.props.status}
-                thumbs={this.props.thumbs}
-                scale={this.props.scale}
-                yesNo={this.props.yesNo}
-                multipleChoice={this.props.multipleChoice}
-                />;
-      });
+    const context = this;
+    return this.state.questions.map(( element, index) => {
+      return <QuestionCard
+              key={index}
+              choices={element.choices}
+              title={element.title}
+              questionType={element.question_type}
+              room={context.props.room}
+              status={context.props.status}
+              thumbs={context.props.thumbs}
+              scale={context.props.scale}
+              yesNo={context.props.yesNo}
+              multipleChoice={context.props.multipleChoice}
+              />;
+    });
   }
 
   render() {
     return (
-      <div>
-
       <div className={styles.wrapper}>
-        <h1>DeliveryView</h1>
-      </div>
-      <div>
         <DeliveryInfo
           roomCount={this.props.roomCount}
           participantCount={this.props.participantCount}
@@ -94,7 +89,6 @@ class DeliveryView extends React.Component {
         />
         {this.displayQuestions()}
       </div>
-    </div>
     );
   }
 }

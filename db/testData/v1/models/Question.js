@@ -6,6 +6,19 @@ module.exports = function(Models) {
   }).save();
 
   Models.Question.build({
+    'title': 'Why is Draymond always kicking people?',
+    'lecture_id': 1,
+    'question_type_id': 2
+  }).save();
+
+
+  Models.Question.build({
+    'title': 'Question 3?',
+    'lecture_id': 1,
+    'question_type_id': 3
+  }).save();
+
+  Models.Question.build({
     'title': 'Why is Ryan such a bad person?',
     'lecture_id': 2,
     'question_type_id': 3

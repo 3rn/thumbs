@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import socket from '../../config/socket';
 
-import Delivery from './Delivery';
+import DeliveryInfo from './DeliveryViews/DeliveryInfo';
+import QuickCheck from './DeliveryViews/QuickCheck';
+import QuestionCard from './DeliveryViews/QuestionCard';
 
 import styles from '../../styles/pages/_Delivery';
 
@@ -10,17 +12,31 @@ class DeliveryView extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
-
     this.state = {
       deliveryId: this.props.params.deliveryId,
-      lectureId: this.props.params.lectureId
+      lectureId: this.props.params.lectureId,
+      questions: [],
+      questionType: 'default',
+      choice: '',
+      choices: []
     };
 
     this.getDelivery = this.getDelivery.bind(this);
     this.displayDelivery = this.displayDelivery.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
+    this.displayQuestions = this.displayQuestions.bind(this);
 
     this.getDelivery();
+    this.getQuestions();
+  }
+
+  componentDidMount() {
+
+
+  }
+
+  displayDelivery() {
+    return;
   }
 
   getDelivery() {
@@ -35,22 +51,77 @@ class DeliveryView extends React.Component {
     });
   }
 
-  displayDelivery() {
-    return (
-      <Delivery
-        
-      />
-    );
+  getQuestions() {
+    const context = this;
+    axios.get(`/db/q/${this.state.lectureId}`)
+    .then(function (response) {
+      var questions = response.data.map((element) => (element));
+      context.setState({questions: questions});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
+
+  displayQuestions() {
+    console.log('her', this.state.questions);
+      return this.state.questions.map(( element, index) => {
+        console.log('element', element);
+        return <QuestionCard
+                key={index + 1}
+                index={index + 1}
+                choices={element.choices}
+                title={element.title}
+                questionType={element.question_type}
+                room={this.props.room}
+                status={this.props.status}
+                thumbs={this.props.thumbs}
+                scale={this.props.scale}
+                yesNo={this.props.yesNo}
+                multipleChoice={this.props.multipleChoice}
+                />;
+      });
+  }
+
+  // return this.state.questions.map((element, index) => {
+  //   return (
+  //     <div>
+  //       { element }
+  //     </div>
+  //   );
+  // });
 
   render() {
     return (
+      <div>
+
       <div className={styles.wrapper}>
         <h1>DeliveryView</h1>
         {this.displayDelivery()}
       </div>
+
+      <div>
+        <h1>NewDelivery</h1>
+        <QuickCheck
+          questionType={this.props.questionType}
+          thumbs={this.props.thumbs}
+          yesNo={this.props.yesNo}
+          scale={this.props.scale}
+          status={this.props.status}
+          room={this.props.room}
+        />
+        {this.displayQuestions()}
+      </div>
+    </div>
     );
   }
 }
 
 export default DeliveryView;
+
+
+// <DeliveryInfo
+//   roomCount={this.props.roomCount}
+//   participantCount={this.props.participantCount}
+//   participantConfused={this.props.confusedCount}
+//   />

@@ -9,38 +9,42 @@ class Results extends React.Component {
     super(props);
   }
 
+  formatData(dataArray) {
+    return (graphType) => {
+      if (graphType === 'bar') {
+        return dataArray.map((entry) => ({x: entry[0], y: entry[1]}));
+      } else if (graphType === 'pie') {
+        return dataArray.map((entry) => ({label: entry[0], angle: entry[1]}));
+      }
+    };
+  }
+
   render() {
     if (this.props.questionType === 'THUMBS') {
-      var graphData = [
-        {x: 'Up', y: this.props.thumbs[0]},
-        {x: 'Middle', y: this.props.thumbs[1]},
-        {x: 'Down', y: this.props.thumbs[2]}
-      ];
+      var graphData = this.formatData([
+        ['Up', this.props.thumbs[0]],
+        ['Middle', this.props.thumbs[1]],
+        ['Down', this.props.thumbs[2]]
+      ]);
     } else if (this.props.questionType === 'YES_NO') {
-      var graphData = [
-        {x: 'Yes', y: this.props.yesNo[0]},
-        {x: 'No', y: this.props.yesNo[1]}
-      ];
+      var graphData = this.formatData([
+        ['Yes', this.props.yesNo[0]],
+        ['No', this.props.yesNo[1]]
+      ]);
     } else if (this.props.questionType === 'SCALE') {
-      var graphData = [
-        {x: '1', y: this.props.scale[0]},
-        {x: '2', y: this.props.scale[1]},
-        {x: '3', y: this.props.scale[2]},
-        {x: '4', y: this.props.scale[3]},
-        {x: '5', y: this.props.scale[4]},
-        {x: '6', y: this.props.scale[5]},
-        {x: '7', y: this.props.scale[6]},
-        {x: '8', y: this.props.scale[7]},
-        {x: '9', y: this.props.scale[8]},
-        {x: '10', y: this.props.scale[9]}
-      ];
+      var graphData = this.formatData(this.props.scale.map((element, index) => {
+        return [String(index), element];
+      }));
     } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
       const context = this;
       var graphData = [];
+
       this.props.choices.map(function (choice, i) {
         context.props.multipleChoice[i] = context.props.multipleChoice[i] || 0;
-        graphData.push({x: choice, y: context.props.multipleChoice[i]});
+        graphData.push([choice, context.props.multipleChoice[i]]);
       });
+
+      graphData = this.formatData(graphData);
     }
     return (
       <div>

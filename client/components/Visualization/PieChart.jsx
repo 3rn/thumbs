@@ -1,4 +1,5 @@
 import React from 'react';
+import {RadialChart} from 'react-vis';
 
 export default class PieChart extends React.Component {
   constructor(props) {
@@ -8,7 +9,14 @@ export default class PieChart extends React.Component {
   render() {
     return (
       <div>
-        Pie
+        <RadialChart
+          innerRadius={80}
+          radius={140}
+          data={this.props.data}
+          showLabels
+          width={450}
+          height={300}
+        />
       </div>
     );
   }

@@ -15,11 +15,9 @@ export default class BarChart extends React.Component {
           height={300}>
           <VerticalGridLines />
           <HorizontalGridLines />
-          <XAxis tickLabelAngle={-45} />
+          <XAxis tickLabelAngle={-30} />
           <YAxis />
-          <VerticalBarSeries
-            data={this.props.data}
-          />
+          <VerticalBarSeries data={this.props.data} />
         </XYPlot>
       </div>
     );

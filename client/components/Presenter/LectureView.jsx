@@ -31,13 +31,13 @@ class LectureView extends React.Component {
     this.displayDeliveries = this.displayDeliveries.bind(this);
     this.handleStartDelivery = this.handleStartDelivery.bind(this);
     this.editClickHandler = this.editClickHandler.bind(this);
-  }
+  };
 
   componentDidMount() {
     this.getLectureTitle();
     this.getDeliveries();
     this.generateNewLink();
-  }
+  };
 
   handleStartDelivery (e) {
     e.preventDefault();
@@ -48,7 +48,7 @@ class LectureView extends React.Component {
     .then(response => {
       browserHistory.push(`/l/${this.state.lectureId}/d/${response.data.id}`);
     });
-  }
+  };
 
   getLectureTitle() {
     const context = this;
@@ -69,7 +69,7 @@ class LectureView extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
-  }
+  };
 
   getDeliveries() {
     const context = this;
@@ -89,7 +89,7 @@ class LectureView extends React.Component {
   editClickHandler() {
     console.log('EditLectureView: Edit');
     browserHistory.push(`/l/${this.state.lectureId}/edit`);
-  }
+  };
 
 
   generateNewLink() {
@@ -113,8 +113,7 @@ class LectureView extends React.Component {
     }).catch((error) => {
       console.log(error);
     });
-
-  }
+  };
 
   displayNewDelivery() {
     const context = this;
@@ -128,7 +127,7 @@ class LectureView extends React.Component {
         </button>
       </form>
       );
-  }
+  };
 
   displayDeliveries() {
     const context = this;
@@ -151,8 +150,13 @@ class LectureView extends React.Component {
         </Link>
       );
     });
+  };
 
-  }
+  openModal() {
+    return (
+      <Modal />
+    );
+  };
 
   render() {
     return (
@@ -179,6 +183,6 @@ class LectureView extends React.Component {
       </div>
     );
   }
-}
+};
 
 export default LectureView;

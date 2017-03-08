@@ -1,26 +1,29 @@
 var Models = require('../../schema.js');
 
 
-var getUser = (req, res) => {
-  console.log('UserController: Getting user');
+var getCode = (req, res) => {
+  console.log('CodeController: Getting Code');
   Models.connection.query(
-    // `SQL Queury`
+    `SELECT * FROM codes
+     WHERE code = '${req.params.code}'`,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
+    console.log(data);
     res.send(data);
   });
 }
 
 
-var postUser = (req, res) => {
-  console.log('UserController: Creating user');
+var postCode = (req, res) => {
+  console.log('CodeController: Creating Code');
   Models.SavedQuestions.build({
-    
+    code: req.body.code,
+    user_id: req.body.userId
   }).save();
 };
 
 
 module.exports = {
-  'get': getUser,
-  'post': postUser
+  'get': getCode,
+  'post': postCode
 }

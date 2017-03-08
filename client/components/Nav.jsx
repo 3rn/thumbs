@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Modal from './Modal';
 
 import styles from '../styles/components/_nav';
 
@@ -73,7 +72,7 @@ class Nav extends React.Component {
             </h1>
           </Link>
 
-          <Modal />
+          
         </nav>
     );
   }

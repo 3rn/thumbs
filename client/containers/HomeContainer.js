@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../styles/pages/_Home';
 import axios from 'axios';
-import GoogleLogin from 'react-google-login';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -127,17 +126,6 @@ class HomeContainer extends React.Component {
 
   oauthError(response) {
     console.error(response);
-  }
-
-  createLogin() {
-    return (
-      <GoogleLogin
-        clientId="171247937343-lpo93i31pue6rsmna75k1m4piqfo06bk.apps.googleusercontent.com"
-        buttonText="Presenter Login"
-        onSuccess={this.oauthSuccess}
-        onFailure={this.oauthError}
-      />
-    );
   }
 
   render() {

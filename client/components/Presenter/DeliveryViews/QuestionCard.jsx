@@ -104,7 +104,6 @@ class QuestionCard extends React.Component {
         <div className={styles.card}>
           <div className={styles.label}>
             {this.props.title}
-            <h1> hey </h1>
             <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
           </div>
           { this.showDetails() }

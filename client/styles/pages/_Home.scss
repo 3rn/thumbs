@@ -9,29 +9,9 @@
   border-bottom: .5px solid $color-shadow;
 }
 
-.enterRoom {
-  float: right;
-  color: $color-shadow;
-
-  // Mobile
-  @media screen and (min-width: $break-phone-min) {
-    font-size: 1.6em;    
-    line-height: 0.2em;
-  }
-  // Desktop
-  @media screen and (min-width: $break-computer-min) {
-    font-size: 1.6em;    
-    line-height: 0.2em;
-  }
-}
-
-
-.link {
-  background-color: $richard-white;
-  padding: 10px;
-  border-radius: 3px;
-  margin: 0 10px;
-
+.enterRoomInput {
+  
+  
   input[type=text] {
     width: 80%; 
     margin-bottom: 0;
@@ -46,11 +26,46 @@
       
     }
   }
+}
+
+.enterRoom {
+  position: relative;
+  
+  float: right;
+  color: $color-shadow;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    top: -16px;
+    font-size: 2.6em;    
+    line-height: 0.2em;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    top: -16px;
+    font-size: 2.8em;    
+    line-height: 0.2em;
+  }
+}
+
+
+.link {
+  
   
 }
 
 .validRoom {
+
   color: $light-green;
+
+
+}
+
+.enterRoom {
+  cursor: not-allowed;
+  .validRoom {  
+    cursor: pointer;
+  }
 }
 
 // .invalidRoom {

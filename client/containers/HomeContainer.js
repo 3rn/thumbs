@@ -33,20 +33,21 @@ class HomeContainer extends React.Component {
 
     this.onEnterRoomChange = this.onEnterRoomChange.bind(this);
     this.onEnterRoomSubmit = this.onEnterRoomSubmit.bind(this);
-    this.findRooms = this.findRooms.bind(this);
+    this.checkRoom = this.checkRoom.bind(this);
     this.oauthSuccess = this.oauthSuccess.bind(this);
     this.oauthError = this.oauthError.bind(this);
-
-    this.findRooms();
   }
 
-  findRooms() {
+  checkRoom(roomCodeAttempt) {
     const context = this;
-
-    axios.get('/db/savedQuestions/getRooms')
+    return axios.get(`/db/c/${roomCodeAttempt}`)
     .then(function (response) {
-      var rooms = response.data.map((element) => (element.presentation_code));
-      context.setState({availableRooms: rooms});
+      if (response.data.length !== 0) {
+        context.setState({'roomCode': roomCodeAttempt, 'validRoom': true});
+      } else {
+        context.setState({'validRoom': false});
+      }
+
     })
     .catch(function (error) {
       console.log(error);
@@ -54,17 +55,18 @@ class HomeContainer extends React.Component {
   }
 
   onEnterRoomChange(e) {
-    let roomCode = e.target.value.toUpperCase();
-
-    if (roomCode.length === 4 && this.state.availableRooms.indexOf(roomCode) >= 0) {
-      this.setState({'validRoom': true, 'roomCode': roomCode });
+    let roomCodeAttempt = e.target.value.toUpperCase();
+    
+    if (roomCodeAttempt.length === 4) {
+      this.checkRoom(roomCodeAttempt);
     } else {
+      // attempt isn't 4 letters
       this.setState({'validRoom': false});
     }
   }
 
   onEnterRoomSubmit(e) {
-    this.state.validRoom && browserHistory.push('/part/' + this.state.roomCode);
+    this.state.validRoom && browserHistory.push('/r/' + this.state.roomCode);
     e.preventDefault();
   }
 
@@ -92,8 +94,9 @@ class HomeContainer extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <div className={styles.link}>
-          <form id="enterRoom" onSubmit={this.onEnterRoomSubmit}>
+        <div className={styles.card}>
+          <form className={styles.enterRoomInput} onSubmit={this.onEnterRoomSubmit}>
+            <div className={styles.label}>Participant</div>
             <input 
               onChange={this.onEnterRoomChange}
               type="text" 
@@ -102,7 +105,8 @@ class HomeContainer extends React.Component {
               // pattern=".{4,}([a-zA-Z])\w\S+"
               // pattern=".{4,}"
               required
-            ></input>
+            >
+            </input>
             <button className={styles.enterRoom}>
                 <span className={(this.state.validRoom) ? styles.validRoom : ''} >
                 <i className="fa fa-sign-in" aria-hidden="true"></i>
@@ -111,6 +115,7 @@ class HomeContainer extends React.Component {
           </form>
         </div>
         <div className={styles.card}>
+          <div className={styles.label}>Presenter</div>
           <GoogleLogin
             clientId="171247937343-lpo93i31pue6rsmna75k1m4piqfo06bk.apps.googleusercontent.com"
             buttonText="Presenter Login"

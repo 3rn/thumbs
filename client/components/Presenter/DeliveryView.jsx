@@ -79,9 +79,7 @@ class DeliveryView extends React.Component {
       <div className={styles.wrapper}>
         <h1>DeliveryView</h1>
       </div>
-
       <div>
-        <h1>NewDelivery</h1>
         <DeliveryInfo
           roomCount={this.props.roomCount}
           participantCount={this.props.participantCount}

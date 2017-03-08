@@ -23,6 +23,12 @@ class Nav extends React.Component {
             <h1 className={styles.logo}>thumbs</h1>
           </Link>
 
+          <Link to="/">
+            <h1 className={styles.login}>
+              <i className="fa fa-key" aria-hidden="true"></i>
+            </h1>
+          </Link>
+
 
         </nav>
     );

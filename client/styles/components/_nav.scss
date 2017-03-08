@@ -29,9 +29,31 @@
   position: absolute;
   left: 20px;
   top: 0px;
+  opacity: .8;
  
   // Desktop
   @media screen and (min-width: $break-phone-max) {
     display: none;
+  }
+
+  i:hover {
+    opacity: 1;
+  }
+}
+
+.login {
+  font-size: 1.5em;
+  position: absolute;
+  right: 20px;
+  top: 0px;
+  opacity: .5;
+ 
+  // Desktop
+  @media screen and (min-width: $break-phone-max) {
+    display: none;
+  }
+
+  &:hover {
+    opacity: 1;
   }
 }

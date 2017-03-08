@@ -25,13 +25,12 @@
   font-size: .7em;
   text-transform: uppercase;
   font-weight: bold;
-  color: $black;
+  color: $color-primary;
   opacity: .6;
-  margin-bottom: 8px;
 
   // Mobile
   @media screen and (min-width: $break-phone-min) {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
   // Desktop
   @media screen and (min-width: $break-computer-min) {

@@ -26,7 +26,7 @@
   }
 }
 
-.enterRoom, .enterDelivery {
+.enterRoom {
   position: relative;
   
   float: right;
@@ -45,6 +45,26 @@
     line-height: 0.2em;
   }
 }
+
+.enterDelivery {
+  position: relative;
+  float: right;
+  color: $color-shadow;
+
+  // Mobile
+  @media screen and (min-width: $break-phone-min) {
+    top: -10px;
+    font-size: 2em;    
+    line-height: 0.2em;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    top: -16px;
+    font-size: 2.8em;    
+    line-height: 0.2em;
+  }
+}
+
 
 .enterRoom, .enterDelivery {
   cursor: not-allowed;

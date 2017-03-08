@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../config/socket';
 
-import Delivery from '../components/Presenter/Delivery.jsx';
-import DeliveryInfo from '../components/Presenter/DeliveryViews/DeliveryInfo.jsx';
+import DeliveryView from '../components/Presenter/DeliveryView.jsx';
 import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
 
@@ -45,23 +44,18 @@ class PresenterContainer extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <DeliveryInfo
-            roomCount={this.props.roomCount}
-            participantCount={this.props.participantCount}
-            participantConfused={this.props.confusedCount}
-        />
-        <Delivery
-          room={this.props.params.room}
-          status={this.props.voteStatus}
-          questionType={this.props.questionType}
-          choices={this.props.choices}
-          thumbs={this.props.thumbs}
-          yesNo={this.props.yesNo}
-          scale={this.props.scale}
-          multipleChoice={this.props.multipleChoice}
-          openResponse={this.props.openResponse}
-          participantCount={this.props.participantCount}
-          questionCount={this.props.questionCount}
+      <DeliveryView
+        room={this.props.params.room}
+        status={this.props.voteStatus}
+        questionType={this.props.questionType}
+        choices={this.props.choices}
+        thumbs={this.props.thumbs}
+        yesNo={this.props.yesNo}
+        scale={this.props.scale}
+        multipleChoice={this.props.multipleChoice}
+        openResponse={this.props.openResponse}
+        participantCount={this.props.participantCount}
+        participantConfused={this.props.confusedCount}
         />
       </div>
     );

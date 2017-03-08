@@ -103,12 +103,11 @@ class QuestionCard extends React.Component {
       <div className={styles.container}>
         <div className={styles.card}>
           <div className={styles.label}>
-            {this.props.element.title}
+            {this.props.title}
             <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
           </div>
           { this.showDetails() }
           { this.showResults() }
-          <QuestionIcon questionType={this.props.questionType} />
           <div className={styles.right}>
             <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>
           </div>
@@ -119,3 +118,5 @@ class QuestionCard extends React.Component {
 }
 
 export default QuestionCard;
+
+// <QuestionIcon questionType={this.props.questionType} />

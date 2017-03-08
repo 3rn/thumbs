@@ -28,12 +28,18 @@ class HomeContainer extends React.Component {
     this.state = {
       validRoom: false,
       roomCode: '',
+      deliveryCode: '',
       availableRooms: []
     };
 
     this.onEnterRoomChange = this.onEnterRoomChange.bind(this);
     this.onEnterRoomSubmit = this.onEnterRoomSubmit.bind(this);
     this.checkRoom = this.checkRoom.bind(this);
+
+    this.onEnterDeliveryChange = this.onEnterDeliveryChange.bind(this);
+    this.onEnterDeliverySubmit = this.onEnterDeliverySubmit.bind(this);
+    this.checkDelivery = this.checkDelivery.bind(this);
+
     this.oauthSuccess = this.oauthSuccess.bind(this);
     this.oauthError = this.oauthError.bind(this);
   }
@@ -70,6 +76,38 @@ class HomeContainer extends React.Component {
     e.preventDefault();
   }
 
+  checkDelivery(deliveryCodeAttempt) {
+    const context = this;
+    return axios.get(`/db/s/${deliveryCodeAttempt}`)
+    .then(function (response) {
+      if (response.data.length !== 0) {
+        context.setState({'deliveryCode': deliveryCodeAttempt, 'validDelivery': true});
+      } else {
+        context.setState({'validDelivery': false});
+      }
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  onEnterDeliveryChange(e) {
+    let deliveryCodeAttempt = e.target.value.toUpperCase();
+    
+    if (deliveryCodeAttempt.length === 4) {
+      this.checkDelivery(deliveryCodeAttempt);
+    } else {
+      // attempt isn't 4 letters
+      this.setState({'validDelivery': false});
+    }
+  }
+
+  onEnterDeliverySubmit(e) {
+    this.state.validDelivery && browserHistory.push('/s/' + this.state.deliveryCode);
+    e.preventDefault();
+  }
+
   oauthSuccess (response) {
     var info = response.getBasicProfile();
     this.props.login({
@@ -89,6 +127,17 @@ class HomeContainer extends React.Component {
 
   oauthError(response) {
     console.error(response);
+  }
+
+  createLogin() {
+    return (
+      <GoogleLogin
+        clientId="171247937343-lpo93i31pue6rsmna75k1m4piqfo06bk.apps.googleusercontent.com"
+        buttonText="Presenter Login"
+        onSuccess={this.oauthSuccess}
+        onFailure={this.oauthError}
+      />
+    );
   }
 
   render() {
@@ -115,13 +164,25 @@ class HomeContainer extends React.Component {
           </form>
         </div>
         <div className={styles.card}>
-          <div className={styles.label}>Presenter</div>
-          <GoogleLogin
-            clientId="171247937343-lpo93i31pue6rsmna75k1m4piqfo06bk.apps.googleusercontent.com"
-            buttonText="Presenter Login"
-            onSuccess={this.oauthSuccess}
-            onFailure={this.oauthError}
-          />
+          <form className={styles.enterSlidesInput} onSubmit={this.onEnterDeliverySubmit}>
+            <div className={styles.label}>Presenter</div>
+            
+            <input 
+              onChange={this.onEnterDeliveryChange}
+              type="text" 
+              placeholder="Enter Delivery Code: ABCD"
+              maxLength="4"
+              // pattern=".{4,}([a-zA-Z])\w\S+"
+              // pattern=".{4,}"
+              required
+            >
+            </input>
+            <button className={styles.enterDelivery}>
+                <span className={(this.state.validDelivery) ? styles.validDelivery : ''} >
+                <i className="fa fa-sign-in" aria-hidden="true"></i>
+                </span>
+            </button> 
+          </form>
         </div>
       </div>
     );

@@ -9,9 +9,7 @@
   border-bottom: .5px solid $color-shadow;
 }
 
-.enterRoomInput {
-  
-  
+.enterRoomInput, .enterSlidesInput {
   input[type=text] {
     width: 80%; 
     margin-bottom: 0;
@@ -28,7 +26,7 @@
   }
 }
 
-.enterRoom {
+.enterRoom, .enterDelivery {
   position: relative;
   
   float: right;
@@ -48,22 +46,10 @@
   }
 }
 
-
-.link {
-  
-  
-}
-
-.validRoom {
-
-  color: $light-green;
-
-
-}
-
-.enterRoom {
+.enterRoom, .enterDelivery {
   cursor: not-allowed;
-  .validRoom {  
+  .validRoom, .validDelivery {  
+    color: $light-green;
     cursor: pointer;
   }
 }

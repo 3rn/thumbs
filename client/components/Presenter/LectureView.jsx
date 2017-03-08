@@ -3,17 +3,16 @@ import axios from 'axios';
 import socket from '../../config/socket';
 import { Link, browserHistory } from 'react-router';
 
-import Delivery from './Delivery';
 import styles from '../../styles/pages/_LectureView';
 
 class LectureView extends React.Component {
   constructor(props) {
     super(props);
 
-
     console.log('LectureView: lectureId: ', this.props.params.lectureId);
 
     this.state = {
+      showDetails: false,
       lectureId: this.props.params.lectureId,
       lecture: {
         'title': 'Finding your lecture...',
@@ -25,6 +24,7 @@ class LectureView extends React.Component {
       link: ''
     };
 
+    this.handleCardToggle = this.handleCardToggle.bind(this);
     this.getDeliveries = this.getDeliveries.bind(this);
     this.getLectureTitle = this.getLectureTitle.bind(this);
     this.displayNewDelivery = this.displayNewDelivery.bind(this);
@@ -96,10 +96,10 @@ class LectureView extends React.Component {
     console.log('Generating new link');
     const context = this;
 
-    let link = "";
-    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let link = '';
+    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-    for( let i = 0; i < 4; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
       link += possible.charAt(Math.floor(Math.random() * possible.length));
     }
 
@@ -127,7 +127,31 @@ class LectureView extends React.Component {
           Start Delivery
         </button>
       </form>
+    );
+  }
+
+  handleCardToggle(e) {
+    this.setState({showDetails: !this.state.showDetails});
+  }
+
+  toggleArrow () {
+    if (this.state.showDetails) {
+      return <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>;
+    } else {
+      return <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>;
+    }
+  }
+
+  showDetails () {
+    if (this.state.showDetails) {
+      return (
+        <div>
+          <br />
+          <p>Previous Results: WorkInProgress </p>
+          <br />
+        </div>
       );
+    }
   }
 
   displayDeliveries() {
@@ -141,14 +165,17 @@ class LectureView extends React.Component {
       return (
         <Link key={index} to={`/l/${context.state.lectureId}/d/${element.id}`}>
           <div className={styles.card}>
-            <div className={styles.label}>Delivery # {element.id}</div>
+            <div className={styles.label}>
+              Delivery # {element.id}
+              <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
+            </div>
             <h2>{element.notes}</h2>
-
+            { this.showDetails() }
             <div className={styles.details}>
               <strong>Delivered:</strong> {element.created_at}
             </div>
           </div>
-        </Link>
+          </Link>
       );
     });
 
@@ -161,10 +188,10 @@ class LectureView extends React.Component {
           <div className={styles.label}>
             Lecture Info
             <span className={styles.settings}>
-              <i className="fa fa-lock" aria-hidden="true" onClick={this.editClickHandler}></i>
+              <i className='fa fa-lock' aria-hidden='true' onClick={this.editClickHandler}></i>
             </span>
           </div>
-          
+
           <h1>{`${this.state.lecture.title}`}</h1>
           <div className={styles.details}>
             <strong>Last Updated: </strong>{this.state.lecture.updated_at}

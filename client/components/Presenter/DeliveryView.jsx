@@ -30,15 +30,6 @@ class DeliveryView extends React.Component {
     this.getQuestions();
   }
 
-  componentDidMount() {
-
-
-  }
-
-  displayDelivery() {
-    return;
-  }
-
   getDelivery() {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}/d/${this.state.deliveryId}`)
@@ -64,9 +55,7 @@ class DeliveryView extends React.Component {
   }
 
   displayQuestions() {
-    console.log('her', this.state.questions);
-      return this.state.questions.map(( element, index) => {
-        console.log('element', element);
+      return this.state.questions.map(( element, index) => 
         return <QuestionCard
                 key={index + 1}
                 index={index + 1}
@@ -83,25 +72,21 @@ class DeliveryView extends React.Component {
       });
   }
 
-  // return this.state.questions.map((element, index) => {
-  //   return (
-  //     <div>
-  //       { element }
-  //     </div>
-  //   );
-  // });
-
   render() {
     return (
       <div>
 
       <div className={styles.wrapper}>
         <h1>DeliveryView</h1>
-        {this.displayDelivery()}
       </div>
 
       <div>
         <h1>NewDelivery</h1>
+        <DeliveryInfo
+          roomCount={this.props.roomCount}
+          participantCount={this.props.participantCount}
+          participantConfused={this.props.confusedCount}
+          />
         <QuickCheck
           questionType={this.props.questionType}
           thumbs={this.props.thumbs}
@@ -118,10 +103,3 @@ class DeliveryView extends React.Component {
 }
 
 export default DeliveryView;
-
-
-// <DeliveryInfo
-//   roomCount={this.props.roomCount}
-//   participantCount={this.props.participantCount}
-//   participantConfused={this.props.confusedCount}
-//   />

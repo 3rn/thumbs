@@ -18,9 +18,9 @@ export default class Visualization extends React.Component {
 
   showVis() {
     if (this.state.selectedVisual === 'bar') {
-      return <BarChart data={this.props.data} questionType={this.props.questionType} choices={this.props.choices} />;
+      return <BarChart data={this.props.data('bar')} questionType={this.props.questionType} choices={this.props.choices} />;
     } else if (this.state.selectedVisual === 'pie') {
-      return <PieChart data={this.props.data} questionType={this.props.questionType} choices={this.props.choices} />;
+      return <PieChart data={this.props.data('pie')} questionType={this.props.questionType} choices={this.props.choices} />;
     }
   }
 

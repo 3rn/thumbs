@@ -1,5 +1,5 @@
 import React from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, VerticalBarSeries} from 'react-vis';
 
 export default class BarChart extends React.Component {
   constructor(props) {
@@ -9,19 +9,16 @@ export default class BarChart extends React.Component {
   render() {
     return (
       <div>
-        <VictoryChart>
-          <VictoryAxis
-            />
-          <VictoryAxis
-            dependentAxis
-            />
-          <VictoryBar
-            data={this.props.data}
-            x="choice"
-            y="value"
-            horizontal={true}
-            />
-        </VictoryChart>
+        <XYPlot
+          xType="ordinal"
+          width={450}
+          height={300}>
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis tickLabelAngle={-30} />
+          <YAxis />
+          <VerticalBarSeries data={this.props.data} />
+        </XYPlot>
       </div>
     );
   }

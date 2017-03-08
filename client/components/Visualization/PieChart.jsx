@@ -1,5 +1,5 @@
 import React from 'react';
-import { VictoryPie, VictoryTheme } from 'victory';
+import {RadialChart} from 'react-vis';
 
 export default class PieChart extends React.Component {
   constructor(props) {
@@ -9,11 +9,14 @@ export default class PieChart extends React.Component {
   render() {
     return (
       <div>
-          <VictoryPie
-            data={this.props.data}
-            x="choice"
-            y="value"
-          />
+        <RadialChart
+          innerRadius={80}
+          radius={140}
+          data={this.props.data}
+          showLabels
+          width={450}
+          height={300}
+        />
       </div>
     );
   }

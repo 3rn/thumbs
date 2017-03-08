@@ -22,7 +22,6 @@ class DeliveryView extends React.Component {
     };
 
     this.getDelivery = this.getDelivery.bind(this);
-    this.displayDelivery = this.displayDelivery.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
 

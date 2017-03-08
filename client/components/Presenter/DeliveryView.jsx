@@ -55,7 +55,7 @@ class DeliveryView extends React.Component {
   }
 
   displayQuestions() {
-      return this.state.questions.map(( element, index) => 
+      return this.state.questions.map(( element, index) => {
         return <QuestionCard
                 key={index + 1}
                 index={index + 1}

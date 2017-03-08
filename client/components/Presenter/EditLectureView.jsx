@@ -90,7 +90,7 @@ export default class EditLectureView extends React.Component {
   }
 
   editLockClickHandler() {
-    browserHistory.push(`/l/${this.state.lectureId}/`)
+    browserHistory.push(`/l/${this.state.lectureId}/`);
   }
 
   createQuestion() {

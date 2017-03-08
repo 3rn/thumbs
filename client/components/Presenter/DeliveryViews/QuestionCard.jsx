@@ -37,7 +37,6 @@ class QuestionCard extends React.Component {
       });
     } else if (this.props.status === 'IN_PROGRESS') {
       socket.emit('endVote', {room: this.props.room});
-      console.log('look here bitch', this.props);
       this.setState({buttonName: 'Ask Another Question'});
     } else if (this.props.status === 'ENDED') {
       socket.emit('newVote', {room: this.props.room});

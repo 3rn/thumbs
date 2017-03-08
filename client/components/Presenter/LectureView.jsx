@@ -4,7 +4,6 @@ import socket from '../../config/socket';
 import { Link, browserHistory } from 'react-router';
 
 import Delivery from './Delivery';
-import Modal from '../Modal';
 import styles from '../../styles/pages/_LectureView';
 
 class LectureView extends React.Component {

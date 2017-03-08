@@ -5,7 +5,8 @@ import socket from '../config/socket';
 
 import Delivery from '../components/Presenter/Delivery.jsx';
 import DeliveryInfo from '../components/Presenter/DeliveryViews/DeliveryInfo.jsx';
-import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
+
+import { updateVoteStatus, sendQuestion, getRoomCount, resetConfusedCount } from '../actions/presenterActions.js';
 import { response, participantCount, participantConfused } from '../actions/participantActions.js';
 
 import styles from '../styles/base/_custom';
@@ -40,6 +41,7 @@ class PresenterContainer extends React.Component {
     });
 
     socket.on('newVote', (payload) => {
+      this.props.resetConfusedCount();
       this.props.updateVoteStatus('WAITING');
     });
   }
@@ -92,7 +94,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   getRoomCount,
   response,
   participantCount,
-  participantConfused
+  participantConfused,
+  resetConfusedCount
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

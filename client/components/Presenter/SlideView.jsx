@@ -23,7 +23,7 @@ class SlideView extends React.Component {
     this.updateUrlInput = this.updateUrlInput.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.checkSlidesRoom();
   }
 
@@ -126,9 +126,16 @@ class SlideView extends React.Component {
 
   render() {
     var slides = (
-      <div className={'reveal'}>
-        <div className={'slides'}>
-          {this.state.slides}
+      <div className={styles.slidesWrapper}>
+        <div className={'reveal'}>
+          <div className={styles.slides + ' slides '}>
+            {this.state.slides}
+            
+          </div>  
+          
+        </div>
+        <div className={styles.slidesControl}>
+          
         </div>
       </div>
     );
@@ -151,7 +158,7 @@ class SlideView extends React.Component {
           <div>
             <span>Enter Slide Url:</span>
             <input type="text" onChange={this.updateUrlInput} />
-            <button onClick={this.getSlides} >Get Slides</button>
+            <button className={styles.primaryButton} onClick={this.getSlides} >Get Slides</button>
           </div>
         </div>
       </div>

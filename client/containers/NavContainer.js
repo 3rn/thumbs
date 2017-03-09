@@ -78,20 +78,25 @@ class NavContainer extends React.Component {
     this.setState({displayMenuOptions: false});
   }
 
+              // <div className={this.state.displayMenuOptions ? 
+              //   styles.closeMenuOptions : styles.openMenuOptions}>
+              //   <i className="fa fa-bars" aria-hidden="true"></i>
+              // </div>
+              // <div className={this.state.displayMenuOptions ? 
+              //   styles.openMenuOptions : styles.closeMenuOptions}>
+              //   <i className="fa fa-times" aria-hidden="true"></i>
+              // </div>
   render() {
 
     return (
         <nav>
           <button onClick={this.openMenuClickHandler}>
             <span className={styles.menu}>
-              <h1 className={this.state.displayMenuOptions ? 
-                styles.closeMenuOptions : styles.openMenuOptions}>
-                <i className="fa fa-bars" aria-hidden="true"></i>
-              </h1>
-              <h1 className={this.state.displayMenuOptions ? 
-                styles.openMenuOptions : styles.closeMenuOptions}>
-                <i className="fa fa-times" aria-hidden="true"></i>
-              </h1>
+              {
+                this.state.displayMenuOptions ? 
+                <i className={styles.menuIcon + " fa fa-times"} aria-hidden="true"></i> :
+                <i className={styles.menuIcon + " fa fa-bars"} aria-hidden="true"></i>
+              }
             </span>
           </button>
 
@@ -120,9 +125,9 @@ class NavContainer extends React.Component {
           <Link to="/"
             onClick={this.closeMenuClickHandler}
             >
-            <h1 className={styles.login} onClick={this.handleAuthClick}>
-              <i className="fa fa-key" aria-hidden="true"></i>
-            </h1>
+            <div className={styles.login} onClick={this.handleAuthClick}>
+              <i className={styles.menuRightIcon + " fa fa-key"} aria-hidden="true"></i>
+            </div>
           </Link>
         </nav>
     );

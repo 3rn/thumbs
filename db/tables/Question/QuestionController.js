@@ -8,6 +8,10 @@ var getQuestions = (req, res) => {
      WHERE lecture_id = ${req.params.lectureId}`,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(questions) {
+    var type = ['YES_NO', 'THUMBS', 'MULTIPLE_CHOICE', 'SCALE', 'OPEN_RESPONSE'];
+    for (var i = 0; i < questions.length; i++) {
+      questions[i].questionType = type[questions[i].question_type_id];
+    }
     res.send(questions);
   });
 };

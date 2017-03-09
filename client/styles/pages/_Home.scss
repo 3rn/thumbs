@@ -67,10 +67,10 @@
 
 
 .enterRoom, .enterDelivery {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
   .validRoom, .validDelivery {  
     color: $light-green;
-    cursor: pointer;
+    cursor: pointer !important;
   }
 }
 

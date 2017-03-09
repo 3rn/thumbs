@@ -24,7 +24,7 @@ export default class AddQuestionForm extends React.Component {
     return {
       title: '',
       questionType: 'Select A Question Type',
-      graphType: 'Select a Graph Type',
+      graphType: 'Pie Chart',
       content: []
     };
   }
@@ -66,10 +66,21 @@ export default class AddQuestionForm extends React.Component {
 
   }
 
+  displayAddQuestionButton() {
+    if (this.state.title === '') {
+      return <button className={styles.secondaryButton}> Add Question </button>
+    } else {
+      return <button className={styles.primaryButton} onClick={this.handleQuestionAdd}> Add Question </button>
+    }
+  }
+
   render() {
     return (
       <div>
         <div>
+          <div className={styles.details}>
+            <strong>Question Title:</strong>
+          </div>
           <input 
             type="text" 
             value={this.state.title} 
@@ -77,8 +88,9 @@ export default class AddQuestionForm extends React.Component {
             onChange={this.handleTitleChange} />
         </div>
 
-        <div>
-          <span>Question Type: </span>
+        <div className={styles.details}>
+          <strong>Question Type:  </strong>
+          <div className={styles.space}></div>
           <select onChange={this.onQuestionTypeSelect}>
             <option value="YES-NO">Yes/No</option>
             <option value="MULTIPLE_CHOICE">Multiple Choice</option>
@@ -96,16 +108,8 @@ export default class AddQuestionForm extends React.Component {
           : null
         }
 
-        <div>
-          <span>Graph Type: </span>
-          <select>
-            <option value="pie">Pie Chart</option>
-            <option value="bar">Bar Chart</option>
-            <option value="radar">Radar Chart</option>
-          </select>
-        </div>
 
-        <button className={styles.primaryButton} onClick={this.handleQuestionAdd}> Add Question </button>
+        {this.displayAddQuestionButton()}
       </div>
     );
   }

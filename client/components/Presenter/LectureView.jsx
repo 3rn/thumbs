@@ -60,7 +60,6 @@ class LectureView extends React.Component {
           'description': response.data[0].description
         }
         });
-        console.log('LectureView: lecture ', context.state.lecture);
       }
     })
     .catch(function (error) {
@@ -82,7 +81,6 @@ class LectureView extends React.Component {
   }
 
   editClickHandler() {
-    console.log('EditLectureView: Edit');
     browserHistory.push(`/l/${this.state.lectureId}/edit`);
   };
 

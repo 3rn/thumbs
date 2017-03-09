@@ -69,12 +69,10 @@ class NavContainer extends React.Component {
   }
 
   openMenuClickHandler() {
-    console.log("Open menu");
     this.setState({displayMenuOptions: !this.state.displayMenuOptions});
   }
 
   closeMenuClickHandler() {
-    console.log("Open menu");
     this.setState({displayMenuOptions: false});
   }
 

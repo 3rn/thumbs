@@ -13,7 +13,7 @@ class QuickCheck extends React.Component {
 
     this.state = {
       buttonName: 'Send Question',
-      showDetails: false,
+      showDetails: true,
       showResults: false
     };
 
@@ -47,9 +47,17 @@ class QuickCheck extends React.Component {
 
   toggleArrow () {
     if (this.state.showDetails) {
-      return <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>;
+      return (
+        <div className={styles.icons}>
+          <i className="fa fa-angle-up" aria-hidden="true"></i>
+        </div>
+      );
     } else {
-      return <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>;
+      return (
+        <div className={styles.icons}>
+          <i className="fa fa-angle-down" aria-hidden="true"></i>
+        </div>
+      );
     }
   }
 
@@ -62,7 +70,7 @@ class QuickCheck extends React.Component {
           <button className={`fa fa-sliders ${styles.quickCheckButton}`} onClick={this.handleClick} value="SCALE" />
           <button className={`fa fa-comment-o ${styles.quickCheckButton}`} onClick={this.handleClick} value="OPEN_RESPONSE" />
           { this.showResults() }
-          { this.showButton() }
+          { /*this.showButton()*/ }
         </div>
       );
     }

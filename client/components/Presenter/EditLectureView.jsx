@@ -113,7 +113,6 @@ export default class EditLectureView extends React.Component {
   addQuestion(question) {
     console.log('Adding question to questions');
     let questions = this.state.questions;
-    debugger;
     questions.push(question);
 
     this.setState({questions: questions});

@@ -12,7 +12,7 @@ class SlideView extends React.Component {
       'slideId': props.params.slideId,
       'slides': {},
       'lecture': {}
-    }
+    };
 
     this.checkSlidesRoom = this.checkSlidesRoom.bind(this);
     this.getLecture = this.getLecture.bind(this);

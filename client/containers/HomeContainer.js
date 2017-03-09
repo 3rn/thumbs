@@ -1,25 +1,11 @@
 import React from 'react';
 import styles from '../styles/pages/_Home';
 import axios from 'axios';
-import GoogleLogin from 'react-google-login';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { login } from '../actions/loginActions.js';
-
-// Client ID and API key from the Developer Console
-var CLIENT_ID = '171247937343-lpo93i31pue6rsmna75k1m4piqfo06bk.apps.googleusercontent.com';
-
-// Object of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = [
-  'https://slides.googleapis.com/$discovery/rest?version=v1',
-  'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
-];
-
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
-var SCOPES = 'https://www.googleapis.com/auth/presentations.readonly https://www.googleapis.com/auth/drive.metadata.readonly';
 
 class HomeContainer extends React.Component {
   constructor(props) {
@@ -39,9 +25,6 @@ class HomeContainer extends React.Component {
     this.onEnterDeliveryChange = this.onEnterDeliveryChange.bind(this);
     this.onEnterDeliverySubmit = this.onEnterDeliverySubmit.bind(this);
     this.checkDelivery = this.checkDelivery.bind(this);
-
-    this.oauthSuccess = this.oauthSuccess.bind(this);
-    this.oauthError = this.oauthError.bind(this);
   }
 
   checkRoom(roomCodeAttempt) {
@@ -106,38 +89,6 @@ class HomeContainer extends React.Component {
   onEnterDeliverySubmit(e) {
     this.state.validDelivery && browserHistory.push('/s/' + this.state.deliveryCode);
     e.preventDefault();
-  }
-
-  oauthSuccess (response) {
-    var info = response.getBasicProfile();
-    this.props.login({
-      name: info.ofa,
-      email: info.U3
-    });
-
-    //iniialize access to drive and slide api
-    gapi.client.init({
-      discoveryDocs: DISCOVERY_DOCS,
-      clientId: CLIENT_ID,
-      scope: SCOPES
-    });
-
-    browserHistory.push('/u');
-  }
-
-  oauthError(response) {
-    console.error(response);
-  }
-
-  createLogin() {
-    return (
-      <GoogleLogin
-        clientId="171247937343-lpo93i31pue6rsmna75k1m4piqfo06bk.apps.googleusercontent.com"
-        buttonText="Presenter Login"
-        onSuccess={this.oauthSuccess}
-        onFailure={this.oauthError}
-      />
-    );
   }
 
   render() {

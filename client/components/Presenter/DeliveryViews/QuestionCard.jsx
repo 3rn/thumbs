@@ -24,6 +24,7 @@ class QuestionCard extends React.Component {
   }
 
   handleClick(e) {
+    console.log('hit send', this.props.status);
     if (this.props.status === 'WAITING') {
       socket.emit('startVote', {
         room: this.props.room,

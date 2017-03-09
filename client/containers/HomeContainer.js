@@ -97,11 +97,15 @@ class HomeContainer extends React.Component {
   }
 
   handleAuthClick() {
-    //TODO check if user already logged in and skip sign in modal
-
-    //reasign sign in listener BAD BAD
-    gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
-    gapi.auth2.getAuthInstance().signIn();
+     //check if user already logged in and skip sign in modal
+    var isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+    if (isLoggedIn) {
+      browserHistory.push('/s/' + this.state.deliveryCode);
+    } else {
+      //reasign sign in listener BAD BAD
+      gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
+      gapi.auth2.getAuthInstance().signIn();
+    }
   }
 
   updateSigninStatus(isSignedIn) {

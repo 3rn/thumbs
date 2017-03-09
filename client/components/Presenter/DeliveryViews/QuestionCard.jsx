@@ -36,10 +36,10 @@ class QuestionCard extends React.Component {
         showResults: true
       });
     } else if (this.props.status === 'IN_PROGRESS') {
-      socket.emit('endVote', {room: this.props.room});
+      socket.emit('endVote', {room: 'FRED'});
       this.setState({buttonName: 'Ask Another Question'});
     } else if (this.props.status === 'ENDED') {
-      socket.emit('newVote', {room: this.props.room});
+      socket.emit('newVote', {room: 'FRED'});
       this.setState({
         buttonName: 'Resend Question',
         showResults: false
@@ -108,6 +108,7 @@ class QuestionCard extends React.Component {
           </div>
           { this.showDetails() }
           { this.showResults() }
+          <br />
           <div className={styles.right}>
             <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>
           </div>

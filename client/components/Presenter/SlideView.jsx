@@ -125,34 +125,41 @@ class SlideView extends React.Component {
   }
 
   render() {
+    var slides = (
+      <div className={'reveal'}>
+        <div className={'slides'}>
+          {this.state.slides}
+        </div>
+      </div>
+    );
+
+    var otherShit = (
+      <div className={styles.wrapper}>
+        <div className={styles.card}>
+          <div className={styles.label}>Lecture Info</div>
+          <h1>{this.state.lecture.title}</h1>
+          <div className={styles.details}>
+            <strong>Last Updated: </strong>{this.state.lecture.updated_at}
+          </div>
+
+          <div className={styles.description}>
+            {this.state.lecture.description}
+          </div>
+        </div>
+        <div className={styles.card}>
+          <div className={styles.label}>Slides</div>
+          <div>
+            <span>Enter Slide Url:</span>
+            <input type="text" onChange={this.updateUrlInput} />
+            <button onClick={this.getSlides} >Get Slides</button>
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <div>
-        <div className={styles.wrapper}>
-          <div className={styles.card}>
-            <div className={styles.label}>Lecture Info</div>
-            <h1>{this.state.lecture.title}</h1>
-            <div className={styles.details}>
-              <strong>Last Updated: </strong>{this.state.lecture.updated_at}
-            </div>
-
-            <div className={styles.description}>
-              {this.state.lecture.description}
-            </div>
-          </div>
-          <div className={styles.card}>
-            <div className={styles.label}>Slides</div>
-            <div>
-              <span>Enter Slide Url:</span>
-              <input type="text" onChange={this.updateUrlInput} />
-              <button onClick={this.getSlides} >Get Slides</button>
-            </div>
-          </div>
-        </div>
-        <div className={'reveal'}>
-          <div className={'slides'}>
-            {this.state.slides}
-          </div>
-        </div>
+        {this.state.slides.length === 0 ? otherShit : slides}
       </div>
     );
   }

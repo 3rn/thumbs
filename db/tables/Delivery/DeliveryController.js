@@ -4,6 +4,9 @@ var getDelivery = (req, res) => {
   console.log('DeliveryController: Getting Delivery');
   Models.connection.query(
     // `SQL Queury`
+    `SELECT * FROM deliveries
+      ORDER BY updated_at DESC;
+    `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
     res.send(data);
@@ -24,7 +27,8 @@ var postDelivery = (req, res) => {
   console.log('DeliveryController: Creating Delivery');
   Models.Delivery.build({
     'lecture_id': req.body.lectureId,
-    'user_id': req.body.userId
+    'user_id': req.body.userId,
+    'room': req.body.room
   }).save()
   .then(result => {
     res.send(result.dataValues);

@@ -13,8 +13,8 @@ class DeliveryView extends React.Component {
     super(props);
 
     this.state = {
-      deliveryId: this.props.params.deliveryId,
-      lectureId: this.props.params.lectureId,
+      deliveryId: this.props.deliveryId,
+      lectureId: this.props.lectureId,
       questions: [],
       questionType: 'default',
       choice: '',
@@ -31,7 +31,7 @@ class DeliveryView extends React.Component {
 
   getDelivery() {
     const context = this;
-    axios.get(`/db/l/${this.state.lectureId}/d/${this.state.deliveryId}`)
+    axios.get(`/db/d/${this.state.deliveryId}`)
     .then(function (response) {
       console.log('DeliveryView: deliveries ', response);
       context.setState({deliveries: response.data});
@@ -58,9 +58,9 @@ class DeliveryView extends React.Component {
     return this.state.questions.map(( element, index) => {
       return <QuestionCard
               key={index}
-              choices={element.choices}
+              choices={['test1', 'test2', 'test3']}
               title={element.title}
-              questionType={element.question_type}
+              questionType={element.questionType}
               room={context.props.room}
               status={context.props.status}
               thumbs={context.props.thumbs}
@@ -77,7 +77,8 @@ class DeliveryView extends React.Component {
         <DeliveryInfo
           roomCount={this.props.roomCount}
           participantCount={this.props.participantCount}
-          participantConfused={this.props.confusedCount}
+          participantConfused={this.props.participantConfused}
+          room='FRED'
           />
         <QuickCheck
           questionType={this.props.questionType}

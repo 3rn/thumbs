@@ -15,7 +15,7 @@ class PresenterContainer extends React.Component {
   }
 
   componentDidMount() {
-    socket.emit('joinPresentation', {room: this.props.params.room});
+    socket.emit('joinPresentation', {room: 'FRED'});
 
     socket.on('roomCount', (payload) => {
       this.props.getRoomCount(payload - 1);
@@ -44,23 +44,22 @@ class PresenterContainer extends React.Component {
   }
 
   render() {
-    return (
-      <div className={styles.wrapper}>
-      <DeliveryView
-        room={this.props.params.room}
-        status={this.props.voteStatus}
-        questionType={this.props.questionType}
-        choices={this.props.choices}
-        thumbs={this.props.thumbs}
-        yesNo={this.props.yesNo}
-        scale={this.props.scale}
-        multipleChoice={this.props.multipleChoice}
-        openResponse={this.props.openResponse}
-        participantCount={this.props.participantCount}
-        participantConfused={this.props.confusedCount}
-        />
-      </div>
-    );
+    return <DeliveryView
+            room={this.props.params.room}
+            status={this.props.voteStatus}
+            questionType={this.props.questionType}
+            choices={this.props.choices}
+            thumbs={this.props.thumbs}
+            yesNo={this.props.yesNo}
+            scale={this.props.scale}
+            multipleChoice={this.props.multipleChoice}
+            openResponse={this.props.openResponse}
+            participantCount={this.props.participantCount}
+            participantConfused={this.props.confusedCount}
+            deliveryId={this.props.params.deliveryId}
+            lectureId={this.props.params.lectureId}
+            roomCount={this.props.roomCount}
+            />;
   }
 }
 

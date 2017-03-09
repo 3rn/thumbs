@@ -49,9 +49,18 @@ class QuestionCard extends React.Component {
 
   toggleArrow () {
     if (this.state.showDetails) {
-      return <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>;
+      return (
+        <div className={styles.icon}>
+          <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>
+        </div>
+      );
     } else {
-      return <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>;
+
+      return (
+        <div className={styles.icon}>
+          <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>
+        </div>
+      );
     }
   }
 

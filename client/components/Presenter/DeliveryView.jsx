@@ -22,7 +22,6 @@ class DeliveryView extends React.Component {
     };
 
     this.getDelivery = this.getDelivery.bind(this);
-    this.displayDelivery = this.displayDelivery.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
 
@@ -77,23 +76,22 @@ class DeliveryView extends React.Component {
       <div>
 
       <div className={styles.wrapper}>
-        <h1>DeliveryView</h1>
-      </div>
-      <div>
-        <DeliveryInfo
-          roomCount={this.props.roomCount}
-          participantCount={this.props.participantCount}
-          participantConfused={this.props.confusedCount}
+        <div>
+          <DeliveryInfo
+            roomCount={this.props.roomCount}
+            participantCount={this.props.participantCount}
+            participantConfused={this.props.confusedCount}
+            />
+          <QuickCheck
+            questionType={this.props.questionType}
+            thumbs={this.props.thumbs}
+            yesNo={this.props.yesNo}
+            scale={this.props.scale}
+            status={this.props.status}
+            room={this.props.room}
           />
-        <QuickCheck
-          questionType={this.props.questionType}
-          thumbs={this.props.thumbs}
-          yesNo={this.props.yesNo}
-          scale={this.props.scale}
-          status={this.props.status}
-          room={this.props.room}
-        />
-        {this.displayQuestions()}
+          {this.displayQuestions()}
+        </div>
       </div>
     </div>
     );

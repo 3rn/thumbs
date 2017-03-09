@@ -6,3 +6,13 @@
 .questionIcons {
   float: right;
 }
+
+.icons {
+  font-size: 2em;
+  color: $black;
+  opacity: .6;
+}
+
+.icons:hover {
+  opacity: .8;
+}

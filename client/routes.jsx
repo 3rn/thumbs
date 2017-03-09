@@ -34,7 +34,7 @@ const getRoutes = (store) => {
       <Route path="presentationQuestions" component={PresentationQuestions} />
       <Route path="part/:room" component={ParticipantContainer} />
       <Route path="pres/:room" component={PresenterContainer} />
-      
+
 
       <Route path="a/:code" component={PresenterContainer} />
       <Route path="r/:code" component={ParticipantContainer} />
@@ -42,10 +42,10 @@ const getRoutes = (store) => {
       <Route path="u" component={Dashboard} onEnter={authRequired} />
       <Route path="l/:lectureId" component={LectureView} onEnter={authRequired} />
       <Route path="l/:lectureId/edit" component={EditLectureView} onEnter={authRequired} />
-      <Route path="l/:lectureId/d/:deliveryId" component={DeliveryView} onEnter={authRequired} />
+      <Route path="l/:lectureId/d/:deliveryId" component={PresenterContainer} onEnter={authRequired} />
 
       <Route path="s/:slideId" component={SlideView} />
-      
+
       <Redirect from="*" to="/"/>
     </Route>
   );

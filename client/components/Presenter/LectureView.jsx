@@ -43,7 +43,8 @@ class LectureView extends React.Component {
     e.preventDefault();
     axios.post('/db/d', {
       lectureId: this.state.lectureId,
-      userId: 1
+      userId: 1,
+      room: this.state.link
     })
     .then(response => {
       browserHistory.push(`/l/${this.state.lectureId}/d/${response.data.id}`);

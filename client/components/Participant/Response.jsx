@@ -21,7 +21,7 @@ class Response extends React.Component {
 
   handleClick(e) {
     socket.emit('vote', {
-      room: this.props.room,
+      room: 'FRED',
       value: e.target.value,
       questionType: this.props.questionType
     });

@@ -13,8 +13,8 @@ class DeliveryView extends React.Component {
     super(props);
 
     this.state = {
-      deliveryId: this.props.params.deliveryId,
-      lectureId: this.props.params.lectureId,
+      deliveryId: this.props.deliveryId,
+      lectureId: this.props.lectureId,
       questions: [],
       questionType: 'default',
       choice: '',
@@ -31,7 +31,7 @@ class DeliveryView extends React.Component {
 
   getDelivery() {
     const context = this;
-    axios.get(`/db/l/${this.state.lectureId}/d/${this.state.deliveryId}`)
+    axios.get(`/db/d/${this.state.deliveryId}`)
     .then(function (response) {
       console.log('DeliveryView: deliveries ', response);
       context.setState({deliveries: response.data});
@@ -54,33 +54,34 @@ class DeliveryView extends React.Component {
   }
 
   displayQuestions() {
+
+    const context = this;
     return this.state.questions.map(( element, index) => {
       return <QuestionCard
               key={index + 1}
               index={index + 1}
-              choices={element.choices}
+              choices={['test1', 'test2', 'test3']}
               title={element.title}
-              questionType={element.question_type}
-              room={this.props.room}
-              status={this.props.status}
-              thumbs={this.props.thumbs}
-              scale={this.props.scale}
-              yesNo={this.props.yesNo}
-              multipleChoice={this.props.multipleChoice}
+              questionType={element.questionType}
+              room={context.props.room}
+              status={context.props.status}
+              thumbs={context.props.thumbs}
+              scale={context.props.scale}
+              yesNo={context.props.yesNo}
+              multipleChoice={context.props.multipleChoice}
               />;
     });
   }
 
   render() {
     return (
-      <div>
-
       <div className={styles.wrapper}>
         <div>
           <DeliveryInfo
             roomCount={this.props.roomCount}
             participantCount={this.props.participantCount}
             participantConfused={this.props.confusedCount}
+            room='FRED'
             />
           <QuickCheck
             questionType={this.props.questionType}
@@ -93,7 +94,6 @@ class DeliveryView extends React.Component {
           {this.displayQuestions()}
         </div>
       </div>
-    </div>
     );
   }
 }

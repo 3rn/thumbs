@@ -102,7 +102,10 @@ class Dashboard extends React.Component {
           <div className={styles.label}>
           Dashboard
           </div>
-          <h3>Welcome {this.props.name}</h3>
+          <h3>Welcome {this.props.name}!</h3>
+          <div className={styles.details}>
+            Room Code: <strong>FRED</strong>
+          </div>
         </div>
         {this.displayNewLecture()}
         {this.displayLectures()}

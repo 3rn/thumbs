@@ -32,6 +32,8 @@ class SlideViewContainer extends React.Component {
     this.getLecture = this.getLecture.bind(this);
     this.getSlides = this.getSlides.bind(this);
 
+    socket.emit('joinPresentation', {room: 'FRED'});
+
     socket.on('vote', (payload) => {
       this.props.response(payload.questionType, payload.value);
     });
@@ -49,18 +51,13 @@ class SlideViewContainer extends React.Component {
       this.props.updateVoteStatus('WAITING');
     });
 
-
+    socket.on('changeSlide', (payload) => {
+      document.getElementsByClassName(`navigate-${payload.direction}`)[0].click();
+    });
   }
 
   componentDidMount() {
     this.checkSlidesRoom();
-
-    socket.emit('joinPresentation', {room: 'FRED'});
-
-    socket.on('changeSlide', (payload) => {
-      document.getElementsByClassName(`navigate-${payload.direction}`)[0].click();
-    });
-
   }
 
   componentDidUpdate() {
@@ -159,7 +156,7 @@ class SlideViewContainer extends React.Component {
   }
 
   display () {
-    console.log('PROPS', this.props);
+    console.log('PROPS', this.state);
     if (this.props.questionType === 'THUMBS') {
       var responses = this.props.thumbs;
     } else if (this.props.questionType === 'YES_NO') {
@@ -175,15 +172,15 @@ class SlideViewContainer extends React.Component {
         <div className={styles.modalBackground}>
           <div className={styles.wrapper}>
             <div className={styles.modal}>
-              <div className={styles.label}>
-                Modal
+              <div className={styles.label}>Question Title</div>
+              <h4>{ this.props.questionTitle || 'Quick Check' }</h4>
                 <Results
                   questionType={this.props.questionType}
                   questionTitle={this.props.questionTitle}
                   choices={this.props.choices}
                   responses={responses}
+                  view='SlideView'
                   />
-              </div>
             </div>
           </div>
         </div>
@@ -227,6 +224,7 @@ class SlideViewContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     voteStatus: state.presenterReducer.status,
+    questionTitle: state.presenterReducer.questionTitle,
     questionType: state.presenterReducer.questionType,
     choices: state.presenterReducer.choices,
     thumbs: state.participantReducer.thumbs,

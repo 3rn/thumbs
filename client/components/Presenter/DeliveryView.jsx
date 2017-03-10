@@ -81,7 +81,7 @@ class DeliveryView extends React.Component {
           <DeliveryInfo
             roomCount={this.props.roomCount}
             participantCount={this.props.participantCount}
-            participantConfused={this.props.confusedCount}
+            participantConfused={this.props.participantConfused}
             room='FRED'
             />
           <QuickCheck

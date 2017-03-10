@@ -6,10 +6,6 @@ import styles from '../../../styles/components/_deliveryInfo';
 class DeliveryInfo extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      participantConfused: this.props.participantConfused || 0
-    };
   }
 
   render() {

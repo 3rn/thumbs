@@ -6,12 +6,12 @@ import HomeContainer from './containers/HomeContainer';
 
 import ParticipantContainer from './containers/ParticipantContainer';
 import PresenterContainer from './containers/PresenterContainer';
+import SlideViewContainer from './containers/SlideViewContainer';
 
 // V1
 import Dashboard from './components/Presenter/Dashboard';
 import LectureView from './components/Presenter/LectureView';
 import EditLectureView from './components/Presenter/EditLectureView';
-import SlideView from './components/Presenter/SlideView';
 
 const getRoutes = (store) => {
   const authRequired = (nextState, replace) => {
@@ -35,7 +35,7 @@ const getRoutes = (store) => {
       <Route path="l/:lectureId/edit" component={EditLectureView} onEnter={authRequired} />
       <Route path="l/:lectureId/d/:deliveryId" component={PresenterContainer} onEnter={authRequired} />
 
-      <Route path="s/:slideId" component={SlideView} />
+      <Route path="s/:slideId" component={SlideViewContainer} />
 
       <Redirect from="*" to="/"/>
     </Route>

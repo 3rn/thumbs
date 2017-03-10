@@ -17,10 +17,7 @@ router.use('/c', defineRoute('Code'));
 router.use('/l', defineRoute('Lecture'));
 router.use('/d', defineRoute('Delivery'));
 router.use('/q', defineRoute('Question'));
-router.use('/mc', defineRoute('MultipleChoice'));
 router.use('/r', defineRoute('Response'));
 router.use('/s', defineRoute('Slide'));
-
-
 
 module.exports = router;

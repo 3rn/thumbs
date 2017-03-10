@@ -61,6 +61,7 @@ class DeliveryView extends React.Component {
           id={element.id}
           title={element.title}
           questionType={element.question_type}
+          choices={element.question_choices}
           room={context.props.room}
           status={context.props.status}
           thumbs={context.props.thumbs}

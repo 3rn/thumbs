@@ -51,14 +51,11 @@ class NavContainer extends React.Component {
   };
 
   handleAuthClick(event) {
-    //check if user already logged in and skip sign in modal
-    var isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
-    if (isLoggedIn) {
-      browserHistory.push('/u');
-    } else {
-      gapi.auth2.getAuthInstance().signIn();
-    }
-  }
+
+    //TODO check if user already logged in and skip sign in modal
+    gapi.auth2.getAuthInstance().signIn();
+  };
+
 
   updateSigninStatus(isSignedIn) {
     if (isSignedIn) {

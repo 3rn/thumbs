@@ -29,8 +29,10 @@ class DeliveryInfo extends React.Component {
         <span className={styles.info}>Participants: { this.state.roomCount }</span>
         <span className={styles.separator}></span>
         <span className={styles.info}>Participant Confused Count: { this.state.participantConfused }</span>
-        <button className={`fa fa-arrow-right ${styles.slideChangeButton}`} value="right" onClick={this.handleSlideChangeClick} />
-        <button className={`fa fa-arrow-left ${styles.slideChangeButton}`} value="left" onClick={this.handleSlideChangeClick} />
+        <div className={styles.slideChangeButtonsWrapper}>
+          <button className={`fa fa-arrow-left ${styles.slideChangeButtonLeft}`} value="left" onClick={this.handleSlideChangeClick} />
+          <button className={`fa fa-arrow-right ${styles.slideChangeButtonRight}`} value="right" onClick={this.handleSlideChangeClick} />
+        </div>
       </div>
     );
   }

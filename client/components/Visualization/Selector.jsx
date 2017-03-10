@@ -11,7 +11,8 @@ export default class Selector extends React.Component {
       <div>
         <button className={styles.secondaryButton} onClick={this.props.click} value="bar">Bar</button>
         <button className={styles.secondaryButton} onClick={this.props.click} value="pie">Pie</button>
-      </div>
+        <button className={styles.secondaryButton} onClick={this.props.click} value="radar">Radar</button>
+    </div>
     );
   }
 }

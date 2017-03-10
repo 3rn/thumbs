@@ -22,6 +22,7 @@ class QuestionCard extends React.Component {
     };
 
     this.getResponses();
+
   }
 
   getResponses() {
@@ -39,7 +40,7 @@ class QuestionCard extends React.Component {
 
   handleCardToggle(e) {
     this.setState({
-      showDetails: !this.state.showDetails, 
+      showDetails: !this.state.showDetails,
       showResponses: !this.state.showResponses
     });
   }
@@ -55,11 +56,28 @@ class QuestionCard extends React.Component {
       this.setState({
         buttonName: 'Stop Vote',
         showResults: true,
-        showDetails: true
+        showDetails: true,
+        responses: null
       });
     } else if (this.props.status === 'IN_PROGRESS') {
-      socket.emit('endVote', {room: 'FRED'});
-      this.setState({buttonName: 'Ask Another Question'});
+      if (this.props.questionType === 'THUMBS') {
+        var responses = this.props.thumbs;
+      } else if (this.props.questionType === 'YES_NO') {
+        var responses = this.props.yesNo;
+      } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+        var responses = this.props.multiple_choice;
+      } else if (this.props.questionType === 'SCALE') {
+        var responses = this.props.scale;
+      }
+      axios.post(`/db/r/${this.props.deliveryId}/${this.props.id}`, { value: JSON.stringify(responses) })
+      .then(res => {
+        this.getResponses();
+        socket.emit('endVote', {room: 'FRED'});
+        this.setState({buttonName: 'Ask Another Question'});
+      })
+      .catch(error => {
+        console.log(error);
+      });
     } else if (this.props.status === 'ENDED') {
       socket.emit('newVote', {room: 'FRED'});
       this.setState({
@@ -118,32 +136,34 @@ class QuestionCard extends React.Component {
   showResults() {
     if (!this.state.responses) {
       if (this.state.showResults) {
+        if (this.props.questionType === 'THUMBS') {
+          var responses = this.props.thumbs;
+        } else if (this.props.questionType === 'YES_NO') {
+          var responses = this.props.yesNo;
+        } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+          var responses = this.props.multiple_choice;
+        } else if (this.props.questionType === 'SCALE') {
+          var responses = this.props.scale;
+        }
         return (
           <Results
             questionType={this.props.questionType}
-            choices={this.props.choices}
-            thumbs={this.props.thumbs}
-            yesNo={this.props.yesNo}
-            scale={this.props.scale}
-            multipleChoice={this.props.multipleChoice}
-            openResponse={this.props.openResponse}
             questionTitle={this.props.questionTitle}
-          />
-        );
-      } else {
-        return (
-          <Results
-            questionType='THUMBS'
             choices={this.props.choices}
-            questionTitle={this.props.questionTitle}
-            thumbs={this.props.thumbs}
-            yesNo={this.props.yesNo}
-            scale={this.props.scale}
-            multipleChoice={this.props.multipleChoice}
-            openResponse={this.props.openResponse}
+            responses={responses}
           />
         );
       }
+    } else {
+      console.log('second else', this.props);
+      return (
+        <Results
+          questionType={this.props.questionType}
+          questionTitle={this.props.questionTitle}
+          choices={this.props.choices}
+          responses={this.state.responses}
+        />
+      );
     }
   }
 
@@ -155,9 +175,9 @@ class QuestionCard extends React.Component {
             <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
           </div>
             <h4>{ this.props.questionTitle }</h4>
-            
+
           { this.showDetails() }
-          
+
           <br />
           <div className={styles.right}>
             <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>

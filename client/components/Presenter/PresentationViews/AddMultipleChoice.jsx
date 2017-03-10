@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../../styles/components/_questionMCForm';
 
 export default class MultipleChoice extends React.Component {
   constructor(props) {
@@ -30,15 +31,20 @@ export default class MultipleChoice extends React.Component {
   render() {
     return (
       <div>
+        <div className={styles.space}></div>
         {
           this.props.choices.map((choice, i) => (
-            <div key={i}>{this.numToLetter(i) + '.' + ' ' + choice} </div>
+            <div key={i}><strong>{this.numToLetter(i) + '. '}</strong>{choice}</div>
           ))
         }
         <div>
-          {this.numToLetter(this.props.choices.length) + '.' + ' '}
-          <input onChange={this.onChoiceInputChange} value={this.state.currentChoice} />
-          <button onClick={this.handleAdd}> + </button>
+          <span className={styles.mcOptionTitle}>
+            {this.numToLetter(this.props.choices.length) + '.' + ' '}
+          </span>
+          <input className={styles.mcOptionInput} onChange={this.onChoiceInputChange} value={this.state.currentChoice} />
+          <button onClick={this.handleAdd}> 
+            <i className={styles.plus + " fa fa-plus"} aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     );

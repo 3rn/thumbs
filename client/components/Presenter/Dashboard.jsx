@@ -55,14 +55,12 @@ class Dashboard extends React.Component {
   createLecture(e) {
     e.preventDefault();
     const context = this;
-    debugger;
     if (this.state.newLectureName !== '') {
       axios.post('/db/l', {
         'title': context.state.newLectureName,
         'slide_url': context.state.newLectureSlideUrl
       })
       .then((response) => {
-        debugger;
         let lectureId = response.data.id;
         browserHistory.push(`/l/${lectureId}/edit`);
       });

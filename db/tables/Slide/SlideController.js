@@ -29,7 +29,9 @@ var postSlideLink = (req, res) => {
   Models.Slide.build({
     'link': req.params.slideLink,
     'lecture_id': req.body.lectureId
-  }).save();
+  }).save().then(function() {
+    res.end();
+  });
 };
 
 var deleteSlideLink = (req, res) => {

@@ -29,7 +29,7 @@ class Modal extends React.Component {
           <div className={styles.wrapper}>
             <div className={styles.modal}>
               <div className={styles.label}>
-                Modal
+                Question Results
               </div>
               <span className={styles.closeButton}>
                 <i className="fa fa-times" aria-hidden="true" onClick={this.closeClickHandler}></i>

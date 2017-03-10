@@ -33,12 +33,11 @@ class Results extends React.Component {
       ]);
     } else if (this.props.questionType === 'SCALE') {
       var graphData = this.formatData(this.props.responses.map((element, index) => {
-        return [String(index), element];
+        return [String(index + 1), element];
       }));
     } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
       const context = this;
       var graphData = [];
-
       this.props.choices.map(function (choice, i) {
         context.props.responses[i] = context.props.responses[i] || 0;
         graphData.push([choice, context.props.responses[i]]);
@@ -48,7 +47,7 @@ class Results extends React.Component {
     }
     return (
       <div>
-        <Visualization data={graphData} questionType={this.props.questionType} choices={this.props.choices} />
+        <Visualization data={graphData} questionType={this.props.questionType} />
       </div>
     );
   }

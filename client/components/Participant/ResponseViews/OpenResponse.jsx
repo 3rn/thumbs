@@ -8,7 +8,7 @@ export default class OpenResponse extends React.Component {
 
   render() {
     return (
-      <div className={styles.card}>
+      <div>
         <input type='textarea' onClick={this.props.click} />
         <button onClick={this.props.click}>Submit</button>
       </div>

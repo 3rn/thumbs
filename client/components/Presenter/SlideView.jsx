@@ -31,8 +31,7 @@ class SlideView extends React.Component {
     socket.emit('joinPresentation', {room: 'FRED'});
 
     socket.on('changeSlide', (payload) => {
-      debugger;
-      console.log('RECEIVED CHANGE SLIDE EVENT');
+      document.getElementsByClassName(`navigate-${payload.direction}`)[0].click();
     });
   }
 

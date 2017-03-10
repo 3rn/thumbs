@@ -176,7 +176,7 @@ class SlideViewContainer extends React.Component {
           <div className={styles.wrapper}>
             <div className={styles.modal}>
               <div className={styles.label}>
-                Question Results
+                Modal
                 <Results
                   questionType={this.props.questionType}
                   questionTitle={this.props.questionTitle}

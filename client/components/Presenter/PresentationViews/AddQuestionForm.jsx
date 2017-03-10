@@ -48,7 +48,8 @@ export default class AddQuestionForm extends React.Component {
     let question = {
       title: this.state.title,
       lectureId: this.state.lectureId,
-      questionType: this.state.questionType
+      questionType: this.state.questionType,
+      questionChoices: this.state.content
     };
 
     axios.post(`/db/q/${this.state.lectureId}`, question)

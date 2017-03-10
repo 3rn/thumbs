@@ -4,7 +4,18 @@ var getDelivery = (req, res) => {
   console.log('DeliveryController: Getting Delivery');
   Models.connection.query(
     // `SQL Queury`
-    `SELECT * FROM deliveries
+    `SELECT *,
+      CASE
+        WHEN EXTRACT(EPOCH FROM  current_timestamp - created_at) < 60
+          THEN 'Just Created'
+        WHEN EXTRACT(EPOCH FROM  current_timestamp - created_at) < 3600
+          THEN FLOOR(EXTRACT(EPOCH FROM  current_timestamp - created_at) / 60) || ' minute(s) ago'
+        WHEN EXTRACT(EPOCH FROM  current_timestamp - created_at) < 86400
+         THEN FLOOR(EXTRACT(EPOCH FROM  current_timestamp - created_at) / 3600) || ' hour(s) ago'
+        ELSE FLOOR(EXTRACT(EPOCH FROM  current_timestamp - created_at) / 86400) || ' day(s) ago'
+      END AS time_diff
+
+      FROM deliveries
       ORDER BY updated_at DESC;
     `,
     {type: Models.connection.QueryTypes.SELECT}

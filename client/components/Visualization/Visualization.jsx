@@ -3,6 +3,8 @@ import BarChart from './BarChart';
 import PieChart from './PieChart';
 import Selector from './Selector';
 
+import styles from '../../styles/components/_visualizations';
+
 export default class Visualization extends React.Component {
   constructor(props) {
     super(props);
@@ -18,9 +20,17 @@ export default class Visualization extends React.Component {
 
   showVis() {
     if (this.state.selectedVisual === 'bar') {
-      return <BarChart data={this.props.data('bar')} questionType={this.props.questionType} choices={this.props.choices} />;
+      return (
+        <div className={styles.visWrapper}>
+          <BarChart data={this.props.data('bar')} questionType={this.props.questionType} choices={this.props.choices} />
+        </div>
+        );
     } else if (this.state.selectedVisual === 'pie') {
-      return <PieChart data={this.props.data('pie')} questionType={this.props.questionType} choices={this.props.choices} />;
+      return (
+        <div className={styles.visWrapper}>
+          <PieChart data={this.props.data('pie')} questionType={this.props.questionType} choices={this.props.choices} />
+        </div>
+        );
     }
   }
 

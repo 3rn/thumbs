@@ -9,22 +9,19 @@ class LectureView extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('LectureView: lectureId: ', this.props.params.lectureId);
-
     this.state = {
       showDetails: false,
       lectureId: this.props.params.lectureId,
       lecture: {
-        'title': 'Finding your lecture...',
+        'title': '',
         'created_at': '',
         'updated_at': '',
-        'description': '...the best lecture ever!'
+        'description': ''
       },
       deliveries: [],
       link: ''
     };
 
-    this.handleCardToggle = this.handleCardToggle.bind(this);
     this.getDeliveries = this.getDeliveries.bind(this);
     this.getLectureTitle = this.getLectureTitle.bind(this);
     this.displayNewDelivery = this.displayNewDelivery.bind(this);
@@ -55,7 +52,6 @@ class LectureView extends React.Component {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}`)
     .then(function (response) {
-      console.log('Lecture: ', response.data);
       if (response) {
         context.setState({lecture: {
           'title': response.data[0].title,
@@ -64,7 +60,6 @@ class LectureView extends React.Component {
           'description': response.data[0].description
         }
         });
-        console.log('LectureView: lecture ', context.state.lecture);
       }
     })
     .catch(function (error) {
@@ -76,10 +71,8 @@ class LectureView extends React.Component {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}/d`)
     .then(function (response) {
-      console.log(response.data);
       if (response) {
         context.setState({deliveries: response.data});
-        console.log('LectureView: deliveries ', context.state.deliveries);
       }
     })
     .catch(function (error) {
@@ -88,7 +81,6 @@ class LectureView extends React.Component {
   }
 
   editClickHandler() {
-    console.log('EditLectureView: Edit');
     browserHistory.push(`/l/${this.state.lectureId}/edit`);
   };
 
@@ -130,18 +122,6 @@ class LectureView extends React.Component {
     );
   }
 
-  handleCardToggle(e) {
-    this.setState({showDetails: !this.state.showDetails});
-  }
-
-  toggleArrow () {
-    if (this.state.showDetails) {
-      return <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>;
-    } else {
-      return <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>;
-    }
-  }
-
   showDetails () {
     if (this.state.showDetails) {
       return (
@@ -153,6 +133,8 @@ class LectureView extends React.Component {
       );
     }
   }
+
+  // <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
 
   displayDeliveries() {
     const context = this;
@@ -166,24 +148,17 @@ class LectureView extends React.Component {
         <Link key={index} to={`/l/${context.state.lectureId}/d/${element.id}`}>
           <div className={styles.card}>
             <div className={styles.label}>
-              Delivery # {element.id}
-              <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
+              Delivery # {this.state.deliveries.length - index}
             </div>
             <h2>{element.notes}</h2>
             { this.showDetails() }
             <div className={styles.details}>
-              <strong>Delivered:</strong> {element.created_at}
+              <strong>Date Delivered:</strong> {element.created_at}
             </div>
           </div>
           </Link>
       );
     });
-  };
-
-  openModal() {
-    return (
-      <Modal />
-    );
   };
 
   render() {

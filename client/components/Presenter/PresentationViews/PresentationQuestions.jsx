@@ -44,7 +44,6 @@ export default class PresentationQuestions extends React.Component {
 
   addQuestion(question) {
     //post question through api
-    debugger;
     axios.post('/db/savedQuestions/getQuestions/RANT', question)
     .catch(function (error) {
       console.log(error);

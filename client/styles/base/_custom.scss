@@ -27,6 +27,7 @@
   font-weight: bold;
   color: $color-primary;
   opacity: .6;
+  cursor: default;
 
   // Mobile
   @media screen and (min-width: $break-phone-min) {
@@ -103,6 +104,8 @@
 
   border-bottom: .5px solid $light-grey;
   float: right;
+  margin: .5em;
+  cursor: not-allowed;
 }
 
 .secondaryButton:hover {
@@ -153,12 +156,13 @@
   padding-top: .8em;
   font-size: .8em;
   color: $black;
-
+  cursor: default;
 }
 
 .description {
   padding-top: .8em;
   font-size: 1.2em;
+  cursor: default;
 }
 
 

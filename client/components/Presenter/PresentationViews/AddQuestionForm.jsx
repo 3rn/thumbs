@@ -13,7 +13,7 @@ export default class AddQuestionForm extends React.Component {
     this.state.title = '';
     this.state.lectureId = this.props.lectureId;
 
-    this.addQuestionToQuestions = this.props.addQuestion;
+    this.addQuestion = this.props.addQuestion;
     this.onQuestionTypeSelect = this.onQuestionTypeSelect.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleQuestionAdd = this.handleQuestionAdd.bind(this);
@@ -58,7 +58,7 @@ export default class AddQuestionForm extends React.Component {
       console.log(error);
     })
     .then((res) => {
-      context.addQuestionToQuestions(question);
+      context.addQuestion(question);
 
       //reset fields
       this.setState(this.getDefaults());
@@ -81,9 +81,9 @@ export default class AddQuestionForm extends React.Component {
           <div className={styles.details}>
             <strong>Question Title:</strong>
           </div>
-          <input 
-            type="text" 
-            value={this.state.title} 
+          <input
+            type="text"
+            value={this.state.title}
             placeholder="Enter question..." 
             onChange={this.handleTitleChange} />
         </div>

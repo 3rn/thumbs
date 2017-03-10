@@ -2,6 +2,8 @@ import React from 'react';
 import socket from '../../../config/socket';
 import styles from '../../../styles/components/_questionPrompt';
 
+import axios from 'axios';
+
 import Results from './Results';
 import QuestionIcon from '../../QuestionIcon';
 
@@ -16,7 +18,39 @@ class QuestionCard extends React.Component {
       buttonName: 'Send Question',
       showDetails: false,
       showResults: false,
+      choices: null,
+      responses: null
     };
+
+    if (this.props.questionType === 'MULTIPLE_CHOICE') {
+      this.getChoices();
+    }
+
+    this.getResponses();
+  }
+
+  getChoices() {
+    const context = this;
+    axios.get(`/db/mc/${this.props.id}`)
+    .then(function (response) {
+      context.setState({choices: JSON.parse(response.data[0].option_text)});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  getResponses() {
+    const context = this;
+    axios.get(`/db/r/${this.props.deliveryId}/${this.props.id}`)
+    .then(function (response) {
+      if (response.data[0]) {
+        context.setState({responses: JSON.parse(response.data[0].value)});
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   handleCardToggle(e) {
@@ -65,11 +99,11 @@ class QuestionCard extends React.Component {
   }
 
   mapChoices () {
-    if (this.props.element.choices) {
+    if (this.state.choices) {
       return (
         <div>
           <ol type="A">
-            { this.props.element.choices.map(choice => {
+            { this.state.choices.map(choice => {
               return <li> - {choice}</li>;
             })}
           </ol>
@@ -92,10 +126,24 @@ class QuestionCard extends React.Component {
   }
 
   showResults() {
-    if (this.state.showResults) {
+    if (!this.state.responses) {
+      if (this.state.showResults) {
+        return (
+          <Results
+            questionType={this.props.questionType}
+            choices={this.props.choices}
+            thumbs={this.props.thumbs}
+            yesNo={this.props.yesNo}
+            scale={this.props.scale}
+            multipleChoice={this.props.multipleChoice}
+            openResponse={this.props.openResponse}
+            />
+        );
+      }
+    } else {
       return (
         <Results
-          questionType={this.props.questionType}
+          questionType='THUMBS'
           choices={this.props.choices}
           thumbs={this.props.thumbs}
           yesNo={this.props.yesNo}
@@ -111,10 +159,9 @@ class QuestionCard extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.card}>
-          <div className={styles.label}>
-            {this.props.title}
+          <div className={styles.label}>Question #{this.props.index + 1}</div>
+            <h4>{ this.props.title }</h4>
             <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
-          </div>
           { this.showDetails() }
           { this.showResults() }
           <br />

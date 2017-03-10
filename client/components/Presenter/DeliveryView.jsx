@@ -16,14 +16,13 @@ class DeliveryView extends React.Component {
       deliveryId: this.props.deliveryId,
       lectureId: this.props.lectureId,
       questions: [],
-      questionType: 'default',
-      choice: '',
-      choices: []
+      questionType: 'default'
     };
 
     this.getDelivery = this.getDelivery.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
+
 
     this.getDelivery();
     this.getQuestions();
@@ -57,10 +56,11 @@ class DeliveryView extends React.Component {
 
     const context = this;
     return this.state.questions.map(( element, index) => {
+      console.log('element', element);
       return <QuestionCard
-              key={index + 1}
-              index={index + 1}
-              choices={['test1', 'test2', 'test3']}
+              key={index}
+              index={index}
+              id={element.id}
               title={element.title}
               questionType={element.questionType}
               room={context.props.room}
@@ -69,6 +69,7 @@ class DeliveryView extends React.Component {
               scale={context.props.scale}
               yesNo={context.props.yesNo}
               multipleChoice={context.props.multipleChoice}
+              deliveryId={context.state.deliveryId}
               />;
     });
   }

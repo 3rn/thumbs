@@ -129,7 +129,7 @@ class HomeContainer extends React.Component {
             <input 
               onChange={this.onEnterRoomChange}
               type="text" 
-              placeholder="Enter Valid Room Code: ABCD"
+              placeholder="Enter Room Code: ABCD"
               maxLength="4"
               required
             >
@@ -148,7 +148,7 @@ class HomeContainer extends React.Component {
             <input 
               onChange={this.onEnterDeliveryChange}
               type="text" 
-              placeholder="Enter Valid Delivery Code: ABCD"
+              placeholder="Enter Delivery Code: ABCD"
               maxLength="4"
               required
             >

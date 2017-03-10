@@ -39,10 +39,7 @@ class QuestionCard extends React.Component {
   }
 
   handleCardToggle(e) {
-    this.setState({
-      showDetails: !this.state.showDetails,
-      showResponses: !this.state.showResponses
-    });
+    this.setState({ showDetails: !this.state.showDetails });
   }
 
   handleClick(e) {
@@ -65,7 +62,7 @@ class QuestionCard extends React.Component {
       } else if (this.props.questionType === 'YES_NO') {
         var responses = this.props.yesNo;
       } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
-        var responses = this.props.multiple_choice;
+        var responses = this.props.multipleChoice;
       } else if (this.props.questionType === 'SCALE') {
         var responses = this.props.scale;
       }
@@ -125,7 +122,6 @@ class QuestionCard extends React.Component {
         <div>
           { this.mapChoices() }
           <br />
-          <p><strong>Previous Results:</strong> Work In Progress </p>
           <br />
           { this.showResults() }
         </div>
@@ -141,7 +137,7 @@ class QuestionCard extends React.Component {
         } else if (this.props.questionType === 'YES_NO') {
           var responses = this.props.yesNo;
         } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
-          var responses = this.props.multiple_choice;
+          var responses = this.props.multipleChoice;
         } else if (this.props.questionType === 'SCALE') {
           var responses = this.props.scale;
         }
@@ -155,7 +151,6 @@ class QuestionCard extends React.Component {
         );
       }
     } else {
-      console.log('second else', this.props);
       return (
         <Results
           questionType={this.props.questionType}

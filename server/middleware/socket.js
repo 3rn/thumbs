@@ -35,11 +35,16 @@ module.exports = function(server) {
     socket.on('joinPresentation', (payload) => {
       room = payload.room;
       socket.join(room);
-
+      console.log('room join request');
       if (io.sockets.adapter.rooms[room]) {
         io.to(room).emit('roomCount', io.sockets.adapter.rooms[room].length);
       }
     });
+
+    socket.on('changeSlide', (payload) => {
+      io.to(payload.room).emit('changeSlide', payload);
+    });
+
   });
 
   return io;

@@ -41,6 +41,9 @@ class PresenterContainer extends React.Component {
     socket.on('newVote', (payload) => {
       this.props.updateVoteStatus('WAITING');
     });
+
+    socket.emit('changeSlide', {room: 'FRED', direction: 'right'});
+
   }
 
   render() {

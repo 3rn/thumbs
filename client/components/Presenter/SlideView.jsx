@@ -4,6 +4,8 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import styles from '../../styles/pages/_SlideView';
 
+import socket from '../../config/socket';
+
 class SlideView extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,13 @@ class SlideView extends React.Component {
 
   componentDidMount() {
     this.checkSlidesRoom();
+    
+    socket.emit('joinPresentation', {room: 'FRED'});
+
+    socket.on('changeSlide', (payload) => {
+      debugger;
+      console.log('RECEIVED CHANGE SLIDE EVENT');
+    });
   }
 
   componentDidUpdate() {

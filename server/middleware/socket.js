@@ -45,6 +45,10 @@ module.exports = function(server) {
       io.to(payload.room).emit('changeSlide', payload);
     });
 
+    socket.on('graphChange', (payload) => {
+      io.to(payload.room).emit('graphChange', payload);
+    });
+
   });
 
   return io;

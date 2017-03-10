@@ -49,7 +49,7 @@ class Results extends React.Component {
     }
     return (
       <div>
-        <Visualization data={graphData} questionType={this.props.questionType} />
+        <Visualization data={graphData} questionType={this.props.questionType} view={this.props.view}/>
       </div>
     );
   }

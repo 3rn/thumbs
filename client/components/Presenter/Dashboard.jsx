@@ -53,7 +53,8 @@ class Dashboard extends React.Component {
 
     if (this.state.newLectureName !== '') {
       axios.post('/db/l', {
-        'title': context.state.newLectureName
+        'title': context.state.newLectureName,
+        'slide_url': context.state.newLectureSlideUrl
       })
       .then((response) => {
         let lectureId = response.data.id;

@@ -92,10 +92,10 @@ class NavContainer extends React.Component {
         <div className={styles.login} onClick={this.handleAuthClick}>
           <i className={styles.menuRightIcon + " fa fa-key"} aria-hidden="true"></i>
         </div>
-      );  
-    }    
+      );
+    }
   }
-              
+
   render() {
 
     return (
@@ -103,16 +103,16 @@ class NavContainer extends React.Component {
           <button onClick={this.openMenuClickHandler}>
             <span className={styles.menu}>
               {
-                this.state.displayMenuOptions ? 
+                this.state.displayMenuOptions ?
                 <i className={styles.menuIcon + " fa fa-times"} aria-hidden="true"></i> :
                 <i className={styles.menuIcon + " fa fa-bars"} aria-hidden="true"></i>
               }
             </span>
           </button>
 
-          <div 
+          <div
             onClick={this.openMenuClickHandler}
-            className={this.state.displayMenuOptions ? 
+            className={this.state.displayMenuOptions ?
             styles.openMenuOptions : styles.closeMenuOptions}>
             <div className={styles.menuBackground}>
               <div className={styles.card} onClick={this.openMenuClickHandler}>
@@ -125,11 +125,17 @@ class NavContainer extends React.Component {
                   <div className={styles.menuOption}>Dashboard</div>
                 </Link>
               </div>
-            </div>  
+            </div>
           </div>
 
           <Link to="/">
-            <h1 className={styles.logo}>thumbs</h1>
+            <h1 className={styles.logo}>
+              thu
+              <span className={styles.thumbs}>|</span>
+              <span className={styles.middleThumb}>|</span>
+              <span className={styles.thumbs}>|</span>
+              bs
+            </h1>
           </Link>
 
           { this.renderLogIn() }

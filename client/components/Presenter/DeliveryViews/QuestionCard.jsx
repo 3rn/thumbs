@@ -63,7 +63,7 @@ class QuestionCard extends React.Component {
         room: 'FRED',
         questionTitle: this.props.questionTitle,
         questionType: this.props.questionType,
-        choices: this.props.choices
+        choices: this.state.choices
       });
       this.setState({
         buttonName: 'Stop Vote',
@@ -131,7 +131,7 @@ class QuestionCard extends React.Component {
         return (
           <Results
             questionType={this.props.questionType}
-            choices={this.props.choices}
+            choices={this.state.choices}
             thumbs={this.props.thumbs}
             yesNo={this.props.yesNo}
             scale={this.props.scale}
@@ -144,7 +144,7 @@ class QuestionCard extends React.Component {
       return (
         <Results
           questionType='THUMBS'
-          choices={this.props.choices}
+          choices={this.state.choices}
           thumbs={this.props.thumbs}
           yesNo={this.props.yesNo}
           scale={this.props.scale}

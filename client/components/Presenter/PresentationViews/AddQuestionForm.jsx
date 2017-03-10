@@ -23,8 +23,7 @@ export default class AddQuestionForm extends React.Component {
   getDefaults() {
     return {
       title: '',
-      questionType: 'Select A Question Type',
-      graphType: 'Pie Chart',
+      questionType: 'YES_NO',
       content: []
     };
   }
@@ -49,9 +48,8 @@ export default class AddQuestionForm extends React.Component {
     let question = {
       title: this.state.title,
       lectureId: this.state.lectureId,
-      questionType: this.state.questionType,
-      graphType: this.state.graphType,
-    }
+      questionType: this.state.questionType
+    };
 
     axios.post(`/db/q/${this.state.lectureId}`, question)
     .catch(function (error) {
@@ -68,9 +66,9 @@ export default class AddQuestionForm extends React.Component {
 
   displayAddQuestionButton() {
     if (this.state.title === '') {
-      return <button className={styles.secondaryButton}> Add Question </button>
+      return <button className={styles.secondaryButton}> Add Question </button>;
     } else {
-      return <button className={styles.primaryButton} onClick={this.handleQuestionAdd}> Add Question </button>
+      return <button className={styles.primaryButton} onClick={this.handleQuestionAdd}> Add Question </button>;
     }
   }
 
@@ -89,13 +87,13 @@ export default class AddQuestionForm extends React.Component {
         </div>
 
         <div className={styles.details}>
-          <strong>Question Type:  </strong>
+          <strong>Question Type:</strong>
           <div className={styles.space}></div>
           <select onChange={this.onQuestionTypeSelect}>
-            <option value="YES-NO">Yes/No</option>
+            <option value="YES_NO">Yes/No</option>
             <option value="MULTIPLE_CHOICE">Multiple Choice</option>
             <option value="THUMBS">Thumbs</option>
-            <option value="SLIDER">Slider</option>
+            <option value="SCALE">Scale</option>
           </select>
         </div>
 

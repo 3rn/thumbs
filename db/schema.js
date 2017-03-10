@@ -48,7 +48,6 @@ const Lecture = define('Lecture');
 const Slide = define('Slide');
 const Delivery = define('Delivery');
 const Question = define('Question');
-const QuestionType = define('QuestionType');
 const MultipleChoice = define('MultipleChoice');
 const Response = define('Response');
 
@@ -69,7 +68,6 @@ Response.belongsTo(Question);
 
 Question.belongsTo(Lecture);
 Question.hasMany(MultipleChoice);
-Question.belongsTo(QuestionType);
 
 
 module.exports = {
@@ -81,7 +79,6 @@ module.exports = {
   Slide: Slide,
   Delivery: Delivery,
   Question: Question,
-  QuestionType: QuestionType,
   MultipleChoice: MultipleChoice,
   Response: Response
 };

@@ -5,15 +5,17 @@
 
 .visWrapper {
   width: 80%;
-  margin: 0 auto;
   
+  margin: 0 auto;
 
  //Mobile
   @media screen and (min-width: $break-phone-min) {
+    margin: 0 auto;
     height: auto !important;
   }
   // Desktop
   @media screen and (min-width: $break-phone-max) {
+    margin: 4em auto;
     height: auto !important;
   }
 }

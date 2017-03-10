@@ -199,7 +199,7 @@ class SlideViewContainer extends React.Component {
     var loading = (
       <div className={styles.wrapper}>
         <div className={styles.card}>
-          <h1>Loading Your Slides</h1>
+          <h2>Loading Your Slides...</h2>
           <Loading />
         </div>
       </div>

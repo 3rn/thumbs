@@ -84,15 +84,15 @@ class QuestionCard extends React.Component {
   toggleArrow () {
     if (this.state.showDetails) {
       return (
-        <div className={styles.icon}>
-          <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>
+        <div className={styles.icons}>
+          <i className="fa fa-angle-up" aria-hidden="true"></i>
         </div>
       );
     } else {
 
       return (
-        <div className={styles.icon}>
-          <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>
+        <div className={styles.icons}>
+          <i className="fa fa-angle-down" aria-hidden="true"></i>
         </div>
       );
     }
@@ -118,7 +118,7 @@ class QuestionCard extends React.Component {
         <div>
           { this.mapChoices() }
           <br />
-          <p>Previous Results: WorkInProgress </p>
+          <p><strong>Previous Results:</strong> Work In Progress </p>
           <br />
         </div>
       );
@@ -159,9 +159,11 @@ class QuestionCard extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.card}>
-          <div className={styles.label}>Question #{this.props.index + 1}</div>
-            <h4>{ this.props.title }</h4>
+          <div className={styles.label}>Question #{this.props.index + 1}
             <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
+          </div>
+            <h4>{ this.props.title }</h4>
+            
           { this.showDetails() }
           { this.showResults() }
           <br />

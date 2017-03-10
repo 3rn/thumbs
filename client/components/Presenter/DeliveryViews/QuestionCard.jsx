@@ -18,26 +18,11 @@ class QuestionCard extends React.Component {
       buttonName: 'Send Question',
       showDetails: false,
       showResults: false,
-      choices: null,
       responses: null
     };
 
-    if (this.props.questionType === 'MULTIPLE_CHOICE') {
-      this.getChoices();
-    }
-
     this.getResponses();
-  }
 
-  getChoices() {
-    const context = this;
-    axios.get(`/db/mc/${this.props.id}`)
-    .then(function (response) {
-      context.setState({choices: JSON.parse(response.data[0].option_text)});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   getResponses() {
@@ -54,7 +39,10 @@ class QuestionCard extends React.Component {
   }
 
   handleCardToggle(e) {
-    this.setState({showDetails: !this.state.showDetails});
+    this.setState({
+      showDetails: !this.state.showDetails,
+      showResponses: !this.state.showResponses
+    });
   }
 
   handleClick(e) {
@@ -63,20 +51,39 @@ class QuestionCard extends React.Component {
         room: 'FRED',
         questionTitle: this.props.questionTitle,
         questionType: this.props.questionType,
-        choices: this.state.choices
+        choices: this.props.choices
       });
       this.setState({
         buttonName: 'Stop Vote',
-        showResults: true
+        showResults: true,
+        showDetails: true,
+        responses: null
       });
     } else if (this.props.status === 'IN_PROGRESS') {
-      socket.emit('endVote', {room: 'FRED'});
-      this.setState({buttonName: 'Ask Another Question'});
+      if (this.props.questionType === 'THUMBS') {
+        var responses = this.props.thumbs;
+      } else if (this.props.questionType === 'YES_NO') {
+        var responses = this.props.yesNo;
+      } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+        var responses = this.props.multiple_choice;
+      } else if (this.props.questionType === 'SCALE') {
+        var responses = this.props.scale;
+      }
+      axios.post(`/db/r/${this.props.deliveryId}/${this.props.id}`, { value: JSON.stringify(responses) })
+      .then(res => {
+        this.getResponses();
+        socket.emit('endVote', {room: 'FRED'});
+        this.setState({buttonName: 'Ask Another Question'});
+      })
+      .catch(error => {
+        console.log(error);
+      });
     } else if (this.props.status === 'ENDED') {
       socket.emit('newVote', {room: 'FRED'});
       this.setState({
         buttonName: 'Resend Question',
-        showResults: false
+        showResults: false,
+        showDetails: false
       });
     }
   }
@@ -84,26 +91,26 @@ class QuestionCard extends React.Component {
   toggleArrow () {
     if (this.state.showDetails) {
       return (
-        <div className={styles.icon}>
-          <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>
+        <div className={styles.icons}>
+          <i className="fa fa-angle-up" aria-hidden="true"></i>
         </div>
       );
     } else {
 
       return (
-        <div className={styles.icon}>
-          <i className="fa fa-arrow-circle-down" aria-hidden="true"></i>
+        <div className={styles.icons}>
+          <i className="fa fa-angle-down" aria-hidden="true"></i>
         </div>
       );
     }
   }
 
   mapChoices () {
-    if (this.state.choices) {
+    if (this.props.choices) {
       return (
         <div>
           <ol type="A">
-            { this.state.choices.map(choice => {
+            { this.props.choices.map(choice => {
               return <li> - {choice}</li>;
             })}
           </ol>
@@ -118,8 +125,9 @@ class QuestionCard extends React.Component {
         <div>
           { this.mapChoices() }
           <br />
-          <p>Previous Results: WorkInProgress </p>
+          <p><strong>Previous Results:</strong> Work In Progress </p>
           <br />
+          { this.showResults() }
         </div>
       );
     }
@@ -128,29 +136,33 @@ class QuestionCard extends React.Component {
   showResults() {
     if (!this.state.responses) {
       if (this.state.showResults) {
+        if (this.props.questionType === 'THUMBS') {
+          var responses = this.props.thumbs;
+        } else if (this.props.questionType === 'YES_NO') {
+          var responses = this.props.yesNo;
+        } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+          var responses = this.props.multiple_choice;
+        } else if (this.props.questionType === 'SCALE') {
+          var responses = this.props.scale;
+        }
         return (
           <Results
             questionType={this.props.questionType}
-            choices={this.state.choices}
-            thumbs={this.props.thumbs}
-            yesNo={this.props.yesNo}
-            scale={this.props.scale}
-            multipleChoice={this.props.multipleChoice}
-            openResponse={this.props.openResponse}
-            />
+            questionTitle={this.props.questionTitle}
+            choices={this.props.choices}
+            responses={responses}
+          />
         );
       }
     } else {
+      console.log('second else', this.props);
       return (
         <Results
-          questionType='THUMBS'
-          choices={this.state.choices}
-          thumbs={this.props.thumbs}
-          yesNo={this.props.yesNo}
-          scale={this.props.scale}
-          multipleChoice={this.props.multipleChoice}
-          openResponse={this.props.openResponse}
-          />
+          questionType={this.props.questionType}
+          questionTitle={this.props.questionTitle}
+          choices={this.props.choices}
+          responses={this.state.responses}
+        />
       );
     }
   }
@@ -159,11 +171,13 @@ class QuestionCard extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.card}>
-          <div className={styles.label}>Question #{this.props.index + 1}</div>
-            <h4>{ this.props.title }</h4>
+          <div className={styles.label}>Question #{this.props.index + 1}
             <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
+          </div>
+            <h4>{ this.props.questionTitle }</h4>
+
           { this.showDetails() }
-          { this.showResults() }
+
           <br />
           <div className={styles.right}>
             <button className={styles.primaryButton} onClick={this.handleClick}>{this.state.buttonName}</button>

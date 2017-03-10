@@ -55,6 +55,7 @@ class LectureView extends React.Component {
       if (response) {
         context.setState({lecture: {
           'title': response.data[0].title,
+          'time_diff': response.data[0].time_diff,
           'created_at': (new Date(response.data[0].created_at)).toUTCString(),
           'updated_at': (new Date(response.data[0].updated_at)).toUTCString(),
           'description': response.data[0].description
@@ -153,7 +154,7 @@ class LectureView extends React.Component {
             <h2>{element.notes}</h2>
             { this.showDetails() }
             <div className={styles.details}>
-              <strong>Date Delivered:</strong> {element.created_at}
+              <strong>Delivered:</strong> {element.time_diff}
             </div>
           </div>
           </Link>
@@ -174,7 +175,7 @@ class LectureView extends React.Component {
 
           <h1>{`${this.state.lecture.title}`}</h1>
           <div className={styles.details}>
-            <strong>Last Updated: </strong>{this.state.lecture.updated_at}
+            <strong>Last Updated: </strong>{this.state.lecture.time_diff}
           </div>
 
           <div className={styles.description}>

@@ -63,10 +63,9 @@ export default class EditLectureView extends React.Component {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}`)
     .then(function (response) {
-      console.log(response);
       if (response.data.length !== 0) {
         context.setState({lecture: response.data[0]});
-      }      
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -76,13 +75,13 @@ export default class EditLectureView extends React.Component {
   getLectureQuestions() {
     const context = this;
     console.log('Getting lecture questions');
-    
+
     axios.get(`/db/q/${this.state.lectureId}`)
     .then(questions => {
       console.log('lecture questions ', questions.data);
       if (questions.data) {
         context.setState({questions: questions.data});
-      }      
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -97,14 +96,14 @@ export default class EditLectureView extends React.Component {
     return (
       <div className={styles.card}>
         <div className={styles.label}>New Question</div>
-        
+
         {
           // this.state.questions.map((q, i) => (
           //   <div className={styles.question} key={i}> {'Q' + (i + 1) + '. ' + q.title} </div>)
           // )
         }
-        <AddQuestionForm 
-          lectureId={this.state.lectureId} 
+        <AddQuestionForm
+          lectureId={this.state.lectureId}
           addQuestion={this.addQuestion} />
       </div>
     );
@@ -119,7 +118,7 @@ export default class EditLectureView extends React.Component {
 
   displayQuestions() {
     const context = this;
-    
+
     return context.state.questions.map((question, index) => {
       return (
         <div className={styles.card} key={question.id}>
@@ -142,19 +141,19 @@ export default class EditLectureView extends React.Component {
               <i className="fa fa-unlock" aria-hidden="true" onClick={this.editLockClickHandler}></i>
             </span>
           </div>
-          
+
           <h1>{`${this.state.lecture.title}`}</h1>
           <div className={styles.details}>
-            <strong>Last Updated: </strong>{this.state.lecture.updated_at}
+            <strong>Last Updated: </strong>{this.state.lecture.time_diff}
           </div>
 
           <div className={styles.description}>
             {this.state.lecture.description}
           </div>
 
-          
-            
-          
+
+
+
         </div>
 
 

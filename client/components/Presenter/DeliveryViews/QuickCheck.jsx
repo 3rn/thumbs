@@ -26,7 +26,7 @@ class QuickCheck extends React.Component {
   handleClick(e) {
     if (this.props.status === 'WAITING') {
       socket.emit('startVote', {
-        room: this.props.room,
+        room: 'FRED',
         questionType: e.target.value
       });
       this.setState({
@@ -34,10 +34,10 @@ class QuickCheck extends React.Component {
         showResults: true
       });
     } else if (this.props.status === 'IN_PROGRESS') {
-      socket.emit('endVote', {room: this.props.room});
+      socket.emit('endVote', {room: 'FRED'});
       this.setState({buttonName: 'Ask Another Question'});
     } else if (this.props.status === 'ENDED') {
-      socket.emit('newVote', {room: this.props.room});
+      socket.emit('newVote', {room: 'FRED'});
       this.setState({
         buttonName: 'Resend Question',
         showResults: false
@@ -68,9 +68,8 @@ class QuickCheck extends React.Component {
           <button className={styles.quickCheckButton} onClick={this.handleClick} value="YES_NO">Y/N</button>
           <button className={`fa fa-thumbs-up ${styles.quickCheckButton}`} onClick={this.handleClick} aria-hidden="true" value="THUMBS" />
           <button className={`fa fa-sliders ${styles.quickCheckButton}`} onClick={this.handleClick} value="SCALE" />
-          <button className={`fa fa-comment-o ${styles.quickCheckButton}`} onClick={this.handleClick} value="OPEN_RESPONSE" />
           { this.showResults() }
-          { /*this.showButton()*/ }
+          { this.showButton() }
         </div>
       );
     }
@@ -94,8 +93,7 @@ class QuickCheck extends React.Component {
           thumbs={this.props.thumbs}
           yesNo={this.props.yesNo}
           scale={this.props.scale}
-          openResponse={this.props.openResponse}
-          />
+        />
       );
     }
   }

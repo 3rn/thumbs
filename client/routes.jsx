@@ -12,7 +12,6 @@ import Dashboard from './components/Presenter/Dashboard';
 import LectureView from './components/Presenter/LectureView';
 import EditLectureView from './components/Presenter/EditLectureView';
 import SlideView from './components/Presenter/SlideView';
-import DeliveryView from './components/Presenter/DeliveryView';
 
 const getRoutes = (store) => {
   const authRequired = (nextState, replace) => {

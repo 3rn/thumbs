@@ -23,6 +23,7 @@ class Response extends React.Component {
     socket.emit('vote', {
       room: 'FRED',
       value: e.target.value,
+      questionTitle: this.props.questionTitle,
       questionType: this.props.questionType
     });
 
@@ -48,9 +49,17 @@ class Response extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <h2>{this.props.questionTitle}</h2>
-        <h6>{this.props.questionType}</h6>
-        { this.showChoices() }
+        <div className={styles.card}>
+          <div className={styles.label}>Title</div>
+          <h2>{this.props.questionTitle}</h2>
+          <div className={styles.details}>
+            <strong>Question Type: </strong>{this.props.questionType}
+          </div>
+          <div className={styles.details}>
+            <strong>Response Options: </strong>
+          </div>
+          { this.showChoices() }
+        </div>
       </div>
     );
   }

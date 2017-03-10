@@ -22,17 +22,17 @@ class Results extends React.Component {
   render() {
     if (this.props.questionType === 'THUMBS') {
       var graphData = this.formatData([
-        ['Up', this.props.thumbs[0]],
-        ['Middle', this.props.thumbs[1]],
-        ['Down', this.props.thumbs[2]]
+        ['Up', this.props.responses[0]],
+        ['Middle', this.props.responses[1]],
+        ['Down', this.props.responses[2]]
       ]);
     } else if (this.props.questionType === 'YES_NO') {
       var graphData = this.formatData([
-        ['Yes', this.props.yesNo[0]],
-        ['No', this.props.yesNo[1]]
+        ['Yes', this.props.responses[0]],
+        ['No', this.props.responses[1]]
       ]);
     } else if (this.props.questionType === 'SCALE') {
-      var graphData = this.formatData(this.props.scale.map((element, index) => {
+      var graphData = this.formatData(this.props.responses.map((element, index) => {
         return [String(index), element];
       }));
     } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
@@ -40,8 +40,8 @@ class Results extends React.Component {
       var graphData = [];
 
       this.props.choices.map(function (choice, i) {
-        context.props.multipleChoice[i] = context.props.multipleChoice[i] || 0;
-        graphData.push([choice, context.props.multipleChoice[i]]);
+        context.props.responses[i] = context.props.responses[i] || 0;
+        graphData.push([choice, context.props.responses[i]]);
       });
 
       graphData = this.formatData(graphData);

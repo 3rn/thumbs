@@ -18,26 +18,10 @@ class QuestionCard extends React.Component {
       buttonName: 'Send Question',
       showDetails: false,
       showResults: false,
-      choices: null,
       responses: null
     };
 
-    if (this.props.questionType === 'MULTIPLE_CHOICE') {
-      this.getChoices();
-    }
-
     this.getResponses();
-  }
-
-  getChoices() {
-    const context = this;
-    axios.get(`/db/mc/${this.props.id}`)
-    .then(function (response) {
-      context.setState({choices: JSON.parse(response.data[0].option_text)});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   getResponses() {
@@ -66,7 +50,7 @@ class QuestionCard extends React.Component {
         room: 'FRED',
         questionTitle: this.props.questionTitle,
         questionType: this.props.questionType,
-        choices: this.state.choices
+        choices: this.props.choices
       });
       this.setState({
         buttonName: 'Stop Vote',
@@ -104,11 +88,11 @@ class QuestionCard extends React.Component {
   }
 
   mapChoices () {
-    if (this.state.choices) {
+    if (this.props.choices) {
       return (
         <div>
           <ol type="A">
-            { this.state.choices.map(choice => {
+            { this.props.choices.map(choice => {
               return <li> - {choice}</li>;
             })}
           </ol>
@@ -133,24 +117,25 @@ class QuestionCard extends React.Component {
 
   showResults() {
     if (!this.state.responses) {
-      return (
-        <Results
-          questionType={this.props.questionType}
-          questionTitle={this.props.questionTitle}
-          choices={this.state.choices}
-          thumbs={this.props.thumbs}
-          yesNo={this.props.yesNo}
-          scale={this.props.scale}
-          multipleChoice={this.props.multipleChoice}
-          openResponse={this.props.openResponse}
+      if (this.state.showResults) {
+        return (
+          <Results
+            questionType={this.props.questionType}
+            choices={this.props.choices}
+            thumbs={this.props.thumbs}
+            yesNo={this.props.yesNo}
+            scale={this.props.scale}
+            multipleChoice={this.props.multipleChoice}
+            openResponse={this.props.openResponse}
+            questionTitle={this.props.questionTitle}
           />
       );
     } else {
       return (
         <Results
           questionType='THUMBS'
+          choices={this.props.choices}
           questionTitle={this.props.questionTitle}
-          choices={this.state.choices}
           thumbs={this.props.thumbs}
           yesNo={this.props.yesNo}
           scale={this.props.scale}

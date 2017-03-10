@@ -15,7 +15,7 @@ var postQuestion = (req, res) => {
     'title': req.body.title,
     'lecture_id': req.body.lectureId,
     'question_type': req.body.questionType,
-    'graph_type': req.body.graphType
+    'question_choices': req.body.questionChoices
   })
   .save()
   .then((question) => {

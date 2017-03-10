@@ -10,7 +10,6 @@ module.exports.init = function() {
   init('Lecture');
   init('Delivery');
   init('Question');
-  init('MultipleChoice');
   init('Response');
   init('Slide');
 };

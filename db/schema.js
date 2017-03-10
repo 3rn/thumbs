@@ -48,11 +48,9 @@ const Lecture = define('Lecture');
 const Slide = define('Slide');
 const Delivery = define('Delivery');
 const Question = define('Question');
-const MultipleChoice = define('MultipleChoice');
 const Response = define('Response');
 
 
-// Associations
 // Source => Target
 Lecture.belongsTo(User);
 
@@ -67,7 +65,6 @@ Response.belongsTo(Delivery);
 Response.belongsTo(Question);
 
 Question.belongsTo(Lecture);
-Question.hasMany(MultipleChoice);
 
 
 module.exports = {
@@ -79,7 +76,6 @@ module.exports = {
   Slide: Slide,
   Delivery: Delivery,
   Question: Question,
-  MultipleChoice: MultipleChoice,
   Response: Response
 };
 

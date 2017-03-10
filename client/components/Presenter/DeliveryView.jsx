@@ -90,7 +90,7 @@ class DeliveryView extends React.Component {
             yesNo={this.props.yesNo}
             scale={this.props.scale}
             status={this.props.status}
-            room={this.props.room}
+            room='FRED'
           />
           {this.displayQuestions()}
         </div>

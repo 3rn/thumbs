@@ -5,6 +5,11 @@
 
 .info {
   font-size: .9em;
+  color: $turqoise;
+  margin-right: 1.2em;
+  strong {
+    color: $black;
+  }
 }
 
 .slideChangeButtonsWrapper {
@@ -14,17 +19,29 @@
 }
 
 .slideChangeButtonLeft {
-  color: $turqoise;
+  color: $black;
   font-size: 3em;
   text-transform: uppercase;
   float:left;
+  opacity: .6;
+
+  &:hover {
+    opacity: .8;
+    color: $turqoise;
+  }
 }
 
 .slideChangeButtonRight {
-  color: $turqoise;
+  color: $black;
   font-size: 3em;
   text-transform: uppercase;
   float:right;
+  opacity: .6;
+
+  &:hover {
+    opacity: .8;
+    color: $turqoise;
+  }
 }
 
 .secondaryButton {

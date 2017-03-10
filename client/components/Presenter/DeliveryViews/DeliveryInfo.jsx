@@ -17,14 +17,21 @@ class DeliveryInfo extends React.Component {
 
   render() {
     return (
-      <div className={styles.card}>
-        <div className={styles.label}>Delivery Info</div>
-        <span className={styles.info}>Participants: { this.props.roomCount }</span>
-        <span className={styles.separator}></span>
-        <span className={styles.info}>Participant Confused Count: { this.props.participantConfused }</span>
-        <div className={styles.slideChangeButtonsWrapper}>
-          <button className={`fa fa-arrow-left ${styles.slideChangeButtonLeft}`} value="left" onClick={this.handleSlideChangeClick} />
-          <button className={`fa fa-arrow-right ${styles.slideChangeButtonRight}`} value="right" onClick={this.handleSlideChangeClick} />
+      <div>
+        <div className={styles.card}>
+          <div className={styles.label}>Delivery Info</div>
+          <span className={styles.info}><i className="fa fa-television" aria-hidden="true"> </i><strong> {this.props.slideRoom}</strong></span>
+          <span className={styles.info}><i className="fa fa-sign-in" aria-hidden="true"> </i><strong> FRED</strong></span>
+          <span className={styles.info}><i className="fa fa-users" aria-hidden="true"> </i><strong> {this.props.roomCount }</strong></span>
+          <span className={styles.info}><i className="fa fa-question-circle" aria-hidden="true"> </i> <strong>{ this.props.participantConfused }</strong></span>
+
+        </div>
+        <div className={styles.card}>
+          <div className={styles.label}>Slide Controls</div>
+          <div className={styles.slideChangeButtonsWrapper}>
+            <button className={`fa fa-arrow-left ${styles.slideChangeButtonLeft}`} value="left" onClick={this.handleSlideChangeClick} />
+            <button className={`fa fa-arrow-right ${styles.slideChangeButtonRight}`} value="right" onClick={this.handleSlideChangeClick} />
+          </div>
         </div>
       </div>
     );

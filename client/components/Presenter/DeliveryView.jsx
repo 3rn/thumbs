@@ -16,7 +16,9 @@ class DeliveryView extends React.Component {
       deliveryId: this.props.deliveryId,
       lectureId: this.props.lectureId,
       questions: [],
-      questionType: 'default'
+      questionType: 'default',
+      deliveries: null,
+      slideRoom: ''
     };
 
     this.getDelivery = this.getDelivery.bind(this);
@@ -28,11 +30,15 @@ class DeliveryView extends React.Component {
     this.getQuestions();
   }
 
+  showLink() {
+    this.setState({ slideRoom: this.state.deliveries[0].room });
+  }
+
   getDelivery() {
     const context = this;
     axios.get(`/db/d/${this.state.deliveryId}`)
     .then(function (response) {
-      context.setState({deliveries: response.data});
+      context.setState({deliveries: response.data}, context.showLink);
     })
     .catch(function (error) {
       console.log(error);
@@ -83,6 +89,7 @@ class DeliveryView extends React.Component {
             participantCount={this.props.participantCount}
             participantConfused={this.props.participantConfused}
             room='FRED'
+            slideRoom={this.state.slideRoom}
             />
           <QuickCheck
             questionType={this.props.questionType}

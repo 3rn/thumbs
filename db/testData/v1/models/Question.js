@@ -1,44 +1,26 @@
 module.exports = function(Models) {
   Models.Question.build({
-    'title': 'Why is Nathan such a good person?',
+    'title': 'YN',
     'lecture_id': 1,
     'question_type_id': 1
   }).save();
 
   Models.Question.build({
-    'title': 'Why is Draymond always kicking people?',
+    'title': 'Thumbs',
     'lecture_id': 1,
     'question_type_id': 2
   }).save();
 
-
   Models.Question.build({
-    'title': 'Question 3?',
+    'title': 'Mult Choice',
     'lecture_id': 1,
     'question_type_id': 3
   }).save();
 
   Models.Question.build({
-    'title': 'Why is Ryan such a bad person?',
-    'lecture_id': 2,
-    'question_type_id': 3
+    'title': 'Scale',
+    'lecture_id': 1,
+    'question_type_id': 4
   }).save();
 
-  Models.Question.build({
-    'title': 'Why is Ranit such a late person?',
-    'lecture_id': 3,
-    'question_type_id': 3
-  }).save();
-
-  Models.Question.build({
-    'title': 'Why is Richard such a loud person?',
-    'lecture_id': 4,
-    'question_type_id': 3
-  }).save();
-
-  Models.Question.build({
-    'title': 'Why is Sophie such a good person?',
-    'lecture_id': 5,
-    'question_type_id': 2
-  }).save();
 };

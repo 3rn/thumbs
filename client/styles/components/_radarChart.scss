@@ -1,0 +1,30 @@
+@import "../base/break-points";
+@import "../base/custom";
+@import "../base/colors";
+
+.radarWrapper {
+  height: 100%;
+  width: 100%;
+  
+  canvas {
+    
+    width: 100% !important;
+    // height: 100% !important;
+    
+    //Mobile
+    @media screen and (min-width: $break-phone-min) {
+      position: relative;
+      left: 0%;
+      top: 50px;
+      position:relative;
+      margin: 1em 0;  
+    }
+    // Desktop
+    @media screen and (min-width: $break-phone-max) {
+      left: 0%;
+        
+      margin-bottom: 6em;
+    }
+  }
+
+}

@@ -1,23 +1,25 @@
-@import "../base/colors";
 @import "../base/break-points";
-
 @import "../base/custom";
+@import "../base/colors";
 
-.visWrapper {
-  width: 80%;
-  margin: 0 auto;
+.pieWrapper {
+
+  height: 100%;
+    
+  // height: 100% !important;
   
-
- //Mobile
+  svg {
+    margin-top: 2em;
+    width: 100% !important; 
+  }
+  //Mobile
   @media screen and (min-width: $break-phone-min) {
-    height: auto !important;
+    
   }
   // Desktop
   @media screen and (min-width: $break-phone-max) {
-    height: auto !important;
+   
   }
-}
 
-.secondaryButton {
-  cursor: pointer;
+
 }

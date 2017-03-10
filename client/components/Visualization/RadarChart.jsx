@@ -1,5 +1,6 @@
 import React from 'react';
 import { Radar } from 'react-chartjs';
+import styles from '../../styles/components/_radarChart';
 
 export default class RadarChart extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class RadarChart extends React.Component {
       ]
     };
     return (
-      <div>
+      <div className={styles.radarWrapper}>
         <Radar data={data} redraw/>
       </div>
     );

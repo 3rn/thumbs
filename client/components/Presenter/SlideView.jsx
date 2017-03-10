@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import Loading from '../Participant/Loading';
+
 import styles from '../../styles/pages/_SlideView';
 
 import socket from '../../config/socket';
@@ -22,7 +24,7 @@ class SlideView extends React.Component {
     this.getLecture = this.getLecture.bind(this);
 
     this.getSlides = this.getSlides.bind(this);
-    this.updateUrlInput = this.updateUrlInput.bind(this);
+
   }
 
   componentDidMount() {
@@ -73,9 +75,11 @@ class SlideView extends React.Component {
             'created_at': (new Date(response.data[0].created_at)).toUTCString(),
             'updated_at': (new Date(response.data[0].updated_at)).toUTCString(),
             'description': response.data[0].description
-          }
+          },
+          url: response.data[0].slide_url
         });
-        console.log('LectureView: lecture ', context.state.lecture);
+        console.log('SLIDE URL ', context.state.url);
+        context.getSlides();
       }
     })
     .catch(function (error) {
@@ -128,10 +132,6 @@ class SlideView extends React.Component {
     });
   }
 
-  updateUrlInput(e) {
-    this.setState({url: e.target.value});
-  }
-
   render() {
     var slides = (
       <div className={styles.slidesWrapper}>
@@ -148,33 +148,18 @@ class SlideView extends React.Component {
       </div>
     );
 
-    var otherShit = (
+    var loading = (
       <div className={styles.wrapper}>
         <div className={styles.card}>
-          <div className={styles.label}>Lecture Info</div>
-          <h1>{this.state.lecture.title}</h1>
-          <div className={styles.details}>
-            <strong>Last Updated: </strong>{this.state.lecture.updated_at}
-          </div>
-
-          <div className={styles.description}>
-            {this.state.lecture.description}
-          </div>
-        </div>
-        <div className={styles.card}>
-          <div className={styles.label}>Slides</div>
-          <div>
-            <span>Enter Slide Url:</span>
-            <input type="text" onChange={this.updateUrlInput} />
-            <button className={styles.primaryButton} onClick={this.getSlides} >Get Slides</button>
-          </div>
+          <h1>Loading Your Slides</h1>
+          <Loading />
         </div>
       </div>
     );
 
     return (
       <div>
-        {this.state.slides.length === 0 ? otherShit : slides}
+        {this.state.slides.length === 0 ? loading : slides}
       </div>
     );
   }

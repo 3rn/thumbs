@@ -4,7 +4,27 @@
 @import "../base/custom";
 
 .info {
-  font-size: .9em; 
+  font-size: .9em;
+}
+
+.slideChangeButtonsWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+}
+
+.slideChangeButtonLeft {
+  color: $turqoise;
+  font-size: 3em;
+  text-transform: uppercase;
+  float:left;
+}
+
+.slideChangeButtonRight {
+  color: $turqoise;
+  font-size: 3em;
+  text-transform: uppercase;
+  float:right;
 }
 
 .secondaryButton {

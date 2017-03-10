@@ -1,5 +1,5 @@
 export default function loginReducer(state = {
-  name: 'FRED', //change to empty string later to represent logged out status.
+  name: '', //change to empty string later to represent logged out status.
   email: ''
 }, action) {
   switch (action.type) {

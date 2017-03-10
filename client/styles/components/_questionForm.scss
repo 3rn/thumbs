@@ -8,3 +8,14 @@ input {
 input[type=text] {
   border-bottom: 1px solid $ryan-gray;
 }
+
+.space {
+  margin-bottom: 1em;
+}
+
+.details {
+  margin-bottom: 1em;
+  font-size: .6em;
+  font-color: $ryan-gray;
+  text-transform: uppercase;
+}

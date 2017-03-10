@@ -19,6 +19,7 @@ class Dashboard extends React.Component {
     this.displayLectures = this.displayLectures.bind(this);
     this.handleLectureNameChange = this.handleLectureNameChange.bind(this);
     this.createLecture = this.createLecture.bind(this);
+    this.displayNewLecture = this.displayNewLecture.bind(this);
 
     // this.getLectures();
   }
@@ -30,7 +31,6 @@ class Dashboard extends React.Component {
   getLectures() {
     const context = this;
 
-    console.log('Getting lectures');
     // This endpoint returns all lectures given a userId
     axios.get('/db/l')
       .then((response) => {
@@ -51,18 +51,23 @@ class Dashboard extends React.Component {
     e.preventDefault();
     const context = this;
 
-    console.log(e.target);
-    console.log('Creating lecture');
+    if (this.state.newLectureName !== '') {
+      axios.post('/db/l', {
+        'title': context.state.newLectureName
+      })
+      .then((response) => {
+        let lectureId = response.data.id;
+        browserHistory.push(`/l/${lectureId}/edit`);
+      });
+    }
+  }
 
-    console.log(this.state.newLectureName);
-
-    axios.post('/db/l', {
-      'title': context.state.newLectureName
-    })
-    .then((response) => {
-      let lectureId = response.data.id;
-      browserHistory.push(`/l/${lectureId}/edit`);
-    });
+  displayCreateLectureButton() {
+    if (this.state.newLectureName === '') {
+      return <button className={styles.secondaryButton}> Create Lecture </button>
+    } else {
+      return <button className={styles.primaryButton}> Create Lecture </button>
+    }
   }
 
   displayNewLecture() {
@@ -73,9 +78,8 @@ class Dashboard extends React.Component {
         <input type="text" placeholder="Enter lecture title..."
           value={this.state.newLectureName}
           onChange={this.handleLectureNameChange}/>
-        <button className={styles.primaryButton}>
-          Create Lecture
-        </button>
+        
+        {this.displayCreateLectureButton()}
       </form>
     );
   }
@@ -102,7 +106,10 @@ class Dashboard extends React.Component {
           <div className={styles.label}>
           Dashboard
           </div>
-          <h3>Welcome {this.props.name}</h3>
+          <h3>Welcome {this.props.name}!</h3>
+          <div className={styles.details}>
+            Room Code: <strong>FRED</strong>
+          </div>
         </div>
         {this.displayNewLecture()}
         {this.displayLectures()}

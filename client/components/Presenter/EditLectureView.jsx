@@ -111,7 +111,6 @@ export default class EditLectureView extends React.Component {
   }
 
   addQuestion(question) {
-    console.log('Adding question to questions');
     let questions = this.state.questions;
     questions.push(question);
 
@@ -119,7 +118,6 @@ export default class EditLectureView extends React.Component {
   }
 
   displayQuestions() {
-    console.log('EditLectureView: displayQuestions');
     const context = this;
     
     return context.state.questions.map((question, index) => {

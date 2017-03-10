@@ -38,6 +38,9 @@ class LectureView extends React.Component {
 
   handleStartDelivery (e) {
     e.preventDefault();
+    axios.post(`/db/s/${this.state.link}`, {
+      lectureId: this.state.lectureId
+    });
     axios.post('/db/d', {
       lectureId: this.state.lectureId,
       userId: 1,

@@ -27,7 +27,8 @@ var getSlide = (req, res) => {
 var postSlideLink = (req, res) => {
   console.log('Slide Controller: posting slide');
   Models.Slide.build({
-    'link': req.params.slideLink
+    'link': req.params.slideLink,
+    'lecture_id': req.body.lectureId
   }).save();
 };
 

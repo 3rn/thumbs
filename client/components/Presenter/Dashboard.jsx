@@ -20,6 +20,7 @@ class Dashboard extends React.Component {
     this.handleLectureNameChange = this.handleLectureNameChange.bind(this);
     this.createLecture = this.createLecture.bind(this);
     this.displayNewLecture = this.displayNewLecture.bind(this);
+    this.handleLectureSlideUrlNameChange = this.handleLectureSlideUrlNameChange.bind(this);
 
     // this.getLectures();
   }
@@ -47,15 +48,21 @@ class Dashboard extends React.Component {
     this.setState({newLectureName: e.target.value});
   }
 
+  handleLectureSlideUrlNameChange(e) {
+    this.setState({newLectureSlideUrl: e.target.value});
+  }
+
   createLecture(e) {
     e.preventDefault();
     const context = this;
-
+    debugger;
     if (this.state.newLectureName !== '') {
       axios.post('/db/l', {
-        'title': context.state.newLectureName
+        'title': context.state.newLectureName,
+        'slide_url': context.state.newLectureSlideUrl
       })
       .then((response) => {
+        debugger;
         let lectureId = response.data.id;
         browserHistory.push(`/l/${lectureId}/edit`);
       });
@@ -78,7 +85,9 @@ class Dashboard extends React.Component {
         <input type="text" placeholder="Enter lecture title..."
           value={this.state.newLectureName}
           onChange={this.handleLectureNameChange}/>
-        
+        <input type="text" placeholder="Enter google slide url..."
+          value={this.state.newLectureSlideUrl}
+          onChange={this.handleLectureSlideUrlNameChange}/>
         {this.displayCreateLectureButton()}
       </form>
     );

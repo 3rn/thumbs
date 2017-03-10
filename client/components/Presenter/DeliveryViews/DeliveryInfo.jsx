@@ -21,6 +21,8 @@ class DeliveryInfo extends React.Component {
         <span className={styles.info}>Participants: { this.state.roomCount }</span>
         <span className={styles.separator}></span>
         <span className={styles.info}>Participant Confused Count: { this.state.participantConfused }</span>
+        <button className={`fa fa-arrow-right ${styles.slideChangeButton}`} value="OPEN_RESPONSE" />
+        <button className={`fa fa-arrow-left ${styles.slideChangeButton}`} value="SCALE" />
       </div>
     );
   }

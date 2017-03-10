@@ -19,7 +19,7 @@ export default class Scale extends React.Component {
 
   render() {
     return (
-      <div className={styles.card}>
+      <div>
         <div>
           <input
             type="range"

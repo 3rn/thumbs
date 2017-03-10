@@ -8,7 +8,7 @@ export default class YesNo extends React.Component {
 
   render() {
     return (
-      <div className={styles.card}>
+      <div>
         <button className={styles.selectButton} onClick={this.props.click} value={0}>Yes</button>
         <button className={styles.selectButton} onClick={this.props.click} value={1}>No</button>
       </div>

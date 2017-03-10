@@ -1,0 +1,41 @@
+@import "../base/custom";
+
+input {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+.mcOptionInput {
+  border: none;
+  width: 80%;
+  border-bottom: 1px solid $ryan-gray;
+
+  font-size: 1.5em;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.space {
+  margin-bottom: 1em;
+}
+
+.details {
+  margin-bottom: 1em;
+  font-size: .6em;
+  font-color: $ryan-gray;
+  text-transform: uppercase;
+}
+
+.plus {
+  color: $color-primary;
+  font-size: 2em;
+  opacity: .6;
+
+  &:hover {
+    opacity: .8;
+  }
+
+}
+

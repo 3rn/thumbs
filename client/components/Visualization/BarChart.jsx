@@ -1,5 +1,7 @@
 import React from 'react';
 import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, VerticalBarSeries} from 'react-vis';
+import styles from '../../styles/components/_barChart';
+
 
 export default class BarChart extends React.Component {
   constructor(props) {
@@ -8,11 +10,11 @@ export default class BarChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.barWrapper}>
         <XYPlot
           xType="ordinal"
-          width={450}
-          height={300}>
+          width={325}
+          height={270}>
           <VerticalGridLines />
           <HorizontalGridLines />
           <XAxis tickLabelAngle={-30} />

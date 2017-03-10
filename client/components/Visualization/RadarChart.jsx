@@ -1,5 +1,6 @@
 import React from 'react';
 import { Radar } from 'react-chartjs';
+import styles from '../../styles/components/_radarChart';
 
 export default class RadarChart extends React.Component {
   constructor(props) {
@@ -21,10 +22,10 @@ export default class RadarChart extends React.Component {
       datasets: [
         {
           label: "Results",
-          backgroundColor: "rgba(179,181,198,0.2)",
-          borderColor: "rgba(179,181,198,1)",
-          pointBackgroundColor: "rgba(179,181,198,1)",
-          pointBorderColor: "#fff",
+          backgroundColor: "rgb(204, 204, 204, .2)",
+          borderColor: "rgba(12, 164, 165, 1)",
+          pointBackgroundColor: "rgba(34, 34, 34, .8)",
+          pointBorderColor: "rgba(34, 34, 34, 1)",
           pointHoverBackgroundColor: "#fff",
           pointHoverBorderColor: "rgba(179,181,198,1)",
           data: dataValues
@@ -32,7 +33,7 @@ export default class RadarChart extends React.Component {
       ]
     };
     return (
-      <div>
+      <div className={styles.radarWrapper}>
         <Radar data={data} redraw/>
       </div>
     );

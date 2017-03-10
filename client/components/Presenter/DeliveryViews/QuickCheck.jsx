@@ -15,7 +15,8 @@ class QuickCheck extends React.Component {
       buttonName: '',
       showDetails: true,
       showResults: false,
-      responses: null
+      responses: null,
+      qcQuestionType: ''
     };
 
   }
@@ -28,33 +29,34 @@ class QuickCheck extends React.Component {
     if (this.props.status === 'WAITING') {
       socket.emit('startVote', {
         room: 'FRED',
-        questionTitle: this.props.questionTitle,
-        choices: this.props.choices,
         questionType: e.target.value
       });
+
       this.setState({
         buttonName: 'Stop Vote',
         showResults: true,
-        responses: responses
+        qcQuestionType: e.target.value
       });
     } else if (this.props.status === 'IN_PROGRESS') {
-      if (this.props.questionType === 'THUMBS') {
+      if (this.state.qcQuestionType === 'THUMBS') {
         var responses = this.props.thumbs;
-      } else if (this.props.questionType === 'YES_NO') {
+      } else if (this.state.qcQuestionType === 'YES_NO') {
         var responses = this.props.yesNo;
-      } else if (this.props.questionType === 'SCALE') {
+      } else if (this.state.qcQuestionType === 'SCALE') {
         var responses = this.props.scale;
       }
       this.setState({
         buttonName: 'Ask Another Question',
-        responses: responses });
+        responses: responses
+      });
       socket.emit('endVote', {room: 'FRED'});
     } else if (this.props.status === 'ENDED') {
-      socket.emit('newVote', {room: 'FRED'});
       this.setState({
         buttonName: 'Resend Question',
-        showResults: false
+        showResults: false,
+        responses: null
       });
+      socket.emit('newVote', {room: 'FRED'});
     }
   }
 
@@ -100,10 +102,17 @@ class QuickCheck extends React.Component {
 
   showResults() {
     if (this.state.showResults) {
+      if (this.state.qcQuestionType === 'THUMBS') {
+        var responses = this.props.thumbs;
+      } else if (this.state.qcQuestionType === 'YES_NO') {
+        var responses = this.props.yesNo;
+      } else if (this.state.qcQuestionType === 'SCALE') {
+        var responses = this.props.scale;
+      }
       return (
         <Results
-          questionType={this.props.questionType}
-          responses={this.state.responses || this.props.scale}
+          questionType={this.state.qcQuestionType}
+          responses={this.state.responses ? this.state.responses : responses}
         />
       );
     }

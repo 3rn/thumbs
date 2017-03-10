@@ -22,6 +22,7 @@ class Results extends React.Component {
   }
 
   render() {
+    // console.log('Results Props: ', this.props);
     if (this.props.questionType === 'THUMBS') {
       var graphData = this.formatData([
         ['Up', this.props.responses[0]],

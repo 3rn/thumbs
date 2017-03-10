@@ -129,20 +129,21 @@ class QuestionCard extends React.Component {
             openResponse={this.props.openResponse}
             questionTitle={this.props.questionTitle}
           />
-      );
-    } else {
-      return (
-        <Results
-          questionType='THUMBS'
-          choices={this.props.choices}
-          questionTitle={this.props.questionTitle}
-          thumbs={this.props.thumbs}
-          yesNo={this.props.yesNo}
-          scale={this.props.scale}
-          multipleChoice={this.props.multipleChoice}
-          openResponse={this.props.openResponse}
+        );
+      } else {
+        return (
+          <Results
+            questionType='THUMBS'
+            choices={this.props.choices}
+            questionTitle={this.props.questionTitle}
+            thumbs={this.props.thumbs}
+            yesNo={this.props.yesNo}
+            scale={this.props.scale}
+            multipleChoice={this.props.multipleChoice}
+            openResponse={this.props.openResponse}
           />
-      );
+        );
+      }
     }
   }
 

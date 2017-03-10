@@ -1,6 +1,7 @@
 import React from 'react';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
+import RadarChart from './RadarChart';
 import Selector from './Selector';
 
 import styles from '../../styles/components/_visualizations';
@@ -27,6 +28,8 @@ export default class Visualization extends React.Component {
       return <BarChart data={this.props.data('bar')} />;
     } else if (this.state.selectedVisual === 'pie') {
       return <PieChart data={this.props.data('pie')} />;
+    } else if (this.state.selectedVisual === 'radar') {
+      return <RadarChart data={this.props.data('radar')} />;
     }
   }
 

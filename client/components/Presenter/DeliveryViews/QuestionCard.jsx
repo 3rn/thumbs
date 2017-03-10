@@ -107,8 +107,8 @@ class QuestionCard extends React.Component {
       return (
         <div>
           <ol type="A">
-            { this.props.choices.map(choice => {
-              return <li> - {choice}</li>;
+            { this.props.choices.map((choice, i) => {
+              return <li key={i}> - {choice}</li>;
             })}
           </ol>
         </div>

@@ -15,6 +15,8 @@ class Results extends React.Component {
         return dataArray.map((entry) => ({x: entry[0], y: entry[1]}));
       } else if (graphType === 'pie') {
         return dataArray.map((entry) => ({label: entry[0], angle: entry[1]}));
+      } else if (graphType === 'radar') {
+        return dataArray.map((entry) => ({label: entry[0], values: entry[1]}));
       }
     };
   }

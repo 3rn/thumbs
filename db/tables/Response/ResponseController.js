@@ -8,7 +8,6 @@ var getResponse = (req, res) => {
     `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
-    console.log('DATA', data);
     res.send(data);
   });
 };
@@ -16,7 +15,9 @@ var getResponse = (req, res) => {
 var postResponse = (req, res) => {
   console.log('Response Controller: posting Response');
   Models.Response.build({
-
+    value: req.body.value,
+    delivery_id: req.params.deliveryId,
+    question_id: req.params.questionId
   }).save();
 };
 

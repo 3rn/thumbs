@@ -8,7 +8,6 @@ var getCode = (req, res) => {
      WHERE code = '${req.params.code}'`,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
-    console.log(data);
     res.send(data);
   });
 }

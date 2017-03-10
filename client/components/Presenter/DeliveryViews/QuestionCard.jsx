@@ -70,8 +70,23 @@ class QuestionCard extends React.Component {
         showResults: true
       });
     } else if (this.props.status === 'IN_PROGRESS') {
-      socket.emit('endVote', {room: 'FRED'});
-      this.setState({buttonName: 'Ask Another Question'});
+      if (this.props.questionType === 'THUMBS') {
+        var responses = this.props.thumbs;
+      } else if (this.props.questionType === 'YES_NO') {
+        var responses = this.props.yesNo;
+      } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+        var responses = this.props.multiple_choice;
+      } else if (this.props.questionType === 'SCALE') {
+        var responses = this.props.scale;
+      }
+      axios.post(`/db/r/${this.props.deliveryId}/${this.props.id}`, { value: JSON.stringify(responses) })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then((res) => {
+        socket.emit('endVote', {room: 'FRED'});
+        this.setState({buttonName: 'Ask Another Question'});
+      });
     } else if (this.props.status === 'ENDED') {
       socket.emit('newVote', {room: 'FRED'});
       this.setState({
@@ -137,7 +152,7 @@ class QuestionCard extends React.Component {
             scale={this.props.scale}
             multipleChoice={this.props.multipleChoice}
             openResponse={this.props.openResponse}
-            />
+          />
         );
       }
     } else {

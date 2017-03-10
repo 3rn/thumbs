@@ -1,40 +1,66 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { Link, browserHistory } from 'react-router';
+import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { browserHistory } from 'react-router';
-import Loading from '../Participant/Loading';
+import Loading from '../components/Participant/Loading';
+import Results from '../components/Presenter/DeliveryViews/Results';
 
-import styles from '../../styles/pages/_SlideView';
+import Modal from '../components/Modal';
 
-import socket from '../../config/socket';
+import { updateVoteStatus, sendQuestion } from '../actions/presenterActions.js';
+import { response } from '../actions/participantActions.js';
 
-class SlideView extends React.Component {
+import styles from '../styles/pages/_SlideView';
+
+import socket from '../config/socket';
+
+class SlideViewContainer extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       'slideId': props.params.slideId,
       'slidesMetaData': {},
       'lecture': {},
       'slides': [],
-      'url': ''
+      'url': '',
+      'open': true
     };
 
     this.checkSlidesRoom = this.checkSlidesRoom.bind(this);
     this.getLecture = this.getLecture.bind(this);
-
     this.getSlides = this.getSlides.bind(this);
+
+    socket.on('vote', (payload) => {
+      this.props.response(payload.questionType, payload.value);
+    });
+
+    socket.on('startVote', (payload) => {
+      this.props.sendQuestion(payload.questionTitle, payload.questionType, payload.choices);
+      this.props.updateVoteStatus('IN_PROGRESS');
+    });
+
+    socket.on('endVote', (payload) => {
+      this.props.updateVoteStatus('ENDED');
+    });
+
+    socket.on('newVote', (payload) => {
+      this.props.updateVoteStatus('WAITING');
+    });
+
 
   }
 
   componentDidMount() {
     this.checkSlidesRoom();
-    
+
     socket.emit('joinPresentation', {room: 'FRED'});
 
     socket.on('changeSlide', (payload) => {
       document.getElementsByClassName(`navigate-${payload.direction}`)[0].click();
     });
+
   }
 
   componentDidUpdate() {
@@ -96,7 +122,7 @@ class SlideView extends React.Component {
       var presentation = response.result;
       var length = presentation.slides.length;
       var slideImageRequests = [];
-      
+
       //initiate requests for slide images
       for (var i = 0; i < length; i++) {
         var slide = presentation.slides[i];
@@ -132,22 +158,44 @@ class SlideView extends React.Component {
     });
   }
 
-  render() {
-    var slides = (
-      <div className={styles.slidesWrapper}>
-        <div className={'reveal'}>
-          <div className={styles.slides + ' slides '}>
-            {this.state.slides}
-            
-          </div>  
-          
-        </div>
-        <div className={styles.slidesControl}>
-          
+  display () {
+    console.log('PROPS', this.props);
+    if (this.props.questionType === 'THUMBS') {
+      var responses = this.props.thumbs;
+    } else if (this.props.questionType === 'YES_NO') {
+      var responses = this.props.yesNo;
+    } else if (this.props.questionType === 'MULTIPLE_CHOICE') {
+      var responses = this.props.multipleChoice;
+    } else if (this.props.questionType === 'SCALE') {
+      var responses = this.props.scale;
+    }
+
+    var results = (
+      <div className={this.state.open ? styles.open : styles.close}>
+        <div className={styles.modalBackground}>
+          <div className={styles.wrapper}>
+            <div className={styles.modal}>
+              <div className={styles.label}>
+                Modal
+                <Results
+                  questionType={this.props.questionType}
+                  questionTitle={this.props.questionTitle}
+                  choices={this.props.choices}
+                  responses={responses}
+                  />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
 
+    if (this.props.voteStatus !== 'WAITING') {
+      return results;
+    }
+  }
+
+  render() {
     var loading = (
       <div className={styles.wrapper}>
         <div className={styles.card}>
@@ -157,12 +205,41 @@ class SlideView extends React.Component {
       </div>
     );
 
+    var slides = (
+      <div className={styles.slidesWrapper}>
+        <div className={'reveal'}>
+          <div className={styles.slides + ' slides '}>
+            {this.state.slides}
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <div>
-        {this.state.slides.length === 0 ? loading : slides}
+        { this.state.slides.length === 0 ? loading : slides }
+        { this.display() }
       </div>
     );
   }
 }
 
-export default SlideView;
+const mapStateToProps = (state) => {
+  return {
+    voteStatus: state.presenterReducer.status,
+    questionType: state.presenterReducer.questionType,
+    choices: state.presenterReducer.choices,
+    thumbs: state.participantReducer.thumbs,
+    yesNo: state.participantReducer.yesNo,
+    scale: state.participantReducer.scale,
+    multipleChoice: state.participantReducer.multipleChoice
+  };
+};
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  updateVoteStatus,
+  sendQuestion,
+  response,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SlideViewContainer);

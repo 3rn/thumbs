@@ -76,8 +76,8 @@ var getDeliveries = (req, res) => {
 var postLecture = (req, res) => {
   console.log('LectureController: Creating Lecture');
   Models.Lecture.build({
-    'title': req.body.title
-
+    'title': req.body.title,
+    'slide_url': req.body.slide_url
   }).save()
   .then((lecture) => {
     console.log('done saving ', res);

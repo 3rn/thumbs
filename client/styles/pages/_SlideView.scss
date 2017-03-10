@@ -3,7 +3,7 @@
 
 .slidesWrapper {
   position: fixed;
-  
+
   width: 100%;
   bottom: 33px;
 
@@ -37,7 +37,7 @@
     margin: 0 !important;
     border: 0 !important;
     width: 100% !important;
-    height: 100% !important;      
+    height: 100% !important;
     max-width: 100% !important;
     max-height: 100% !important;
   }
@@ -49,4 +49,66 @@
 
 .slidesControl {
 
+}
+
+.modalBackground {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  background-color: rgba(0,0,0,.3);
+  bottom: 32px;
+
+  //Mobile
+  @media screen and (min-width: $break-phone-min) {
+    top: 50px;
+
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    top: 68px;
+  }
+}
+
+.modal {
+  position: relative;
+  height: 100%;
+
+  border-radius: 7px;
+  background-color: white;
+  box-shadow: 0 3px 3px $black;
+
+  //Mobile
+  @media screen and (min-width: $break-phone-min) {
+    padding: 20px;
+    margin: 20px 10px;
+    bottom: 0;
+  }
+  // Desktop
+  @media screen and (min-width: $break-computer-min) {
+    margin: 0 auto;
+    padding: 25px;
+  }
+}
+
+.open {
+  display: block;
+}
+
+.close {
+  display: none;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 18px;
+  font-size: 1.2em;
+  color: $black;
+  opacity: .6;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  opacity: .8;
 }

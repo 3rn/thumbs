@@ -16,14 +16,14 @@ var getAllLectures = (req, res) => {
         ELSE FLOOR(EXTRACT(EPOCH FROM  current_timestamp - created_at) / 86400) || ' day(s) ago'
       END AS time_diff
     FROM lectures
-      ORDER BY updated_at DESC;
+      ORDER BY id DESC;
     `
     ,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
     res.send(data);
   });
-}
+};
 
 
 var getLectureById = (req, res) => {
@@ -41,12 +41,14 @@ var getLectureById = (req, res) => {
         ELSE FLOOR(EXTRACT(EPOCH FROM  current_timestamp - created_at) / 86400) || ' day(s) ago'
       END AS time_diff
      FROM lectures
-     WHERE lectures.id = ${req.params.lectureId}`,
+     WHERE lectures.id = ${req.params.lectureId}
+     ORDER BY id DESC;
+     `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
     res.send(data);
   });
-}
+};
 
 var getDeliveries = (req, res) => {
   console.log('LectureController: Getting deliveries');
@@ -65,13 +67,13 @@ var getDeliveries = (req, res) => {
 
       FROM deliveries
      WHERE deliveries.lecture_id = ${req.params.lectureId}
-     ORDER BY updated_at DESC;
+     ORDER BY id DESC;
      `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
     res.send(data);
   });
-}
+};
 
 var postLecture = (req, res) => {
   console.log('LectureController: Creating Lecture');

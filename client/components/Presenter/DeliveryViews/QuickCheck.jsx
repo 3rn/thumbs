@@ -12,7 +12,7 @@ class QuickCheck extends React.Component {
     this.handleCardToggle = this.handleCardToggle.bind(this);
 
     this.state = {
-      buttonName: '',
+      buttonName: 'Send',
       showDetails: true,
       showResults: false,
       responses: null,

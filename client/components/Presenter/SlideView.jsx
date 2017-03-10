@@ -90,7 +90,7 @@ class SlideView extends React.Component {
         var slide = presentation.slides[i];
         var id = slide.objectId;
         slideImageRequests.push(
-          axios.get('https://docs.google.com/presentation/d/' + presentationId + '/export/png?id=' + presentationId + '&pageid=' + id,
+          axios.get('https://docs.google.com/presentation/d/' + presentationId + '/export/svg?id=' + presentationId + '&pageid=' + id,
             {
               params: {
                 alt: 'media'

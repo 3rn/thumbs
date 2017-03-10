@@ -1,6 +1,6 @@
 module.exports = function(Models) {
   Models.Delivery.build({
-    'notes': 'This was the best delivery ever.',
+    'notes': 'This is the first delivery ever.',
     'user_id': 1,
     'lecture_id': 1
   }).save();

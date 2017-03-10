@@ -1,26 +1,8 @@
 module.exports = function(Models) {
-  Models.MultipleChoice.build({
-    'option_text': 'multiple option 1',
-    'question_id': 2
-  }).save();
 
   Models.MultipleChoice.build({
-    'option_text': 'multiple option 2',
-    'question_id': 2
-  }).save();
-
-  Models.MultipleChoice.build({
-    'option_text': 'multiple option 3',
+    'option_text': JSON.stringify(['First Answer', 'Second Answer', 'Third Answer', 'Fourth Answer']),
     'question_id': 3
   }).save();
 
-  Models.MultipleChoice.build({
-    'option_text': 'multiple option 4',
-    'question_id': 4
-  }).save();
-
-  Models.MultipleChoice.build({
-    'option_text': 'multiple option 5',
-    'question_id': 4
-  }).save();
 };

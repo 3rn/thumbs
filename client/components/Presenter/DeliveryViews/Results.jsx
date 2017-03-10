@@ -46,6 +46,7 @@ class Results extends React.Component {
 
       graphData = this.formatData(graphData);
     }
+    
     return (
       <div>
         <Visualization data={graphData} questionType={this.props.questionType} choices={this.props.choices} />

@@ -16,14 +16,13 @@ class DeliveryView extends React.Component {
       deliveryId: this.props.deliveryId,
       lectureId: this.props.lectureId,
       questions: [],
-      questionType: 'default',
-      choice: '',
-      choices: []
+      questionType: 'default'
     };
 
     this.getDelivery = this.getDelivery.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
+
 
     this.getDelivery();
     this.getQuestions();
@@ -33,7 +32,6 @@ class DeliveryView extends React.Component {
     const context = this;
     axios.get(`/db/d/${this.state.deliveryId}`)
     .then(function (response) {
-      console.log('DeliveryView: deliveries ', response);
       context.setState({deliveries: response.data});
     })
     .catch(function (error) {
@@ -54,22 +52,24 @@ class DeliveryView extends React.Component {
   }
 
   displayQuestions() {
-
     const context = this;
-    return this.state.questions.map(( element, index) => {
-      return <QuestionCard
-              key={index + 1}
-              index={index + 1}
-              choices={['test1', 'test2', 'test3']}
-              title={element.title}
-              questionType={element.questionType}
-              room={context.props.room}
-              status={context.props.status}
-              thumbs={context.props.thumbs}
-              scale={context.props.scale}
-              yesNo={context.props.yesNo}
-              multipleChoice={context.props.multipleChoice}
-              />;
+    return this.state.questions.map((element, index) => {
+      return (
+        <QuestionCard
+          key={index}
+          index={index}
+          id={element.id}
+          title={element.title}
+          questionType={element.question_type}
+          room={context.props.room}
+          status={context.props.status}
+          thumbs={context.props.thumbs}
+          scale={context.props.scale}
+          yesNo={context.props.yesNo}
+          multipleChoice={context.props.multipleChoice}
+          deliveryId={context.state.deliveryId}
+        />
+      );
     });
   }
 

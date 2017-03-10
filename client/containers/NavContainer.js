@@ -31,12 +31,13 @@ class NavContainer extends React.Component {
     this.openMenuClickHandler = this.openMenuClickHandler.bind(this);
     this.closeMenuClickHandler = this.closeMenuClickHandler.bind(this);
     this.initClient = this.initClient.bind(this);
+    this.handleAuthClick = this.handleAuthClick.bind(this);
     this.updateSigninStatus = this.updateSigninStatus.bind(this);
-  };
+  }
 
   componentWillMount() {
     gapi.load('client:auth2', this.initClient);
-  };
+  }
 
   initClient() {
     var context = this;
@@ -48,14 +49,22 @@ class NavContainer extends React.Component {
       // Listen for sign-in state changes.
       gapi.auth2.getAuthInstance().isSignedIn.listen(context.updateSigninStatus);
     });
-  };
+  }
 
   handleAuthClick(event) {
-
-    //TODO check if user already logged in and skip sign in modal
-    gapi.auth2.getAuthInstance().signIn();
-  };
-
+    //check if user already logged in and skip sign in modal
+    var isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+    if (isLoggedIn) {
+      var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+      this.props.login({
+        name: profile.getGivenName(), //first name
+        email: profile.getEmail()
+      });
+      browserHistory.push('/u');
+    } else {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+  }
 
   updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
@@ -67,15 +76,15 @@ class NavContainer extends React.Component {
       browserHistory.push('/u');
     } else {
     }
-  };
+  }
 
   openMenuClickHandler() {
     this.setState({displayMenuOptions: !this.state.displayMenuOptions});
-  };
+  }
 
   closeMenuClickHandler() {
     this.setState({displayMenuOptions: false});
-  };
+  }
 
   renderLogIn() {
     if (this.props.name === '') {
@@ -85,7 +94,7 @@ class NavContainer extends React.Component {
         </div>
       );  
     }    
-  };
+  }
               
   render() {
 

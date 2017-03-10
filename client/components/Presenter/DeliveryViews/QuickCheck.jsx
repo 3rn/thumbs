@@ -12,9 +12,10 @@ class QuickCheck extends React.Component {
     this.handleCardToggle = this.handleCardToggle.bind(this);
 
     this.state = {
-      buttonName: 'Send Question',
+      buttonName: '',
       showDetails: true,
-      showResults: false
+      showResults: false,
+      responses: null
     };
 
   }
@@ -27,15 +28,27 @@ class QuickCheck extends React.Component {
     if (this.props.status === 'WAITING') {
       socket.emit('startVote', {
         room: 'FRED',
+        questionTitle: this.props.questionTitle,
+        choices: this.props.choices,
         questionType: e.target.value
       });
       this.setState({
         buttonName: 'Stop Vote',
-        showResults: true
+        showResults: true,
+        responses: responses
       });
     } else if (this.props.status === 'IN_PROGRESS') {
+      if (this.props.questionType === 'THUMBS') {
+        var responses = this.props.thumbs;
+      } else if (this.props.questionType === 'YES_NO') {
+        var responses = this.props.yesNo;
+      } else if (this.props.questionType === 'SCALE') {
+        var responses = this.props.scale;
+      }
+      this.setState({
+        buttonName: 'Ask Another Question',
+        responses: responses });
       socket.emit('endVote', {room: 'FRED'});
-      this.setState({buttonName: 'Ask Another Question'});
     } else if (this.props.status === 'ENDED') {
       socket.emit('newVote', {room: 'FRED'});
       this.setState({
@@ -90,9 +103,7 @@ class QuickCheck extends React.Component {
       return (
         <Results
           questionType={this.props.questionType}
-          thumbs={this.props.thumbs}
-          yesNo={this.props.yesNo}
-          scale={this.props.scale}
+          responses={this.state.responses || this.props.scale}
         />
       );
     }

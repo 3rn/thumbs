@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import socket from '../../config/socket';
 import { Link, browserHistory } from 'react-router';
 
 import styles from '../../styles/pages/_LectureView';
@@ -28,13 +27,13 @@ class LectureView extends React.Component {
     this.displayDeliveries = this.displayDeliveries.bind(this);
     this.handleStartDelivery = this.handleStartDelivery.bind(this);
     this.editClickHandler = this.editClickHandler.bind(this);
-  };
+  }
 
   componentDidMount() {
     this.getLectureTitle();
     this.getDeliveries();
     this.generateNewLink();
-  };
+  }
 
   handleStartDelivery (e) {
     e.preventDefault();
@@ -49,7 +48,7 @@ class LectureView extends React.Component {
     .then(response => {
       browserHistory.push(`/l/${this.state.lectureId}/d/${response.data.id}`);
     });
-  };
+  }
 
   getLectureTitle() {
     const context = this;
@@ -69,7 +68,7 @@ class LectureView extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
-  };
+  }
 
   getDeliveries() {
     const context = this;
@@ -86,7 +85,7 @@ class LectureView extends React.Component {
 
   editClickHandler() {
     browserHistory.push(`/l/${this.state.lectureId}/edit`);
-  };
+  }
 
 
   generateNewLink() {
@@ -110,7 +109,7 @@ class LectureView extends React.Component {
     }).catch((error) => {
       console.log(error);
     });
-  };
+  }
 
   displayNewDelivery() {
     const context = this;
@@ -131,7 +130,6 @@ class LectureView extends React.Component {
       return (
         <div>
           <br />
-          <p>Previous Results: WorkInProgress </p>
           <br />
         </div>
       );
@@ -163,7 +161,7 @@ class LectureView extends React.Component {
           </Link>
       );
     });
-  };
+  }
 
   render() {
     return (
@@ -190,6 +188,6 @@ class LectureView extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default LectureView;

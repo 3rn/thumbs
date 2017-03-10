@@ -18,31 +18,25 @@ export default class Visualization extends React.Component {
 
   }
 
-  showVis() {
-    if (this.state.selectedVisual === 'bar') {
-      return (
-        <div className={styles.visWrapper}>
-          <BarChart data={this.props.data('bar')} questionType={this.props.questionType} choices={this.props.choices} />
-        </div>
-        );
-    } else if (this.state.selectedVisual === 'pie') {
-      return (
-        <div className={styles.visWrapper}>
-          <PieChart data={this.props.data('pie')} questionType={this.props.questionType} choices={this.props.choices} />
-        </div>
-        );
-    }
-  }
-
   handleClick(e) {
     this.setState({selectedVisual: e.target.value});
+  }
+
+  showVis() {
+    if (this.state.selectedVisual === 'bar') {
+      return <BarChart data={this.props.data('bar')} />;
+    } else if (this.state.selectedVisual === 'pie') {
+      return <PieChart data={this.props.data('pie')} />;
+    }
   }
 
   render() {
     return (
       <div>
         <Selector click={this.handleClick} />
-        { this.showVis() }
+        <div className={styles.visWrapper}>
+          { this.showVis() }
+        </div>
       </div>
     );
   }

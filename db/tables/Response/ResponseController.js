@@ -3,9 +3,12 @@ var Models = require('../../schema.js');
 var getResponse = (req, res) => {
   console.log('Response Controller: getting Response');
   Models.connection.query(
-    `SQL`,
+    `SELECT * FROM responses
+      WHERE delivery_id = ${req.params.deliveryId} AND question_id = ${req.params.questionId};
+    `,
     {type: Models.connection.QueryTypes.SELECT}
   ).then(function(data) {
+    console.log('DATA', data);
     res.send(data);
   });
 };

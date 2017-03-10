@@ -145,7 +145,7 @@ export default class EditLectureView extends React.Component {
           
           <h1>{`${this.state.lecture.title}`}</h1>
           <div className={styles.details}>
-            <strong>Last Updated: </strong>{this.state.lecture.updated_at}
+            <strong>Last Updated: </strong>{this.state.lecture.time_diff}
           </div>
 
           <div className={styles.description}>

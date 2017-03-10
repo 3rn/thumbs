@@ -12,6 +12,7 @@ body {
   display: block;
   background-color: $off-white; 
   min-width: 320px !important;
+  overflow-y: scroll;
 }
 
 a {

@@ -25,6 +25,8 @@ class HomeContainer extends React.Component {
     this.onEnterDeliveryChange = this.onEnterDeliveryChange.bind(this);
     this.onEnterDeliverySubmit = this.onEnterDeliverySubmit.bind(this);
     this.checkDelivery = this.checkDelivery.bind(this);
+
+    this.updateSigninStatus = this.updateSigninStatus.bind(this);
   }
 
   checkRoom(roomCodeAttempt) {
@@ -87,8 +89,35 @@ class HomeContainer extends React.Component {
   }
 
   onEnterDeliverySubmit(e) {
-    this.state.validDelivery && browserHistory.push('/s/' + this.state.deliveryCode);
-    e.preventDefault();
+    if (this.state.validDelivery) {
+      //make user sign in before transitioning to slide view
+      this.handleAuthClick();
+    }
+    e.preventDefault(); 
+  }
+
+  handleAuthClick() {
+     //check if user already logged in and skip sign in modal
+    var isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+    if (isLoggedIn) {
+      browserHistory.push('/s/' + this.state.deliveryCode);
+    } else {
+      //reasign sign in listener BAD BAD
+      gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
+      gapi.auth2.getAuthInstance().signIn();
+    }
+  }
+
+  updateSigninStatus(isSignedIn) {
+    if (isSignedIn) {
+      var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+      this.props.login({
+        name: profile.getGivenName(), //first name
+        email: profile.getEmail()
+      });
+      browserHistory.push('/s/' + this.state.deliveryCode);
+    } else {
+    }
   }
 
   render() {

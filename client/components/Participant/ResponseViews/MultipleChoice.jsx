@@ -30,7 +30,7 @@ export default class MultipleChoice extends React.Component {
 
   render() {
     return (
-      <div className={styles.card}>
+      <div>
         { this.mapChoices() }
         <button onClick={this.click} className={styles.selectButton} value={this.state.value}>Submit</button>
       </div>

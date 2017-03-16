@@ -16,7 +16,7 @@ export default class PieChart extends React.Component {
           data={this.props.data}
           showLabels
           width={325}
-          height={270}
+          height={330}
         />
       </div>
     );

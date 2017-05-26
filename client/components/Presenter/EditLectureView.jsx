@@ -22,10 +22,8 @@ export default class EditLectureView extends React.Component {
       questions: []
     };
 
-    // this.addQuestion = this.addQuestion.bind(this);
     this.createQuestion = this.createQuestion.bind(this);
     this.getLecture = this.getLecture.bind(this);
-    // this.loadEditLectureView = this.loadEditLectureView.bind(this);
     this.editLockClickHandler = this.editLockClickHandler.bind(this);
     this.getLectureQuestions = this.getLectureQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
@@ -35,29 +33,7 @@ export default class EditLectureView extends React.Component {
   componentDidMount() {
     this.getLecture();
     this.getLectureQuestions();
-    // this.loadEditLectureView('RANT');
   }
-
-  // loadEditLectureView(presenterCode) {
-  //   var context = this;
-  //   axios.get('/db/savedQuestions/getQuestions/' + presenterCode)
-  //   .then(function (response) {
-  //     // debugger;
-  //     var questions = [];
-  //     response.data.map((q) => {
-  //       questions.push({
-  //         title: q.title,
-  //         questionType: q.question_type,
-  //         graphType: q.graph_type,
-  //         content: q.content
-  //       });
-  //     });
-  //     context.setState({questions});
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }
 
   getLecture() {
     const context = this;
@@ -96,12 +72,6 @@ export default class EditLectureView extends React.Component {
     return (
       <div className={styles.card}>
         <div className={styles.label}>New Question</div>
-
-        {
-          // this.state.questions.map((q, i) => (
-          //   <div className={styles.question} key={i}> {'Q' + (i + 1) + '. ' + q.title} </div>)
-          // )
-        }
         <AddQuestionForm
           lectureId={this.state.lectureId}
           addQuestion={this.addQuestion} />
@@ -141,22 +111,14 @@ export default class EditLectureView extends React.Component {
               <i className="fa fa-unlock" aria-hidden="true" onClick={this.editLockClickHandler}></i>
             </span>
           </div>
-
           <h1>{`${this.state.lecture.title}`}</h1>
           <div className={styles.details}>
             <strong>Last Updated: </strong>{this.state.lecture.time_diff}
           </div>
-
           <div className={styles.description}>
             {this.state.lecture.description}
           </div>
-
-
-
-
         </div>
-
-
         {this.createQuestion()}
         {this.displayQuestions()}
 

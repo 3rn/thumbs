@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const config = require('../server.config.js');
 
@@ -23,25 +21,25 @@ const middleware = webpackMiddleware(compiler, {
     timings: true,
     chunks: false,
     chunkModules: false,
-    modules: false
-  }
+    modules: false,
+  },
 });
 
 // Build directory is where the bundle file will be placed
 const BUILD_DIR = path.join(__dirname, '/../../', 'dist/');
 console.log(BUILD_DIR);
 
-module.exports = function(app, express) {
+module.exports = (app, express) => {
   if (process.env.PRODUCTION === 'production') {
     console.log('production');
     app.use(express.static(BUILD_DIR));
-    app.get('*', function response(req, res) {
+    app.get('*', (req, res) => {
       res.sendFile(path.join(BUILD_DIR, 'index.html'));
     });
   } else {
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
-    app.get('*', function response(req, res) {
+    app.get('*', (req, res) => {
       res.write(middleware.fileSystem.readFileSync(path.join(BUILD_DIR, 'index.html')));
       res.end();
     });

@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
-
-import participantReducer from './participantReducer.js';
-import presenterReducer from './presenterReducer.js';
-import loginReducer from './loginReducer.js';
+import participantReducer from './participantReducer';
+import presenterReducer from './presenterReducer';
+import loginReducer from './loginReducer';
 
 export default combineReducers({
   participantReducer,
   presenterReducer,
-  loginReducer
+  loginReducer,
 });

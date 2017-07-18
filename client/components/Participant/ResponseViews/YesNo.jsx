@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../styles/pages/_Response';
+import styles from '../../../styles/pages/_Response.scss';
 
 export default class YesNo extends React.Component {
   constructor(props) {

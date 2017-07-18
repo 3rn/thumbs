@@ -1,23 +1,22 @@
 import React from 'react';
 import { Radar } from 'react-chartjs';
-import styles from '../../styles/components/_radarChart';
+import styles from '../../styles/components/_radarChart.scss';
 
 export default class RadarChart extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
-    var labels = this.props.data.map(choice => {
+    const labels = this.props.data.map((choice) => {
       return choice.label;
     });
 
-    var dataValues = this.props.data.map(choice => {
+    const dataValues = this.props.data.map((choice) => {
       return choice.values;
     });
 
-    var data = {
+    const data = {
       labels: labels,
       datasets: [
         {
@@ -28,16 +27,14 @@ export default class RadarChart extends React.Component {
           pointBorderColor: "rgba(34, 34, 34, 1)",
           pointHoverBackgroundColor: "#fff",
           pointHoverBorderColor: "rgba(179,181,198,1)",
-          data: dataValues
-        }
-      ]
+          data: dataValues,
+        },
+      ],
     };
     return (
       <div className={styles.radarWrapper}>
-        <Radar data={data} redraw/>
+        <Radar data={data} redraw />
       </div>
     );
   }
 }
-
-// data={this.props.data}

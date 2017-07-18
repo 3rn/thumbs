@@ -1,28 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-import styles from '../styles/components/_modal';
+import styles from '../styles/components/_modal.scss';
 
 class Modal extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: true
-    }  
+      open: true,
+    };
 
     this.closeClickHandler = this.closeClickHandler.bind(this);
   }
 
   closeClickHandler() {
-    console.log("Closing modal");
-
-    this.setState({open: false});
+    console.log('Closing modal');
+    this.setState({ open: false });
   }
 
-
   render() {
-
     return (
       <div className={this.state.open ? styles.open : styles.close}>
         <div className={styles.modalBackground}>
@@ -32,7 +28,7 @@ class Modal extends React.Component {
                 Question Results
               </div>
               <span className={styles.closeButton}>
-                <i className="fa fa-times" aria-hidden="true" onClick={this.closeClickHandler}></i>
+                <i className="fa fa-times" aria-hidden="true" onClick={this.closeClickHandler} />
               </span>
             </div>
           </div>
@@ -41,6 +37,5 @@ class Modal extends React.Component {
     );
   }
 }
-
 
 export default Modal;

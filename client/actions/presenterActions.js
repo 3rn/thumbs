@@ -1,7 +1,7 @@
 export function updateVoteStatus(voteStatus) {
   return {
     type: 'UPDATE_VOTE_STATUS',
-    status: voteStatus
+    status: voteStatus,
   };
 }
 
@@ -10,13 +10,13 @@ export function sendQuestion(questionTitle, questionType, choices) {
     type: 'SEND_QUESTION',
     questionTitle: questionTitle,
     questionType: questionType,
-    choices: choices
+    choices: choices,
   };
 }
 
 export function getRoomCount(roomCount) {
   return {
     type: 'GET_ROOM_COUNT',
-    roomCount: roomCount
+    roomCount: roomCount,
   };
 }

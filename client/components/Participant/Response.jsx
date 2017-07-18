@@ -1,6 +1,6 @@
 import React from 'react';
 import socket from '../../config/socket';
-import styles from '../../styles/pages/_Response';
+import styles from '../../styles/pages/_Response.scss';
 
 import YesNo from './ResponseViews/YesNo';
 import Thumbs from './ResponseViews/Thumbs';
@@ -13,7 +13,7 @@ class Response extends React.Component {
     super(props);
 
     this.state = {
-      voted: false
+      voted: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -24,10 +24,10 @@ class Response extends React.Component {
       room: 'FRED',
       value: e.target.value,
       questionTitle: this.props.questionTitle,
-      questionType: this.props.questionType
+      questionType: this.props.questionType,
     });
 
-    this.setState({voted: true});
+    this.setState({ voted: true });
   }
 
   showChoices() {
@@ -41,9 +41,8 @@ class Response extends React.Component {
       return <Scale click={this.handleClick} />;
     } else if (this.props.questionType === 'OPEN_RESPONSE') {
       return <OpenResponse click={this.handleClick} />;
-    } else {
-      return <MultipleChoice click={this.handleClick} choices={this.props.choices} questionType={this.props.questionType} />;
     }
+    return <MultipleChoice click={this.handleClick} choices={this.props.choices} questionType={this.props.questionType} />;
   }
 
   render() {

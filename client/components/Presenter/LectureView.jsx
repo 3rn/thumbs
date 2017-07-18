@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, browserHistory } from 'react-router';
-
-import styles from '../../styles/pages/_LectureView';
+import styles from '../../styles/pages/_LectureView.scss';
 
 class LectureView extends React.Component {
   constructor(props) {
@@ -12,13 +11,13 @@ class LectureView extends React.Component {
       showDetails: false,
       lectureId: this.props.params.lectureId,
       lecture: {
-        'title': '',
-        'created_at': '',
-        'updated_at': '',
-        'description': ''
+        title: '',
+        created_at: '',
+        updated_at: '',
+        description: '',
       },
       deliveries: [],
-      link: ''
+      link: '',
     };
 
     this.getDeliveries = this.getDeliveries.bind(this);
@@ -38,49 +37,49 @@ class LectureView extends React.Component {
   handleStartDelivery (e) {
     e.preventDefault();
     axios.post(`/db/s/${this.state.link}`, {
-      lectureId: this.state.lectureId
+      lectureId: this.state.lectureId,
     });
     axios.post('/db/d', {
       lectureId: this.state.lectureId,
       userId: 1,
-      room: this.state.link
+      room: this.state.link,
     })
-    .then(response => {
-      browserHistory.push(`/l/${this.state.lectureId}/d/${response.data.id}`);
-    });
+      .then((response) => {
+        browserHistory.push(`/l/${this.state.lectureId}/d/${response.data.id}`);
+      });
   }
 
   getLectureTitle() {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}`)
-    .then(function (response) {
-      if (response) {
-        context.setState({lecture: {
-          'title': response.data[0].title,
-          'time_diff': response.data[0].time_diff,
-          'created_at': (new Date(response.data[0].created_at)).toUTCString(),
-          'updated_at': (new Date(response.data[0].updated_at)).toUTCString(),
-          'description': response.data[0].description
+      .then((response) => {
+        if (response) {
+          context.setState({ lecture: {
+            title: response.data[0].title,
+            time_diff: response.data[0].time_diff,
+            created_at: (new Date(response.data[0].created_at)).toUTCString(),
+            updated_at: (new Date(response.data[0].updated_at)).toUTCString(),
+            description: response.data[0].description,
+          },
+          });
         }
-        });
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getDeliveries() {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}/d`)
-    .then(function (response) {
-      if (response) {
-        context.setState({deliveries: response.data});
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        if (response) {
+          context.setState({ deliveries: response.data });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   editClickHandler() {
@@ -95,7 +94,7 @@ class LectureView extends React.Component {
     let link = '';
     let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-    for ( let i = 0; i < 4; i++ ) {
+    for (let i = 0; i < 4; i++) {
       link += possible.charAt(Math.floor(Math.random() * possible.length));
     }
 
@@ -104,7 +103,7 @@ class LectureView extends React.Component {
         // Link already exists
         link = this.generateNewLink();
       } else {
-        this.setState({'link': link});
+        this.setState({ link: link });
       }
     }).catch((error) => {
       console.log(error);
@@ -136,8 +135,6 @@ class LectureView extends React.Component {
     }
   }
 
-  // <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
-
   displayDeliveries() {
     const context = this;
 
@@ -158,7 +155,7 @@ class LectureView extends React.Component {
               <strong>Delivered:</strong> {element.time_diff}
             </div>
           </div>
-          </Link>
+        </Link>
       );
     });
   }

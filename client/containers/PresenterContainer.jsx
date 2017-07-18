@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import socket from '../config/socket';
-
-import DeliveryView from '../components/Presenter/DeliveryView.jsx';
-import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions.js';
-import { response, participantCount, participantConfused } from '../actions/participantActions.js';
-
-import styles from '../styles/base/_custom';
+import DeliveryView from '../components/Presenter/DeliveryView';
+import { updateVoteStatus, sendQuestion, getRoomCount } from '../actions/presenterActions';
+import { response, participantCount, participantConfused } from '../actions/participantActions';
+import styles from '../styles/base/_custom.scss';
 
 class PresenterContainer extends React.Component {
   constructor(props) {
@@ -15,7 +13,7 @@ class PresenterContainer extends React.Component {
   }
 
   componentDidMount() {
-    socket.emit('joinPresentation', {room: 'FRED'});
+    socket.emit('joinPresentation', { room: 'FRED' });
 
     socket.on('roomCount', (payload) => {
       this.props.getRoomCount(payload - 1);
@@ -42,8 +40,7 @@ class PresenterContainer extends React.Component {
       this.props.updateVoteStatus('WAITING');
     });
 
-    socket.emit('changeSlide', {room: 'FRED', direction: 'right'});
-
+    socket.emit('changeSlide', { oom: 'FRED', direction: 'right' });
   }
 
   render() {
@@ -80,17 +77,17 @@ const mapStateToProps = (state) => {
     multipleChoice: state.participantReducer.multipleChoice,
     openResponse: state.participantReducer.openResponse,
     participantCount: state.participantReducer.participantCount,
-    confusedCount: state.participantReducer.confusedCount
+    confusedCount: state.participantReducer.confusedCount,
   };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
   updateVoteStatus,
   sendQuestion,
   getRoomCount,
   response,
   participantCount,
-  participantConfused
+  participantConfused,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresenterContainer);

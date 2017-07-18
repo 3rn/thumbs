@@ -37,7 +37,7 @@ const getRoutes = (store) => {
 
       <Route path="s/:slideId" component={SlideViewContainer} />
 
-      <Redirect from="*" to="/"/>
+      <Redirect from="*" to="/" />
     </Route>
   );
 };

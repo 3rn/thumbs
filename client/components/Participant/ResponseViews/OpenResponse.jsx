@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../styles/pages/_Response';
+import styles from '../../../styles/pages/_Response.scss';
 
 export default class OpenResponse extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class OpenResponse extends React.Component {
   render() {
     return (
       <div>
-        <input type='textarea' onClick={this.props.click} />
+        <input type="textarea" onClick={this.props.click} />
         <button onClick={this.props.click}>Submit</button>
       </div>
     );

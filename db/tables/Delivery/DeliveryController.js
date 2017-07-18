@@ -1,6 +1,6 @@
-var Models = require('../../schema.js');
+const Models = require('../../schema.js');
 
-var getDelivery = (req, res) => {
+const getDelivery = (req, res) => {
   console.log('DeliveryController: Getting Delivery');
   Models.connection.query(
     // `SQL Queury`
@@ -18,35 +18,35 @@ var getDelivery = (req, res) => {
       FROM deliveries
       ORDER BY updated_at DESC;
     `,
-    {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
+    { type: Models.connection.QueryTypes.SELECT },
+  ).then((data) => {
     res.send(data);
   });
 };
 
-var getDeliveryLectureTitle = (req, res) => {
+const getDeliveryLectureTitle = (req, res) => {
   console.log('DeliveryController: Getting Delivery Lecture Title');
   Models.connection.query(
     // `SQL Queury`
-    {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
+    { type: Models.connection.QueryTypes.SELECT },
+  ).then((data) => {
     res.send(data);
   });
 };
 
-var postDelivery = (req, res) => {
+const postDelivery = (req, res) => {
   console.log('DeliveryController: Creating Delivery');
   Models.Delivery.build({
-    'lecture_id': req.body.lectureId,
-    'user_id': req.body.userId,
-    'room': req.body.room
+    lecture_id: req.body.lectureId,
+    user_id: req.body.userId,
+    room: req.body.room,
   }).save()
-  .then(result => {
-    res.send(result.dataValues);
-  });
+    .then((result) => {
+      res.send(result.dataValues);
+    });
 };
 
 module.exports = {
-  'get': getDelivery,
-  'post': postDelivery
+  get: getDelivery,
+  post: postDelivery,
 };

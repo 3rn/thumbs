@@ -1,26 +1,22 @@
-var Models = require('../../schema.js');
+const Models = require('../../schema.js');
 
-
-var getUser = (req, res) => {
+const getUser = (req, res) => {
   console.log('UserController: Getting user');
   Models.connection.query(
     // `SQL Queury`
-    {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
+    { type: Models.connection.QueryTypes.SELECT },
+  ).then((data) => {
     res.send(data);
   });
-}
+};
 
-
-var postUser = (req, res) => {
+const postUser = () => {
   console.log('UserController: Creating user');
   Models.User.build({
-    
   }).save();
 };
 
-
 module.exports = {
   get: getUser,
-  post: postUser
-}
+  post: postUser,
+};

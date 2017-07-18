@@ -1,6 +1,6 @@
-export function login(value) {
+export default function login(value) {
   return {
     type: 'LOGIN',
-    loginInfo: value
+    loginInfo: value,
   };
 }

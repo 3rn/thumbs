@@ -2,17 +2,15 @@ import React from 'react';
 import axios from 'axios';
 
 import AddMultipleChoice from './AddMultipleChoice';
-import styles from '../../../styles/components/_questionForm';
+import styles from '../../../styles/components/_questionForm.scss';
 
 export default class AddQuestionForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = this.getDefaults();
-
     this.state.title = '';
     this.state.lectureId = this.props.lectureId;
-
     this.addQuestion = this.props.addQuestion;
     this.onQuestionTypeSelect = this.onQuestionTypeSelect.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -24,53 +22,50 @@ export default class AddQuestionForm extends React.Component {
     return {
       title: '',
       questionType: 'YES_NO',
-      content: []
+      content: [],
     };
   }
 
   onQuestionTypeSelect(e) {
-    this.setState({questionType: e.target.value});
+    this.setState({ questionType: e.target.value });
   }
 
   handleTitleChange(e) {
-    this.setState({title: e.target.value});
+    this.setState({ title: e.target.value });
   }
 
   handleMultipleChoiceAdd(choice) {
-    var newContent = this.state.content.slice(0);
+    const newContent = this.state.content.slice(0);
     newContent.push(choice);
-    this.setState({content: newContent});
+    this.setState({ content: newContent });
   }
 
   handleQuestionAdd() {
     console.log('AddQuestionForm: Question Add');
     const context = this;
-    let question = {
+    const question = {
       title: this.state.title,
       lectureId: this.state.lectureId,
       questionType: this.state.questionType,
-      questionChoices: this.state.content
+      questionChoices: this.state.content,
     };
 
     axios.post(`/db/q/${this.state.lectureId}`, question)
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then((res) => {
-      context.addQuestion(question);
-
-      //reset fields
-      this.setState(this.getDefaults());
-    });
-
+      .catch((error) => {
+        console.log(error);
+      })
+      .then(() => {
+        context.addQuestion(question);
+        // reset fields
+        this.setState(this.getDefaults());
+      });
   }
 
   displayAddQuestionButton() {
     if (this.state.title === '') {
       return <button className={styles.secondaryButton}> Add Question </button>;
-    } else {
-      return <button className={styles.primaryButton} onClick={this.handleQuestionAdd}> Add Question </button>;
     }
+    return <button className={styles.primaryButton} onClick={this.handleQuestionAdd}> Add Question </button>;
   }
 
   render() {
@@ -83,8 +78,9 @@ export default class AddQuestionForm extends React.Component {
           <input
             type="text"
             value={this.state.title}
-            placeholder="Enter question..." 
-            onChange={this.handleTitleChange} />
+            placeholder="Enter question..."
+            onChange={this.handleTitleChange}
+          />
         </div>
 
         <div className={styles.details}>
@@ -100,11 +96,11 @@ export default class AddQuestionForm extends React.Component {
 
         {
           this.state.questionType === 'MULTIPLE_CHOICE' ?
-          <AddMultipleChoice
-            choices={this.state.content}
-            handleMultipleChoiceAdd={this.handleMultipleChoiceAdd}
-          />
-          : null
+            <AddMultipleChoice
+              choices={this.state.content}
+              handleMultipleChoiceAdd={this.handleMultipleChoiceAdd}
+            />
+            : null
         }
 
 

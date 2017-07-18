@@ -1,16 +1,15 @@
 import React from 'react';
-import socket from '../../config/socket.js';
-import styles from '../../styles/pages/_Waiting';
+import socket from '../../config/socket';
+import styles from '../../styles/pages/_Waiting.scss';
 
 import Loading from './Loading';
 
 class Waiting extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      confused: false
+      confused: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -21,16 +20,15 @@ class Waiting extends React.Component {
       return (
         <span className={styles.askedQuestion}>Presenter Alerted</span>
       );
-    } else {
-      return (
-        <button className={styles.primaryButton} onClick={this.handleClick}>I'm Confused</button>
-      );
     }
+    return (
+      <button className={styles.primaryButton} onClick={this.handleClick}>I'm Confused</button>
+    );
   }
 
   handleClick() {
-    socket.emit('participantConfused', {room: this.props.room});
-    this.setState({confused: true});
+    socket.emit('participantConfused', { room: this.props.room });
+    this.setState({ confused: true });
   }
 
   render() {

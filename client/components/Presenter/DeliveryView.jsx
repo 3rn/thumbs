@@ -1,12 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import socket from '../../config/socket';
-
 import DeliveryInfo from './DeliveryViews/DeliveryInfo';
 import QuickCheck from './DeliveryViews/QuickCheck';
 import QuestionCard from './DeliveryViews/QuestionCard';
-
-import styles from '../../styles/pages/_Delivery';
+import styles from '../../styles/pages/_Delivery.scss';
 
 class DeliveryView extends React.Component {
   constructor(props) {
@@ -18,43 +16,42 @@ class DeliveryView extends React.Component {
       questions: [],
       questionType: 'default',
       deliveries: null,
-      slideRoom: ''
+      slideRoom: '',
     };
 
     this.getDelivery = this.getDelivery.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.displayQuestions = this.displayQuestions.bind(this);
 
-
     this.getDelivery();
     this.getQuestions();
-  }
-
-  showLink() {
-    this.setState({ slideRoom: this.state.deliveries[0].room });
   }
 
   getDelivery() {
     const context = this;
     axios.get(`/db/d/${this.state.deliveryId}`)
-    .then(function (response) {
-      context.setState({deliveries: response.data}, context.showLink);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        context.setState({ deliveries: response.data }, context.showLink);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getQuestions() {
     const context = this;
     axios.get(`/db/q/${this.state.lectureId}`)
-    .then(function (response) {
-      var questions = response.data.map((element) => (element));
-      context.setState({questions: questions});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        const questions = response.data.map(element => (element));
+        context.setState({ questions: questions });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  showLink() {
+    this.setState({ slideRoom: this.state.deliveries[0].room });
   }
 
   displayQuestions() {
@@ -90,7 +87,7 @@ class DeliveryView extends React.Component {
             participantConfused={this.props.participantConfused}
             room='FRED'
             slideRoom={this.state.slideRoom}
-            />
+          />
           <QuickCheck
             questionType={this.props.questionType}
             thumbs={this.props.thumbs}

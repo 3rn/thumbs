@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-
 import { browserHistory } from 'react-router';
-
 import AddQuestionForm from './PresentationViews/AddQuestionForm';
-import styles from '../../styles/pages/_EditLectureView';
-
+import styles from '../../styles/pages/_EditLectureView.scss';
 
 export default class EditLectureView extends React.Component {
   constructor(props) {
@@ -14,12 +11,12 @@ export default class EditLectureView extends React.Component {
     this.state = {
       lectureId: this.props.params.lectureId,
       lecture: {
-        'title': 'Finding your lecture...',
-        'created_at': '',
-        'updated_at': '',
-        'description': '...the best lecture ever!'
+        title: 'Finding your lecture...',
+        created_at: '',
+        updated_at: '',
+        description: '...the best lecture ever!',
       },
-      questions: []
+      questions: [],
     };
 
     this.createQuestion = this.createQuestion.bind(this);
@@ -38,14 +35,14 @@ export default class EditLectureView extends React.Component {
   getLecture() {
     const context = this;
     axios.get(`/db/l/${this.state.lectureId}`)
-    .then(function (response) {
-      if (response.data.length !== 0) {
-        context.setState({lecture: response.data[0]});
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        if (response.data.length !== 0) {
+          context.setState({ lecture: response.data[0] });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getLectureQuestions() {
@@ -53,15 +50,15 @@ export default class EditLectureView extends React.Component {
     console.log('Getting lecture questions');
 
     axios.get(`/db/q/${this.state.lectureId}`)
-    .then(questions => {
-      console.log('lecture questions ', questions.data);
-      if (questions.data) {
-        context.setState({questions: questions.data});
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((questions) => {
+        console.log('lecture questions ', questions.data);
+        if (questions.data) {
+          context.setState({ questions: questions.data });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   editLockClickHandler() {
@@ -74,16 +71,16 @@ export default class EditLectureView extends React.Component {
         <div className={styles.label}>New Question</div>
         <AddQuestionForm
           lectureId={this.state.lectureId}
-          addQuestion={this.addQuestion} />
+          addQuestion={this.addQuestion}
+        />
       </div>
     );
   }
 
   addQuestion(question) {
-    let questions = this.state.questions;
+    const questions = this.state.questions;
     questions.push(question);
-
-    this.setState({questions: questions});
+    this.setState({ questions: questions });
   }
 
   displayQuestions() {
@@ -93,11 +90,11 @@ export default class EditLectureView extends React.Component {
       return (
         <div className={styles.card} key={question.id}>
           <div className={styles.label}>
-            Question #{index+1}
+            Question #{index + 1}
           </div>
           <h2>{question.title}</h2>
         </div>
-      )
+      );
     });
   }
 
@@ -108,7 +105,7 @@ export default class EditLectureView extends React.Component {
           <div className={styles.label}>
             Lecture Info
             <span className={styles.settings}>
-              <i className="fa fa-unlock" aria-hidden="true" onClick={this.editLockClickHandler}></i>
+              <i className="fa fa-unlock" aria-hidden="true" onClick={this.editLockClickHandler} />
             </span>
           </div>
           <h1>{`${this.state.lecture.title}`}</h1>

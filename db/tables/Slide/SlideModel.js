@@ -1,8 +1,8 @@
-module.exports = function(connection, Sequelize) {
-  return connection.define('slide',
-  {
-    'link': Sequelize.TEXT
+module.exports = (connection, Sequelize) =>
+  connection.define('slide',
+    {
+      link: Sequelize.TEXT,
     }, {
-    'underscored': true
-  });
-}
+      underscored: true,
+    },
+  );

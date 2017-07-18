@@ -1,6 +1,6 @@
-var Models = require('../../schema.js');
+const Models = require('../../schema.js');
 
-var getResponse = (req, res) => {
+const getResponse = (req, res) => {
   console.log('Response Controller: getting Response');
   Models.connection.query(
     `SELECT * FROM responses
@@ -8,25 +8,25 @@ var getResponse = (req, res) => {
       ORDER BY created_at DESC
       LIMIT 1;
     `,
-    {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
+    { type: Models.connection.QueryTypes.SELECT },
+  ).then((data) => {
     res.send(data);
   });
 };
 
-var postResponse = (req, res) => {
+const postResponse = (req, res) => {
   console.log('Response Controller: posting Response');
   Models.Response.build({
     value: req.body.value,
     delivery_id: req.params.deliveryId,
-    question_id: req.params.questionId
+    question_id: req.params.questionId,
   }).save()
-  .then(response => {
-    res.send(response.dataValues);
-  });
+    .then((response) => {
+      res.send(response.dataValues);
+    });
 };
 
 module.exports = {
   get: getResponse,
-  post: postResponse
+  post: postResponse,
 };

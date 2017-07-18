@@ -5,11 +5,10 @@ router.route('/')
   .get(Lecture.getAllLectures)
   .post(Lecture.post);
 
-
 router.route('/:lectureId')
-  .get(Lecture.getLectureById)
+  .get(Lecture.getLectureById);
 
 router.route('/:lectureId/d')
-  .get(Lecture.getDeliveries)  
+  .get(Lecture.getDeliveries);
 
 module.exports = router;

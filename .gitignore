@@ -8,7 +8,6 @@ pids
 *.pid
 *.seed
 
-
 # Dependency directories
 node_modules
 jspm_packages
@@ -22,7 +21,6 @@ jspm_packages
 # Dist build folder
 dist/
 
-
 # Server config
 server/server.config.js
 
@@ -30,7 +28,7 @@ server/server.config.js
 yarn.lock
 .yarnclean
 
-# private 
+# private
 private/
 
 #.DS_Store

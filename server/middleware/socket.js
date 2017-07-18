@@ -1,8 +1,8 @@
-module.exports = function(server) {
+module.exports = (server) => {
   const io = require('socket.io')(server);
 
   io.on('connection', (socket) => {
-    var room;
+    let room;
     console.log('a user connected');
 
     socket.on('disconnect', () => {
@@ -48,8 +48,6 @@ module.exports = function(server) {
     socket.on('graphChange', (payload) => {
       io.to(payload.room).emit('graphChange', payload);
     });
-
   });
-
   return io;
 };

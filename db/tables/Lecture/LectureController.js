@@ -1,7 +1,6 @@
-var Models = require('../../schema.js');
+const Models = require('../../schema.js');
 
-
-var getAllLectures = (req, res) => {
+const getAllLectures = (req, res) => {
   console.log('LectureController: Getting Lectures');
   Models.connection.query(
     // `SQL Queury`
@@ -19,14 +18,13 @@ var getAllLectures = (req, res) => {
       ORDER BY id DESC;
     `
     ,
-    {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
+    { type: Models.connection.QueryTypes.SELECT },
+  ).then((data) => {
     res.send(data);
   });
 };
 
-
-var getLectureById = (req, res) => {
+const getLectureById = (req, res) => {
   console.log('LectureController: Getting Lectures');
   Models.connection.query(
     // `SQL Queury`
@@ -44,13 +42,13 @@ var getLectureById = (req, res) => {
      WHERE lectures.id = ${req.params.lectureId}
      ORDER BY id DESC;
      `,
-    {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
+    { type: Models.connection.QueryTypes.SELECT },
+  ).then((data) => {
     res.send(data);
   });
 };
 
-var getDeliveries = (req, res) => {
+const getDeliveries = (req, res) => {
   console.log('LectureController: Getting deliveries');
   Models.connection.query(
     // `SQL Queury`
@@ -69,30 +67,27 @@ var getDeliveries = (req, res) => {
      WHERE deliveries.lecture_id = ${req.params.lectureId}
      ORDER BY id DESC;
      `,
-    {type: Models.connection.QueryTypes.SELECT}
-  ).then(function(data) {
+    { type: Models.connection.QueryTypes.SELECT },
+  ).then((data) => {
     res.send(data);
   });
 };
 
-var postLecture = (req, res) => {
+const postLecture = (req, res) => {
   console.log('LectureController: Creating Lecture');
   Models.Lecture.build({
-    'title': req.body.title,
-    'slide_url': req.body.slide_url
+    title: req.body.title,
+    slide_url: req.body.slide_url,
   }).save()
-  .then((lecture) => {
-    console.log('done saving ', res);
-    res.send(lecture.dataValues);
-  });
-
-
+    .then((lecture) => {
+      console.log('done saving ', res);
+      res.send(lecture.dataValues);
+    });
 };
 
-
 module.exports = {
-  'getAllLectures': getAllLectures,
-  'getLectureById': getLectureById,
-  'getDeliveries': getDeliveries,
-  'post': postLecture
-}
+  getAllLectures: getAllLectures,
+  getLectureById: getLectureById,
+  getDeliveries: getDeliveries,
+  post: postLecture,
+};

@@ -1,26 +1,26 @@
-var assert = require('assert');
+const assert = require('assert');
 
-describe('Attendance', function() {
-  describe('Is Nathan here?', function() {
-    it('Nathan should be here', function() {
+describe('Attendance', () => {
+  describe('Is Nathan here?', () => {
+    it('Nathan should be here', () => {
       assert.equal(true, true);
     });
   });
 
-  describe('Is Richard here?', function() {
-    it('Richard should be here', function() {
+  describe('Is Richard here?', () => {
+    it('Richard should be here', () => {
       assert.equal(true, true);
     });
   });
 
-  describe('Is Ryan here?', function() {
-    it('Ryan should be here', function() {
+  describe('Is Ryan here?', () => {
+    it('Ryan should be here', () => {
       assert.equal(true, true);
     });
   });
 
-  describe('Is Ranit here?', function() {
-    it('Ryan should be here', function() {
+  describe('Is Ranit here?', () => {
+    it('Ryan should be here', () => {
       assert.equal(true, true);
     });
   });

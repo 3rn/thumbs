@@ -5,5 +5,4 @@ router.route('/:code')
   .get(Code.get)
   .post(Code.post);
 
-
 module.exports = router;

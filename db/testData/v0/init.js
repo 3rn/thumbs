@@ -1,6 +1,6 @@
-var Models = require('../../schema.js');
-var SavedQuestions = require('./models/savedQuestions.js');
+const Models = require('../../schema.js');
+const SavedQuestions = require('./models/savedQuestions.js');
 
-module.exports.init = function() {
+module.exports.init = () => {
   SavedQuestions.init();
 };

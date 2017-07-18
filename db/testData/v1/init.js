@@ -1,10 +1,8 @@
 const Models = require('../../schema.js');
 
-const init = function(model) {
-  require(`./models/${model}.js`)(Models);
-};
+const init = model => require(`./models/${model}.js`)(Models);
 
-module.exports.init = function() {
+module.exports.init = () => {
   init('User');
   init('Code');
   init('Lecture');

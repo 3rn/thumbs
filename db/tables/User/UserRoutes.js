@@ -5,5 +5,4 @@ router.route('/')
   .get(User.get)
   .post(User.post);
 
-
 module.exports = router;

@@ -7,9 +7,7 @@ const savedQuestions = require('../../db/tables/savedQuestions/savedQuestionRout
 router.use('/savedQuestions', savedQuestions);
 
 // V1
-const defineRoute = function(model) {
-  return require(`../../db/tables/${model}/${model}Routes.js`);
-};
+const defineRoute = model => require(`../../db/tables/${model}/${model}Routes.js`);
 
 // V1
 router.use('/u', defineRoute('User'));

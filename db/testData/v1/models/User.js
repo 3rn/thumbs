@@ -1,7 +1,5 @@
-module.exports = function(Models) {
-
+module.exports = (Models) => {
   Models.User.build({
-    'user_name': 'Fred',
+    user_name: 'Fred',
   }).save();
-
 };

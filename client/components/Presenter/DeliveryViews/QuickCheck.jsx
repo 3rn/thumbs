@@ -1,7 +1,6 @@
 import React from 'react';
 import socket from '../../../config/socket';
-import styles from '../../../styles/components/_questionPrompt';
-
+import styles from '../../../styles/components/_questionPrompt.scss';
 import Results from './Results';
 
 class QuickCheck extends React.Component {
@@ -16,47 +15,46 @@ class QuickCheck extends React.Component {
       showDetails: true,
       showResults: false,
       responses: null,
-      qcQuestionType: ''
+      qcQuestionType: '',
     };
-
   }
 
   handleCardToggle(e) {
-    this.setState({showDetails: !this.state.showDetails});
+    this.setState({ showDetails: !this.state.showDetails });
   }
 
   handleClick(e) {
     if (this.props.status === 'WAITING') {
       socket.emit('startVote', {
         room: 'FRED',
-        questionType: e.target.value
+        questionType: e.target.value,
       });
 
       this.setState({
         buttonName: 'Stop Vote',
         showResults: true,
-        qcQuestionType: e.target.value
+        qcQuestionType: e.target.value,
       });
     } else if (this.props.status === 'IN_PROGRESS') {
       if (this.state.qcQuestionType === 'THUMBS') {
-        var responses = this.props.thumbs;
+        const responses = this.props.thumbs;
       } else if (this.state.qcQuestionType === 'YES_NO') {
-        var responses = this.props.yesNo;
+        const responses = this.props.yesNo;
       } else if (this.state.qcQuestionType === 'SCALE') {
-        var responses = this.props.scale;
+        const responses = this.props.scale;
       }
       this.setState({
         buttonName: 'Ask Another Question',
-        responses: responses
+        responses: responses,
       });
-      socket.emit('endVote', {room: 'FRED'});
+      socket.emit('endVote', { room: 'FRED' });
     } else if (this.props.status === 'ENDED') {
       this.setState({
         buttonName: 'Resend Question',
         showResults: false,
-        responses: null
+        responses: null,
       });
-      socket.emit('newVote', {room: 'FRED'});
+      socket.emit('newVote', { room: 'FRED' });
     }
   }
 
@@ -67,13 +65,12 @@ class QuickCheck extends React.Component {
           <i className="fa fa-angle-up" aria-hidden="true"></i>
         </div>
       );
-    } else {
-      return (
-        <div className={styles.icons}>
-          <i className="fa fa-angle-down" aria-hidden="true"></i>
-        </div>
-      );
     }
+    return (
+      <div className={styles.icons}>
+        <i className="fa fa-angle-down" aria-hidden="true" />
+      </div>
+    );
   }
 
   showDetails () {
@@ -126,7 +123,7 @@ class QuickCheck extends React.Component {
           <span className={styles.questionIcons} onClick={this.handleCardToggle}>{this.toggleArrow()}</span>
         </div>
         { this.showDetails() }
-    </div>
+      </div>
     );
   }
 }

@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
 import socket from '../../../config/socket';
-
-import styles from '../../../styles/components/_deliveryInfo';
+import styles from '../../../styles/components/_deliveryInfo.scss';
 
 class DeliveryInfo extends React.Component {
   constructor(props) {
     super(props);
-    socket.emit('joinPresentation', {room: 'FRED'});
+    socket.emit('joinPresentation', { room: 'FRED' });
   }
 
   handleSlideChangeClick(e) {
-    var payload = {room: 'FRED', direction: e.target.value }; //value is left or right
+    const payload = { room: 'FRED', direction: e.target.value }; // value is left or right
     socket.emit('changeSlide', payload);
   }
 
@@ -20,10 +19,10 @@ class DeliveryInfo extends React.Component {
       <div>
         <div className={styles.card}>
           <div className={styles.label}>Delivery Info</div>
-          <span className={styles.info}><i className="fa fa-television" aria-hidden="true"> </i><strong> {this.props.slideRoom}</strong></span>
-          <span className={styles.info}><i className="fa fa-sign-in" aria-hidden="true"> </i><strong> FRED</strong></span>
-          <span className={styles.info}><i className="fa fa-users" aria-hidden="true"> </i><strong> {this.props.roomCount }</strong></span>
-          <span className={styles.info}><i className="fa fa-question-circle" aria-hidden="true"> </i> <strong>{ this.props.participantConfused }</strong></span>
+          <span className={styles.info}><i className="fa fa-television" aria-hidden="true" /><strong> {this.props.slideRoom}</strong></span>
+          <span className={styles.info}><i className="fa fa-sign-in" aria-hidden="true" /><strong> FRED</strong></span>
+          <span className={styles.info}><i className="fa fa-users" aria-hidden="true" /><strong> {this.props.roomCount }</strong></span>
+          <span className={styles.info}><i className="fa fa-question-circle" aria-hidden="true" /><strong>{ this.props.participantConfused }</strong></span>
 
         </div>
         <div className={styles.card}>

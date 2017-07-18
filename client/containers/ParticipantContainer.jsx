@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import socket from '../config/socket';
-import axios from 'axios';
-
 import { browserHistory } from 'react-router';
-import { updateVoteStatus, sendQuestion } from '../actions/presenterActions.js';
-import { response } from '../actions/participantActions.js';
-
+import { bindActionCreators } from 'redux';
+import axios from 'axios';
+import socket from '../config/socket';
+import { updateVoteStatus, sendQuestion } from '../actions/presenterActions';
+import { response } from '../actions/participantActions';
 import Waiting from '../components/Participant/Waiting';
 import Response from '../components/Participant/Response';
 
@@ -19,19 +17,18 @@ class ParticipantContainer extends React.Component {
   componentWillMount() {
     const context = this;
     return axios.get(`/db/c/${context.props.params.code}`)
-    .then(function (response) {
-      if (response.data.length === 0) {
-        browserHistory.push('/');
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        if (response.data.length === 0) {
+          browserHistory.push('/');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   componentDidMount() {
-    
-    socket.emit('joinPresentation', {room: this.props.params.code});
+    socket.emit('joinPresentation', { room: this.props.params.code });
 
     socket.on('vote', (payload) => {
       this.props.response(payload.questionType, payload.value);
@@ -45,9 +42,7 @@ class ParticipantContainer extends React.Component {
     socket.on('endVote', (payload) => {
       this.props.updateVoteStatus('ENDED');
     });
-
   }
-
 
   getCurrentView() {
     if (this.props.voteStatus === 'WAITING') {
@@ -83,7 +78,7 @@ class ParticipantContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   voteStatus: state.presenterReducer.status,
   questionTitle: state.presenterReducer.questionTitle,
   questionType: state.presenterReducer.questionType,
@@ -91,10 +86,10 @@ const mapStateToProps = (state) => ({
   openResponse: state.participantReducer.openResponse,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
   updateVoteStatus,
   sendQuestion,
-  response
+  response,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantContainer);

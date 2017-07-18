@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../styles/pages/_Response';
+import styles from '../../../styles/pages/_Response.scss';
 
 export default class Scale extends React.Component {
   constructor(props) {
@@ -8,13 +8,12 @@ export default class Scale extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: 5
+      value: 5,
     };
-
   }
 
   handleChange(e) {
-    this.setState({value: e.target.value});
+    this.setState({ value: e.target.value });
   }
 
   render() {
@@ -23,14 +22,21 @@ export default class Scale extends React.Component {
         <div>
           <input
             type="range"
-            min="1" max="10"
+            min="1"
+            max="10"
             defaultValue={this.state.value}
             onChange={this.handleChange}
-            step="1"/>
+            step="1"
+          />
         </div>
-          <button className={styles.selectButton} onClick={this.props.click} value={this.state.value - 1}>Submit {this.state.value}</button>
+        <button
+          className={styles.selectButton}
+          onClick={this.props.click}
+          value={this.state.value - 1}
+        >
+        Submit {this.state.value}
+        </button>
       </div>
-
     );
   }
 }

@@ -4,28 +4,27 @@ import PieChart from './PieChart';
 import RadarChart from './RadarChart';
 import Selector from './Selector';
 import socket from '../../config/socket';
-
-import styles from '../../styles/components/_visualizations';
+import styles from '../../styles/components/_visualizations.scss';
 
 export default class Visualization extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedVisual: 'bar'
+      selectedVisual: 'bar',
     };
 
     this.showVis = this.showVis.bind(this);
     this.handleClick = this.handleClick.bind(this);
 
     socket.on('graphChange', (payload) => {
-      this.setState({selectedVisual: payload.type});
+      this.setState({ selectedVisual: payload.type });
     });
   }
 
   handleClick(e) {
-    this.setState({selectedVisual: e.target.value});
-    socket.emit('graphChange', {room: 'FRED', type: e.target.value});
+    this.setState({ selectedVisual: e.target.value });
+    socket.emit('graphChange', { room: 'FRED', type: e.target.value });
   }
 
   showVis() {

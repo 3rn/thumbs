@@ -1,6 +1,6 @@
 import React from 'react';
-import {RadialChart} from 'react-vis';
-import styles from '../../styles/components/_pieChart';
+import { RadialChart } from 'react-vis';
+import styles from '../../styles/components/_pieChart.scss';
 
 export default class PieChart extends React.Component {
   constructor(props) {

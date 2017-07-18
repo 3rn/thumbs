@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-import styles from '../styles/components/_footer';
+import styles from '../styles/components/_footer.scss';
 
 class Footer extends React.Component {
   constructor(props) {
@@ -9,20 +8,18 @@ class Footer extends React.Component {
   }
 
   render() {
-
     return (
-        <footer className={styles.footer}>
-          <div className={styles.content}>
+      <footer className={styles.footer}>
+        <div className={styles.content}>
+          <a target="_blank" href="https://github.com/3rn/thumbs">
+            All rights reserved Thumbs Incorporated &#169; 2017.
+            <span className={styles.github}>
+              <i className="fa fa-github" aria-hidden="true" />
+            </span>
+          </a>
 
-            <a target="_blank" href="https://github.com/3rn/thumbs">
-              All rights reserved Thumbs Incorporated &#169; 2017.
-              <span className={styles.github}>
-                <i className="fa fa-github" aria-hidden="true"></i>
-              </span>
-            </a>
-
-          </div>
-        </footer>
+        </div>
+      </footer>
     );
   }
 }

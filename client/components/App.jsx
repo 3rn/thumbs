@@ -1,7 +1,7 @@
 import React from 'react';
 import NavContainer from '../containers/NavContainer';
 import Footer from './Footer';
-import styles from '../styles/main';
+import styles from '../styles/main.scss';
 
 class App extends React.Component {
   render() {
